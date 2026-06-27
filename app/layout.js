@@ -1,5 +1,5 @@
 import './globals.css';
-import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
 
 export const metadata = {
   title: '개발자 가이드 — 입문부터 심화까지',
@@ -17,10 +17,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <div className="layout">
-          <Sidebar />
-          <main className="main">{children}</main>
-        </div>
+        <Header />
+        {children}
       </body>
     </html>
   );
