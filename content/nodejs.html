@@ -1,0 +1,27 @@
+<h1>Node.js <span class="pill">백엔드 · JS 런타임</span></h1>
+<p class="sub">JavaScript를 서버에서 실행. 프론트와 같은 언어로 백.</p>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 모듈(import), npm, 파일시스템(fs), 비동기·콜백, 환경변수</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> Promise·async/await, 이벤트 emitter, 스트림, package.json</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 이벤트 루프 심화, 클러스터, 성능·메모리, 테스트(Jest)</div></div>
+<pre>import http from 'http';
+http.createServer((req, res) =&gt; {
+  res.end('Hello from Node');   // 가장 단순한 서버
+}).listen(3000);</pre>
+<div class="easy"><b>만드는 것:</b> JS 서버 기반. 실무는 Express 얹어 편하게.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 모듈 + npm</h3>
+<pre>npm init -y                 # 프로젝트 시작
+npm install express         # 패키지 설치
+import express from 'express';   // 가져오기 (ESM)</pre>
+<div class="easy"><b>쉽게:</b> npm = 앱스토어. 필요한 도구 설치. <code>package.json</code>에 목록 기록됨.</div>
+
+<h3>2. 비동기 — JS와 동일</h3>
+<pre>import fs from 'fs/promises';
+const data = await fs.readFile('a.txt', 'utf-8');  // 기다림</pre>
+<div class="easy"><b>쉽게:</b> 브라우저 JS의 async/await 그대로. 파일·DB·네트워크는 다 비동기.</div>
+
+<h3>3. 환경변수</h3>
+<pre>const port = process.env.PORT || 3000;   // 환경변수 or 기본값
+// .env 파일에 비밀키·DB주소 보관 (git에 안 올림)</pre>
+<div class="easy"><b>쉽게:</b> 비밀번호·설정은 코드에 박지 말고 <code>.env</code>에. 환경마다 다르게.</div>

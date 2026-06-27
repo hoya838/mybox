@@ -1,0 +1,73 @@
+<h1>웹개발 — 프론트·백엔드·클라우드·API</h1>
+<p class="sub">필수 용어 + 예문 + 쉬운 해석 + 언어 정리.</p>
+
+<h2>① 프론트엔드 (Front-end)</h2>
+<p>사용자가 <b>직접 보고 클릭하는 화면</b>. 브라우저에서 돌아감.</p>
+<table>
+<tr><th>기술</th><th>역할</th><th>쉽게</th></tr>
+<tr><td><code>HTML</code></td><td>화면 뼈대·내용</td><td>집의 골조·벽</td></tr>
+<tr><td><code>CSS</code></td><td>꾸미기(색·폰트·배치)</td><td>페인트·인테리어</td></tr>
+<tr><td><code>JavaScript</code></td><td>동작(버튼·이벤트)</td><td>전기·움직이는 장치</td></tr>
+<tr><td>React·Vue·Next</td><td>화면을 효율적으로 만드는 도구</td><td>조립식 가구 키트</td></tr>
+</table>
+<div class="ex"><b>예문:</b> 쇼핑몰 "장바구니 담기" 버튼을 눌렀을 때 숫자가 +1 되는 것 = JavaScript가 처리한 이벤트.</div>
+<div class="easy"><b>쉽게:</b> React는 사실 "프레임워크"처럼 보여도 갖다 붙이는 라이브러리에 가깝다. 왜 생겼는지 알면 외울 필요 없음.</div>
+
+<h2>② 백엔드 (Back-end)</h2>
+<p>화면 뒤에서 <b>데이터를 처리·저장</b>하는 엔진. 서버에서 돌아감.</p>
+<div class="note">탄생 이유 = <b>동적 생성</b>. 옛날엔 서버가 HTML 파일을 그냥 꺼내줬는데, 방명록·검색은 "누가 뭘 남길지" 미리 못 만듦  요청 올 때 그 자리에서 만들어야 했다(1993 CGIPHP…).</div>
+<table>
+<tr><th>구성</th><th>역할</th></tr>
+<tr><td>서버</td><td>요청 받고 응답하는 컴퓨터(24시간 켜짐)</td></tr>
+<tr><td>WAS</td><td>웹 애플리케이션 서버 — 로직 실행</td></tr>
+<tr><td>언어/프레임워크</td><td>Node.js·Python(Django)·Java(Spring)·PHP</td></tr>
+</table>
+<div class="ex"><b>예문:</b> 로그인 = 프론트가 보낸 아이디/비번을 백엔드가 받아 DB의 회원 정보와 대조  맞으면 "통과" 응답.</div>
+
+<h2>③ API / REST</h2>
+<p>프론트와 백엔드가 데이터 주고받는 <b>약속(메뉴판)</b>. "이렇게 요청하면 이렇게 응답한다."</p>
+<div class="card"><b>REST = CRUD</b> (가장 널리 쓰는 형식)
+<table>
+<tr><th>동작</th><th>뜻</th><th>HTTP 메서드</th><th>예</th></tr>
+<tr><td>Create</td><td>생성</td><td>POST</td><td>새 글 등록</td></tr>
+<tr><td>Read</td><td>조회</td><td>GET</td><td>글 목록 보기</td></tr>
+<tr><td>Update</td><td>수정</td><td>PUT/PATCH</td><td>글 고치기</td></tr>
+<tr><td>Delete</td><td>삭제</td><td>DELETE</td><td>글 지우기</td></tr>
+</table></div>
+<div class="easy"><b>쉽게:</b> API = 식당 점원. 손님(프론트)이 "김치찌개요"(요청)  점원이 주방(DB)에서 받아 "여기요"(응답). 손님이 주방 직접 안 들어감.</div>
+<div class="ex"><b>예문:</b> <code>GET /books/3</code> = "3번 책 정보 줘"  응답 <code>200 OK</code> + 책 데이터(JSON).</div>
+
+<h2>④ 데이터베이스 (DB)</h2>
+<p>데이터를 <b>구조적으로 저장·관리</b>하는 곳. <b>DB=집, 테이블=방, 행/열=엑셀 시트.</b></p>
+<table>
+<tr><th>용어</th><th>쉽게</th></tr>
+<tr><td>DB</td><td>큰 창고(집)</td></tr>
+<tr><td>테이블</td><td>종류별 방(회원방·상품방)</td></tr>
+<tr><td>SQL</td><td>DB에 명령하는 언어("회원 다 줘")</td></tr>
+<tr><td>스토리지</td><td>파일(이미지·동영상) 저장 — DB와 별개(S3 등)</td></tr>
+</table>
+
+<h2>⑤ 클라우드 / 배포</h2>
+<p>만든 걸 <b>인터넷에 올려 남도 쓰게</b> 하는 것.</p>
+<table>
+<tr><th>용어</th><th>뜻</th><th>비유</th></tr>
+<tr><td>서버</td><td>요청에 응답하는 컴퓨터</td><td>24시간 켜진 가게</td></tr>
+<tr><td>IP</td><td>인터넷상 컴퓨터 주소(숫자)</td><td>집 주소</td></tr>
+<tr><td>도메인</td><td>IP를 사람이 읽는 이름(naver.com)</td><td>가게 간판</td></tr>
+<tr><td>DNS</td><td>도메인IP 변환</td><td>주소록</td></tr>
+<tr><td>클라우드</td><td>서버를 빌려 쓰는 서비스(AWS 등)</td><td>전세 대신 월세</td></tr>
+<tr><td>도커</td><td>실행 환경 통째 포장</td><td>이사 박스</td></tr>
+</table>
+<div class="ex"><b>예문:</b> <code>localhost:3000</code> = 내 컴퓨터에서만 열림. 친구도 보게 하려면  클라우드 서버에 <b>배포</b> + 도메인 연결.</div>
+
+<h2>⑥ 언어 자료 정리</h2>
+<table>
+<tr><th>언어</th><th>주 용도</th><th>한 줄</th></tr>
+<tr><td><code>JavaScript</code></td><td>프론트+백(Node)</td><td>웹의 공용어. 화면 동작 필수</td></tr>
+<tr><td><code>TypeScript</code></td><td>JS + 타입</td><td>JS에 안전장치(오타·타입 오류 잡음)</td></tr>
+<tr><td><code>Python</code></td><td>백엔드·AI·데이터</td><td>쉽고 AI 생태계 최강</td></tr>
+<tr><td><code>Java</code></td><td>대기업 백엔드</td><td>Spring으로 견고한 서버</td></tr>
+<tr><td><code>SQL</code></td><td>DB 조회</td><td>데이터 다루는 필수 언어</td></tr>
+<tr><td><code>HTML/CSS</code></td><td>화면 구조·스타일</td><td>엄밀히 언어 아닌 마크업, 그래도 필수</td></tr>
+</table>
+<div class="easy"><b>쉽게:</b> 언어 = 컴퓨터와 소통하는 외국어. 사람마다 영어·중국어 쓰듯, 상황 따라 언어 고름. 입문은 <b>JavaScript 또는 Python</b> 하나로 시작 추천.</div>

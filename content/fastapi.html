@@ -1,0 +1,46 @@
+<h1>FastAPI <span class="pill">백엔드 · Python 서버</span></h1>
+<p class="sub">Python으로 API 서버를 빠르게. 자동 문서·검증.</p>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 앱 생성, 라우터(@app.get/post), 경로·쿼리 파라미터, JSON 응답</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> Pydantic 모델(검증), DB 연동(SQLAlchemy), 의존성 주입, 비동기</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 인증/인가(JWT), 미들웨어, 백그라운드 태스크, 테스트, 배포(uvicorn·도커)</div></div>
+<pre>from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/todos")        # GET /todos
+def list_todos():
+    return [{"title": "공부", "done": False}]</pre>
+<div class="easy"><b>만드는 것:</b> 프론트가 호출할 REST API. PostgreSQL 연결해 진짜 데이터.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 라우터 — URL과 함수 연결</h3>
+<pre>from fastapi import FastAPI
+app = FastAPI()
+
+@app.get("/todos")           # GET /todos 요청 오면
+def list_todos():
+    return [{"title": "공부"}]   # 자동 JSON 변환
+
+@app.get("/todos/{id}")      # 경로 파라미터
+def get_one(id: int):
+    return {"id": id}</pre>
+<div class="easy"><b>쉽게:</b> <code>@app.get("/주소")</code> = "이 주소로 오면 이 함수 실행". 데코레이터로 연결.</div>
+
+<h3>2. Pydantic — 입력 검증</h3>
+<pre>from pydantic import BaseModel
+class Todo(BaseModel):
+    title: str
+    done: bool = False
+
+@app.post("/todos")
+def add(t: Todo):     # 자동으로 형식 검사
+    return t          # 잘못된 데이터는 자동 422 에러</pre>
+<div class="easy"><b>쉽게:</b> 들어오는 데이터 모양을 미리 정하면 <b>자동 검사</b>. 이상하면 알아서 막음.</div>
+
+<h3>3. 자동 문서 (강점)</h3>
+<p>코드만 쓰면 <code>/docs</code>에 <b>API 문서가 자동 생성</b>. 바로 테스트 가능.</p>
+<div class="easy"><b>쉽게:</b> 서버 켜고 <code>localhost:8000/docs</code> 열면 메뉴판이 저절로. FastAPI 킬러 기능.</div>
+
+<h3>4. DB 연동 + 실행</h3>
+<pre>pip install fastapi uvicorn sqlalchemy psycopg2
+uvicorn main:app --reload   # 서버 실행</pre>
+<div class="easy"><b>쉽게:</b> SQLAlchemy로 PostgreSQL 연결, uvicorn으로 서버 켬. <code>--reload</code>=코드 바뀌면 자동 재시작.</div>

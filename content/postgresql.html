@@ -1,0 +1,44 @@
+<h1>PostgreSQL + SQL <span class="pill">DB · 백엔드 영역</span></h1>
+<p class="sub">데이터를 구조적으로 저장. 백엔드가 다룸.</p>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 설치, 테이블 생성, CRUD(SELECT·INSERT·UPDATE·DELETE), 자료형</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> JOIN, 인덱스, 제약조건(PK/FK), 집계(GROUP BY), 트랜잭션</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 쿼리 최적화(EXPLAIN), 정규화, 뷰·함수, 동시성, 백업</div></div>
+<pre>CREATE TABLE todos (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  done BOOLEAN DEFAULT false
+);
+SELECT * FROM todos WHERE done = false;   -- 안 끝난 일</pre>
+<div class="easy"><b>만드는 것:</b> 데이터 창고. FastAPI·Express가 여기 연결해 진짜 저장.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 테이블 생성 (자료형)</h3>
+<pre>CREATE TABLE todos (
+  id      SERIAL PRIMARY KEY,   -- 자동 증가 번호
+  title   TEXT NOT NULL,        -- 빈 값 금지
+  done    BOOLEAN DEFAULT false,
+  created TIMESTAMP DEFAULT now()
+);</pre>
+<div class="easy"><b>쉽게:</b> 엑셀 시트 만들기. 칸(컬럼)마다 타입·규칙 지정. PK=중복 없는 대표키.</div>
+
+<h3>2. CRUD — 4대 명령</h3>
+<pre>INSERT INTO todos (title) VALUES ('공부');     -- 생성
+SELECT * FROM todos WHERE done = false;        -- 조회
+UPDATE todos SET done = true WHERE id = 1;     -- 수정
+DELETE FROM todos WHERE id = 1;                -- 삭제</pre>
+<div class="easy"><b>쉽게:</b> SELECT=꺼내, INSERT=넣어, UPDATE=고쳐, DELETE=지워. REST의 CRUD와 1:1.</div>
+
+<h3>3. JOIN — 테이블 연결</h3>
+<pre>SELECT todos.title, users.name
+FROM todos
+JOIN users ON todos.user_id = users.id;</pre>
+<div class="easy"><b>쉽게:</b> 흩어진 표를 공통 키로 합쳐 보기. "할일 + 그 주인 이름" 한 번에.</div>
+
+<h3>4. 인덱스·트랜잭션</h3>
+<pre>CREATE INDEX idx_done ON todos(done);   -- 검색 빠르게
+
+BEGIN;                                  -- 트랜잭션 시작
+UPDATE accounts SET bal = bal-100 WHERE id=1;
+UPDATE accounts SET bal = bal+100 WHERE id=2;
+COMMIT;                                 -- 둘 다 성공해야 확정</pre>
+<div class="easy"><b>쉽게:</b> 인덱스=책 색인(빨리 찾기). 트랜잭션=송금처럼 "전부 되거나 전부 취소"(중간 사고 방지).</div>

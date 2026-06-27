@@ -1,0 +1,74 @@
+<h1>JavaScript <span class="pill">프론트 + 백(Node)</span></h1>
+<p class="sub">웹 공용어. 화면 동작 + (Node로) 서버까지.</p>
+
+<h2>기초 문법 — 0부터 순서대로</h2>
+<div class="tw"><table>
+<tr><th>#</th><th>배울 것</th><th>예시</th></tr>
+<tr><td>1</td><td>출력·주석</td><td><code>console.log("Hi"); // 주석</code></td></tr>
+<tr><td>2</td><td>변수</td><td><code>const x = 1; let y = 2;</code></td></tr>
+<tr><td>3</td><td>자료형</td><td>숫자 <code>1</code> · 문자 <code>"a"</code> · 불리언 <code>true</code> · <code>null</code></td></tr>
+<tr><td>4</td><td>문자열</td><td><code>`안녕 ${name}`</code> (템플릿)</td></tr>
+<tr><td>5</td><td>연산자</td><td><code>+ - * / %</code> · 비교 <code>=== !== &gt; &lt;</code> · <code>&amp;&amp; ||</code></td></tr>
+<tr><td>6</td><td>조건문</td><td><code>if(x&gt;0){...} else {...}</code></td></tr>
+<tr><td>7</td><td>반복문</td><td><code>for(let i=0;i&lt;3;i++){...}</code> · <code>while</code></td></tr>
+<tr><td>8</td><td>함수</td><td><code>function f(a){return a} </code> · <code>(a)=&gt;a</code></td></tr>
+<tr><td>9</td><td>배열</td><td><code>[1,2,3]</code> · <code>.push() .map() .filter()</code></td></tr>
+<tr><td>10</td><td>객체</td><td><code>{name:"철수"}</code> · <code>obj.name</code></td></tr>
+<tr><td>11</td><td>구조분해</td><td><code>const {name} = obj;</code> · <code>const [a,b]=arr;</code></td></tr>
+<tr><td>12</td><td>비동기</td><td><code>await fetch(url)</code> · Promise</td></tr>
+<tr><td>13</td><td>모듈</td><td><code>import x from './x.js'</code></td></tr>
+<tr><td>14</td><td>DOM·이벤트</td><td><code>el.addEventListener('click', fn)</code></td></tr>
+</table></div>
+<div class="easy"><b>순서대로:</b> 1~8까지가 모든 언어 공통 "프로그래밍 기초"(출력→변수→조건→반복→함수). 9~14가 JS다움. 위에서 아래로 하나씩.</div>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 변수(let/const)·타입, 함수, 조건/반복, 배열·객체, DOM·이벤트</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> 비동기(Promise·async/await), fetch(API), 모듈(import), 클로저</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 이벤트 루프, 에러처리, 함수형 패턴, 번들러(Vite), 테스트</div></div>
+<pre>const res = await fetch('/api/todos');   // 서버에서 데이터
+const todos = await res.json();
+document.querySelector('button')
+  .addEventListener('click', () =&gt; alert('클릭!'));  // 이벤트</pre>
+<div class="easy"><b>만드는 것:</b> 버튼 누르면 반응하는 화면, 서버 데이터 받아 표시.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 변수 — let / const</h3>
+<pre>const name = "철수";   // 안 바뀜 (기본)
+let age = 20;          // 바뀔 수 있음
+age = 21;              // OK
+// const는 재할당 불가</pre>
+<div class="easy"><b>쉽게:</b> <b>const 먼저</b> 쓰고, 바뀌어야 할 때만 let. var는 옛날 거라 안 씀.</div>
+
+<h3>2. 함수 — 일 묶음</h3>
+<pre>function add(a, b) { return a + b; }
+const add2 = (a, b) =&gt; a + b;   // 화살표 함수(요즘 스타일)
+add(2, 3);   // 5</pre>
+<div class="easy"><b>쉽게:</b> 자판기. 입력(재료) 넣으면 출력(결과) 나옴. <code>=&gt;</code>는 함수 짧게 쓰는 법.</div>
+
+<h3>3. 배열·객체 — 데이터 담기</h3>
+<pre>const fruits = ["사과", "배"];        // 배열(순서)
+fruits.push("귤");                    // 추가
+const user = { name: "철수", age: 20 };  // 객체(이름표-값)
+user.name;   // "철수"
+fruits.map(f =&gt; f + "!");   // 각 요소 변형 → ["사과!",...]</pre>
+<div class="easy"><b>쉽게:</b> 배열=번호 매긴 줄, 객체=이름표 붙인 서랍. <code>map</code>=전부 하나씩 바꾸기.</div>
+
+<h3>4. 비동기 — 기다리는 일</h3>
+<p>서버 호출처럼 시간 걸리는 일은 <b>기다렸다</b> 처리. <code>async/await</code>.</p>
+<pre>async function load() {
+  const res = await fetch('/api/todos');  // 응답 올 때까지 기다림
+  const data = await res.json();          // JSON 변환
+  console.log(data);
+}</pre>
+<div class="easy"><b>쉽게:</b> 음식 주문 후 "나오면 받기". <code>await</code>=나올 때까지 기다려. 안 기다리면 빈손으로 다음 줄 감.</div>
+
+<h3>5. DOM·이벤트 — 화면 조작</h3>
+<pre>const btn = document.querySelector('button');  // 요소 찾기
+btn.addEventListener('click', () =&gt; {          // 클릭 시
+  btn.textContent = '눌림!';                    // 내용 바꾸기
+});</pre>
+<div class="easy"><b>쉽게:</b> "이 버튼 찾아서 → 누르면 → 이거 해". 화면이 살아 움직이게.</div>
+
+<h3>6. 조건·반복</h3>
+<pre>if (age &gt;= 20) { ... } else { ... }
+for (const f of fruits) { console.log(f); }   // 하나씩
+fruits.forEach(f =&gt; console.log(f));          // 같은 일</pre>
+<div class="easy"><b>쉽게:</b> if=갈림길, for=반복. 배열은 forEach/map으로도 돌림.</div>

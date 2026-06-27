@@ -1,0 +1,100 @@
+<h1>코덱스 (Codex CLI) — OpenAI 코딩 에이전트</h1>
+<p class="sub">클로드 코드의 OpenAI 버전. 구조 비슷, 용어 다름. 기본 모델 gpt-5.5. (공식: developers.openai.com/codex)</p>
+
+<h2>① 슬래시 명령어 (/) — 카테고리별 + 예시</h2>
+<p>채팅창에 <code>/</code> 입력. 클로드와 겹치는 게 많음.</p>
+
+<h3>셋업·설정</h3>
+<table>
+<tr><th>명령</th><th>뜻</th><th> 쉬운 예시</th></tr>
+<tr><td><code>/init</code></td><td><b>AGENTS.md</b> 골격 생성</td><td>코드 폴더에서  규칙파일(AGENTS.md) 만들기. (클로드는 CLAUDE.md, 코덱스는 AGENTS.md)</td></tr>
+<tr><td><code>/permissions</code></td><td>승인 수준 조절</td><td>"파일 수정 매번 물어봐 / 알아서 해" 자율도 변경(재시작 없이)</td></tr>
+<tr><td><code>/mcp</code></td><td>외부도구(MCP) 목록</td><td>연결된 GitHub·DB 등 확인</td></tr>
+<tr><td><code>/skills</code></td><td>스킬 찾아 적용</td><td>작업용 매뉴얼 골라 쓰기</td></tr>
+<tr><td><code>/plugins</code> <code>/hooks</code></td><td>플러그인 / 훅 관리</td><td>기능 묶음·자동 동작 설정</td></tr>
+<tr><td><code>/apps</code></td><td>커넥터(앱) 연결</td><td>외부 서비스 붙이기</td></tr>
+<tr><td><code>/ide</code></td><td>에디터 열린 파일 포함</td><td>"지금 VS Code에 열린 파일도 참고해"</td></tr>
+<tr><td><code>/import</code></td><td> <b>클로드 코드 설정 가져오기</b></td><td>클로드 쓰다 옮길 때 CLAUDE.md·설정 마이그레이션</td></tr>
+</table>
+
+<h3>작업 중</h3>
+<table>
+<tr><th>명령</th><th>뜻</th><th> 쉬운 예시</th></tr>
+<tr><td><code>/plan</code></td><td>플랜 모드</td><td>큰 변경 전 계획부터</td></tr>
+<tr><td><code>/goal</code></td><td>목표 설정·추적</td><td>달성 조건까지 끌고 감(pause·track 가능)</td></tr>
+<tr><td><code>/model</code> <code>/fast</code></td><td>모델 변경 / 빠른 티어</td><td>gpt-5.5  다른 모델, Fast 티어 토글</td></tr>
+<tr><td><code>/personality</code></td><td> 말투 선택</td><td>friendly / pragmatic 등 대화 스타일</td></tr>
+<tr><td><code>/approve</code></td><td>거부된 작업 재시도</td><td>자동검토가 막은 걸 "그래도 해" 승인</td></tr>
+<tr><td><code>/review</code></td><td>작업트리(변경) 분석</td><td>"내 변경 코드 리뷰해줘"</td></tr>
+</table>
+
+<h3>컨텍스트·세션</h3>
+<table>
+<tr><th>명령</th><th>뜻</th><th> 쉬운 예시</th></tr>
+<tr><td><code>/compact</code></td><td>대화 압축</td><td>토큰 아끼게 요약</td></tr>
+<tr><td><code>/clear</code> <code>/new</code></td><td>초기화 / 새 대화</td><td>완전 새 일 시작</td></tr>
+<tr><td><code>/memories</code></td><td>메모리 주입·생성 설정</td><td>기억할 내용 관리</td></tr>
+<tr><td><code>/resume</code></td><td>이전 세션 재개</td><td>"어제 거 이어서"</td></tr>
+<tr><td><code>/mention</code></td><td>특정 파일 첨부</td><td><code>@파일</code>로 콕 집어 참조</td></tr>
+<tr><td><code>/status</code> <code>/usage</code></td><td>세션 설정·토큰 / 사용량</td><td>"지금 설정·얼마 썼나"</td></tr>
+</table>
+
+<h3>병렬·세션·기타</h3>
+<table>
+<tr><th>명령</th><th>뜻</th><th> 쉬운 예시</th></tr>
+<tr><td><code>/agent</code></td><td>에이전트 스레드 전환</td><td>여러 작업 스레드 오가기</td></tr>
+<tr><td><code>/ps</code> <code>/stop</code></td><td>백그라운드 터미널 보기 / 전부 중단</td><td>"뭐 돌고 있나" / "다 멈춰"</td></tr>
+<tr><td><code>/fork</code> <code>/side</code></td><td>대화 분기 / 임시 곁다리</td><td>다른 방향 시험 / 잠깐 딴 질문</td></tr>
+<tr><td><code>/diff</code> <code>/copy</code></td><td>Git 변경 보기 / 답변 복사</td><td>"바뀐 거" / 클립보드로</td></tr>
+<tr><td><code>/theme</code> <code>/vim</code> <code>/keymap</code></td><td>테마 / Vim모드 / 단축키</td><td>편집 환경 취향대로</td></tr>
+</table>
+<div class="note">출처: <a href="https://developers.openai.com/codex/cli/slash-commands">developers.openai.com/codex/cli/slash-commands</a> (전체 목록). <code>!</code> 접두 = 셸 명령 직접 실행(클로드와 동일).</div>
+
+<h2>② AGENTS.md & 설정</h2>
+<h3>AGENTS.md </h3>
+<p>코덱스의 <b>규칙 파일</b>. 클로드의 CLAUDE.md와 같은 역할. <b>Agent Skills 오픈표준</b>이라 여러 AI 도구가 공유.</p>
+<div class="card"><b>읽는 순서 (병합)</b>: 프로젝트 루트(보통 Git 루트)부터 현재 폴더까지 내려가며 <code>AGENTS.override.md</code>  <code>AGENTS.md</code> 순으로 찾아 <b>전부 이어붙임</b>. 현재 폴더에 가까운 파일이 <b>나중에 와서 우선</b>(앞 규칙 덮어씀).</div>
+<div class="easy"><b>쉽게:</b> 회사 전체 규칙(루트 AGENTS.md) + 우리 팀 규칙(하위폴더 AGENTS.md)이 합쳐지고, 더 가까운 팀 규칙이 이김. 위아래 누적.</div>
+
+<h3>config.toml</h3>
+<table>
+<tr><td><code>~/.codex/config.toml</code></td><td>기본 설정(모델·승인·MCP 등)</td></tr>
+<tr><td><code>codex -c key=value</code></td><td>그 실행만 임시 덮어쓰기</td></tr>
+<tr><td>profiles</td><td>설정 묶음 전환(작업별 프로파일)</td></tr>
+</table>
+<div class="easy"><b>쉽게:</b> 클로드의 <code>settings.json</code>에 해당. 단 코덱스는 <code>.toml</code> 형식.</div>
+
+<h2>③ 승인 모드 (Approval) </h2>
+<p>코덱스가 얼마나 알아서 하느냐. 안전장치.</p>
+<table>
+<tr><th>모드</th><th>뜻</th><th>언제</th></tr>
+<tr><td><b>Auto</b> (기본)</td><td>작업 폴더 안에선 알아서</td><td>일반 개발 — 폴더 밖은 물어봄</td></tr>
+<tr><td><b>Read-only</b></td><td>읽기만, 수정은 자문</td><td>코드 분석·리뷰만 할 때(안전)</td></tr>
+<tr><td><b>Full Access</b></td><td>제한 없음</td><td>신뢰 환경·자동화 ( 위험)</td></tr>
+</table>
+<div class="easy"><b>쉽게:</b> 신입에게 주는 권한 등급. 견습(읽기만)정직원(폴더 안 자유)팀장(다 가능). 위험할수록 사람 확인.</div>
+
+<h2>④ 핵심 개념 (클로드와 매핑)</h2>
+<table>
+<tr><th>개념</th><th>코덱스</th><th>= 클로드</th></tr>
+<tr><td>규칙 파일</td><td>AGENTS.md</td><td>CLAUDE.md (역할 동일)</td></tr>
+<tr><td>설정</td><td>config.toml</td><td>settings.json</td></tr>
+<tr><td>스킬</td><td>/skills (Agent Skills 표준)</td><td>스킬(SKILL.md)</td></tr>
+<tr><td>외부도구</td><td>MCP</td><td>MCP (같은 표준)</td></tr>
+<tr><td>훅</td><td>/hooks (라이프사이클)</td><td>hooks</td></tr>
+<tr><td>비대화 자동화</td><td><code>codex exec "..."</code></td><td><code>claude -p "..."</code></td></tr>
+<tr><td>기본 모델</td><td>gpt-5.5</td><td>Claude(Opus/Sonnet)</td></tr>
+</table>
+
+<h2>⑤ 파일 읽는 흐름 (클로드/코덱스 공통)</h2>
+<p>코덱스도 클로드처럼 <b>규칙파일 먼저 읽고  작업  파일 read/write</b>. 다른 건 파일 이름·설정 형식뿐.</p>
+<div style="background:var(--surface);border:1px solid var(--hairline);border-radius:12px;padding:16px 18px;line-height:1.9">
+  <div><b> 시작</b> — 루트~현재폴더 <code>AGENTS.md</code> 전부 읽어 합침(가까운 게 우선)</div>
+  <div style="color:var(--primary)"></div>
+  <div><b> 요청</b>  코덱스가 승인모드 확인(Auto/Read-only/Full)</div>
+  <div style="color:var(--primary)"></div>
+  <div><b> read</b> 관련 파일 (<code>/mention</code>·<code>/ide</code>로 콕 집기 가능)</div>
+  <div style="color:var(--primary)"> 처리</div>
+  <div><b> write</b> 코드 — 위험 작업은 <code>/approve</code> 거쳐 승인</div>
+</div>
+<div class="note"><b>핵심</b>: 하네스 설계 원리(고정 IO·승인게이트·컨텍스트 격리)는 클로드든 코덱스든 <b>동일</b>. 도구만 갈아끼우면 됨. ( 클로드코드 탭 ⑦ 예시 하네스 참고)</div>

@@ -1,0 +1,52 @@
+<h1>Express <span class="pill">백엔드 · Node 서버</span></h1>
+<p class="sub">Node로 API 서버를 깔끔하게. 라우팅·미들웨어.</p>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 앱·라우트(app.get/post), 미들웨어 개념, req/res, JSON 파싱</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> 라우터 분리, DB 연동(Prisma/pg), 에러 미들웨어, 검증, CORS</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 인증(JWT·세션), 보안(helmet), 구조 설계(MVC), 테스트, 배포</div></div>
+<pre>import express from 'express';
+const app = express();
+app.get('/todos', (req, res) =&gt; {   // GET /todos
+  res.json([{ title: '공부', done: false }]);
+});
+app.listen(3000);</pre>
+<div class="easy"><b>만드는 것:</b> FastAPI와 같은 API를 JS로. 비교하며 두 언어 체화.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 라우트 — URL과 핸들러</h3>
+<pre>import express from 'express';
+const app = express();
+app.use(express.json());        // JSON 본문 파싱
+
+app.get('/todos', (req, res) =&gt; {
+  res.json([{ title: '공부' }]);
+});
+app.post('/todos', (req, res) =&gt; {
+  const todo = req.body;        // 받은 데이터
+  res.status(201).json(todo);
+});
+app.listen(3000);</pre>
+<div class="easy"><b>쉽게:</b> <code>app.get('/주소', 함수)</code> = FastAPI <code>@app.get</code>과 같은 역할. req=요청, res=응답.</div>
+
+<h3>2. 미들웨어 — 중간 처리</h3>
+<pre>app.use((req, res, next) =&gt; {
+  console.log(req.method, req.url);  // 모든 요청 로그
+  next();    // 다음 단계로 넘김
+});</pre>
+<div class="easy"><b>쉽게:</b> 요청이 거쳐 가는 검문소. 로그·인증·검증을 중간에. <code>next()</code>=통과.</div>
+
+<h3>3. DB 연동 + 라우터 분리</h3>
+<pre>// PostgreSQL 연결 (pg 또는 Prisma)
+import pg from 'pg';
+const db = new pg.Pool({ connectionString: process.env.DB_URL });
+const { rows } = await db.query('SELECT * FROM todos');</pre>
+<div class="easy"><b>쉽게:</b> pg로 PostgreSQL에 SQL 날림. 커지면 라우트를 파일별로 분리(MVC).</div>
+
+<h3>FastAPI ↔ Express 대조</h3>
+<div class="tw"><table>
+<tr><th></th><th>FastAPI</th><th>Express</th></tr>
+<tr><td>목록</td><td><code>@app.get("/todos")</code></td><td><code>app.get('/todos', ...)</code></td></tr>
+<tr><td>추가</td><td><code>@app.post(...)</code> + Pydantic</td><td><code>app.post(...)</code> + req.body</td></tr>
+<tr><td>검증</td><td>자동(Pydantic)</td><td>수동/라이브러리</td></tr>
+<tr><td>문서</td><td>자동(/docs)</td><td>수동(Swagger)</td></tr>
+</table></div>
+<div class="easy"><b>쉽게:</b> 둘이 거의 같은 일. FastAPI가 검증·문서 자동이라 편하고, Express는 JS라 프론트와 언어 통일.</div>

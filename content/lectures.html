@@ -1,0 +1,140 @@
+<h1>강의 — 로드맵 단계별 수업</h1>
+<p class="sub">roadmap.sh 순서대로. 각 강의 = 개념 + 예문(코드) + 쉬운 해석.</p>
+
+<h2>프론트엔드 트랙</h2>
+
+<h3>1강. HTML — 화면 뼈대 <span class="lv b">입문</span></h3>
+<p>웹페이지의 <b>구조·내용</b>을 만드는 마크업. 태그로 요소를 표시.</p>
+<pre>&lt;h1&gt;제목&lt;/h1&gt;
+&lt;p&gt;문단 내용&lt;/p&gt;
+&lt;a href="https://naver.com"&gt;링크&lt;/a&gt;
+&lt;button&gt;클릭&lt;/button&gt;</pre>
+<div class="easy"><b>쉽게:</b> 집 짓기로 치면 골조·벽. <code>&lt;h1&gt;</code>=큰 제목, <code>&lt;p&gt;</code>=문단, <code>&lt;a&gt;</code>=링크. 여는 태그 <code>&lt;p&gt;</code>·닫는 태그 <code>&lt;/p&gt;</code> 짝.</div>
+
+<h3>2강. CSS — 꾸미기 <span class="lv b">입문</span></h3>
+<p>HTML 요소의 <b>색·크기·배치</b>를 지정.</p>
+<pre>h1 { color: blue; font-size: 32px; }
+.box { background: gray; padding: 20px; }</pre>
+<div class="ex"><b>예문:</b> <code>h1 { color: blue }</code> = "모든 제목을 파란색으로". <code>.box</code>는 class="box"인 요소에 적용.</div>
+<div class="easy"><b>쉽게:</b> HTML이 골조면 CSS는 페인트·인테리어. "이 부분을 이렇게 보이게" 지시.</div>
+
+<h3>3강. JavaScript — 동작 <span class="lv b">입문</span></h3>
+<p>버튼 클릭·데이터 변경 등 <b>움직임</b>을 담당. 웹의 공용 프로그래밍 언어.</p>
+<pre>const btn = document.querySelector('button');
+btn.addEventListener('click', () =&gt; {
+  alert('안녕!');   // 클릭하면 알림창
+});</pre>
+<div class="easy"><b>쉽게:</b> 집의 전기·움직이는 장치. "버튼 누르면(이벤트)  이렇게 해라" 적는 것.</div>
+
+<h3>4강. Git — 버전관리 <span class="lv b">입문</span></h3>
+<p>코드 변경 이력을 저장·되돌리기. 협업 필수.</p>
+<pre>git add .          # 변경 담기
+git commit -m "로그인 기능 추가"   # 저장(스냅샷)
+git push           # 원격(GitHub)에 올리기</pre>
+<div class="easy"><b>쉽게:</b> 게임 세이브 포인트. 망치면 이전 저장으로 복구. 여럿이 같이 작업할 때 충돌도 관리.</div>
+
+<h3>5강. 반응형 디자인 <span class="lv b">입문</span></h3>
+<p>화면 크기(PC·모바일)에 맞춰 레이아웃이 <b>자동 변형</b>.</p>
+<pre>@media (max-width: 600px) {
+  .menu { display: none; }   /* 폰에선 메뉴 숨김 */
+}</pre>
+<div class="easy"><b>쉽게:</b> 물처럼 그릇(화면)에 맞춰 모양 바뀜. PC는 가로 메뉴, 폰은 햄버거 메뉴.</div>
+
+<h3>6강. 접근성(a11y) <span class="lv b">입문</span></h3>
+<p>장애가 있어도 쓸 수 있게. 시각장애인 화면낭독기 등.</p>
+<div class="ex"><b>예문:</b> <code>&lt;img src="cat.jpg" alt="고양이 사진"&gt;</code> — <code>alt</code>로 이미지 설명  낭독기가 읽어줌.</div>
+<div class="easy"><b>쉽게:</b> 모두가 쓰게 만들기. 점자블록·경사로 같은 거.</div>
+
+<h3>7강. UX 원칙 <span class="lv b">입문</span></h3>
+<p>사용자 경험. "쓰기 편한가?" 직관적 흐름·일관성.</p>
+<div class="easy"><b>쉽게:</b> 처음 온 사람도 헤매지 않게. 버튼은 버튼처럼 보이게, 중요한 건 위에.</div>
+
+<h3>8강. RESTful API 연동 <span class="lv m">중급</span></h3>
+<p>백엔드에서 데이터를 가져와 화면에 표시.</p>
+<pre>fetch('/api/books')          // 책 목록 요청
+  .then(res =&gt; res.json())
+  .then(data =&gt; console.log(data));  // 받은 데이터 사용</pre>
+<div class="ex"><b>예문:</b> 쇼핑몰 상품 목록 = <code>fetch('/api/products')</code>로 서버에서 받아와 화면에 그림.</div>
+<div class="easy"><b>쉽게:</b> 점원(API)에게 "상품 목록 줘"  받아서 화면에 뿌리기.</div>
+
+<h3>9강. 테스트 & 디버깅 <span class="lv m">중급</span></h3>
+<p>코드가 의도대로 도는지 확인·버그 잡기. 코딩 시간의 80%.</p>
+<pre>console.log(변수);   // 값 찍어보며 추적
+// 테스트: 입력 X 넣으면 결과 Y 나오나 자동 확인</pre>
+<div class="easy"><b>쉽게:</b> 디버깅 = 고장 원인 찾기. <code>console.log</code>로 "여기까지 값이 뭐지?" 하나씩 확인.</div>
+
+<h3>10강. 브라우저 개발자도구 <span class="lv m">중급</span></h3>
+<p>F12. 화면 요소 검사·네트워크 요청·콘솔 오류 확인.</p>
+<div class="easy"><b>쉽게:</b> 웹페이지의 X-레이. 어떤 HTML·CSS인지, 어떤 데이터 오갔는지 다 보임.</div>
+
+<h3>11강. 웹 성능 최적화 <span class="lv m">중급</span></h3>
+<p>빨리 뜨게. 이미지 압축·코드 줄이기·로딩 순서.</p>
+<div class="ex"><b>예문:</b> 큰 이미지를 그대로 올리면 느림  압축·지연로딩(보일 때 로드).</div>
+<div class="easy"><b>쉽게:</b> 페이지 = 가벼울수록 빨리 열림. 라이트하우스로 점수 측정(성능·접근성·SEO).</div>
+
+<h3>12강. TypeScript <span class="lv a">심화</span></h3>
+<p>JavaScript + 타입. 오타·타입 오류를 코딩 중에 잡음.</p>
+<pre>function add(a: number, b: number): number {
+  return a + b;   // 문자열 넣으면 에러로 미리 경고
+}</pre>
+<div class="easy"><b>쉽게:</b> JS에 안전벨트. "이건 숫자여야 해"라고 미리 정해 실수 방지. 큰 프로젝트 필수.</div>
+
+<h3>13강. 프레임워크 (React/Vue) <span class="lv a">심화</span></h3>
+<p>화면을 부품(컴포넌트)으로 조립. 반복·상태관리 효율.</p>
+<pre>function Button() {
+  return &lt;button&gt;클릭&lt;/button&gt;;  // 재사용 부품
+}</pre>
+<div class="easy"><b>쉽게:</b> 레고 블록. 버튼·카드를 부품으로 만들어 여기저기 재사용. React가 대세.</div>
+
+<h3>14강. SEO <span class="lv a">심화</span></h3>
+<p>검색엔진 최적화. 구글에서 잘 검색되게.</p>
+<div class="easy"><b>쉽게:</b> 검색에 잘 걸리게 만들기. 제목 태그·설명·빠른 속도가 점수.</div>
+
+<h2>백엔드 트랙</h2>
+
+<h3>1강. 백엔드 언어 고르기 <span class="lv b">입문</span></h3>
+<p>Python·Java·Go·Ruby 중 하나. 입문은 <b>Python</b> 추천(쉽고 AI 생태계).</p>
+<pre># Python 예
+def hello(name):
+    return f"안녕 {name}"</pre>
+<div class="easy"><b>쉽게:</b> 서버 만들 외국어 하나 정하기. 여러 개 기웃대지 말고 하나 깊게.</div>
+
+<h3>2강. 패키지 매니저 <span class="lv b">입문</span></h3>
+<p>남이 만든 코드(라이브러리)를 설치·관리.</p>
+<pre>pip install fastapi    # Python
+npm install express    # Node.js</pre>
+<div class="easy"><b>쉽게:</b> 앱스토어. 필요한 기능(라이브러리)을 명령 한 줄로 설치.</div>
+
+<h3>3강. 관계형 DB + CRUD <span class="lv m">중급</span></h3>
+<p>PostgreSQL 등. SQL로 데이터 생성·조회·수정·삭제.</p>
+<pre>SELECT * FROM users WHERE age &gt; 20;   -- 조회
+INSERT INTO users (name) VALUES ('철수');  -- 생성</pre>
+<div class="easy"><b>쉽게:</b> DB=엑셀 창고. SQL로 "20살 넘는 회원 다 보여줘" 같은 명령.</div>
+
+<h3>4강. 웹 프레임워크 <span class="lv m">중급</span></h3>
+<p>서버를 빠르게 만드는 틀. Python=Django/FastAPI, Java=Spring, Node=Express.</p>
+<pre># FastAPI 예
+@app.get("/books")
+def get_books():
+    return ["책1", "책2"]</pre>
+<div class="easy"><b>쉽게:</b> 서버 조립 키트. 밑바닥부터 안 짜고 골격 위에 내 로직만.</div>
+
+<h3>5강. RESTful API 만들기 <span class="lv m">중급</span></h3>
+<p>프론트가 쓸 데이터 통로 제공. CRUD를 HTTP 메서드로.</p>
+<pre>GET    /books       목록
+POST   /books       생성
+PATCH  /books/3     3번 수정
+DELETE /books/3     3번 삭제</pre>
+<div class="easy"><b>쉽게:</b> 식당 메뉴판 만들기. "이렇게 요청하면 이렇게 준다"를 정의.</div>
+
+<h3>6강. 인증 / 인가 <span class="lv a">심화</span></h3>
+<p><b>인증</b>=너 누구냐(로그인). <b>인가</b>=뭘 할 수 있냐(권한).</p>
+<div class="ex"><b>예문:</b> 로그인(인증) 후 토큰 발급  관리자만 삭제 가능(인가). 일반유저가 삭제 시도  거부(403).</div>
+<div class="easy"><b>쉽게:</b> 인증=건물 출입증, 인가=어느 층 갈 수 있나. 세션·쿠키·JWT로 관리.</div>
+
+<h3>7강. Git / GitHub <span class="lv b">전 과정</span></h3>
+<p>코드 버전관리·협업. 프론트 4강과 동일 — 처음부터 끝까지 씀.</p>
+<div class="easy"><b>쉽게:</b> 백엔드든 프론트든 Git은 필수 동반자. 매일 commit·push.</div>
+
+<div class="note"><b>전 과정 공통</b>: 각 강의 끝나면 <b>작은 프로젝트로 직접 만들어보기</b>. 게시판 CRUD 하나면 백엔드 핵심(API·DB·인증) 다 연습됨. 그다음 AI 도구(클로드·코덱스)로 속도 올리기.</div>
+<footer>강의자료 · roadmap.sh 순서 기반 · 각 강의 개념+예문+쉬운해석 · 더 깊은 강의 원하는 단계 있으면 보강.</footer>

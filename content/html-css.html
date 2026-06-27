@@ -1,0 +1,70 @@
+<h1>HTML · CSS <span class="pill">프론트엔드</span></h1>
+<p class="sub">화면의 뼈대(HTML)와 스타일(CSS). 모든 웹의 시작.</p>
+
+<h2>기초 — 0부터 순서대로</h2>
+<div class="tw"><table>
+<tr><th>#</th><th>배울 것</th><th>예시</th></tr>
+<tr><td>1</td><td>문서 골격</td><td><code>&lt;html&gt;&lt;head&gt;&lt;body&gt;</code> 구조</td></tr>
+<tr><td>2</td><td>텍스트 태그</td><td><code>&lt;h1&gt;~&lt;h6&gt; &lt;p&gt; &lt;span&gt;</code></td></tr>
+<tr><td>3</td><td>링크·이미지</td><td><code>&lt;a href&gt; &lt;img src alt&gt;</code></td></tr>
+<tr><td>4</td><td>목록·표</td><td><code>&lt;ul&gt;&lt;li&gt; &lt;table&gt;</code></td></tr>
+<tr><td>5</td><td>구역·폼</td><td><code>&lt;div&gt; &lt;form&gt; &lt;input&gt; &lt;button&gt;</code></td></tr>
+<tr><td>6</td><td>CSS 적용법</td><td><code>&lt;style&gt;</code> · class·id 선택자</td></tr>
+<tr><td>7</td><td>색·글꼴·여백</td><td><code>color · font-size · margin · padding</code></td></tr>
+<tr><td>8</td><td>박스모델</td><td>content+padding+border+margin</td></tr>
+<tr><td>9</td><td>Flexbox</td><td><code>display:flex</code> 정렬</td></tr>
+<tr><td>10</td><td>Grid·반응형</td><td><code>display:grid</code> · <code>@media</code></td></tr>
+</table></div>
+<div class="easy"><b>순서대로:</b> HTML(1~5)로 뼈대 먼저 → CSS(6~10)로 꾸미기. 레이아웃(Flex/Grid)은 마지막.</div>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 태그·구조(div·h·p·a·img), 박스모델, 색·폰트·여백, Flexbox</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> Grid 레이아웃, 반응형(@media), 의사클래스(:hover), CSS 변수, 애니메이션</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 디자인 시스템, 접근성(a11y), Tailwind 유틸 CSS, 레이아웃 성능</div></div>
+<pre>&lt;!-- HTML --&gt;
+&lt;button class="btn"&gt;담기&lt;/button&gt;
+
+/* CSS */
+.btn { background:#0075de; color:#fff; padding:8px 16px; border-radius:8px; }</pre>
+<div class="easy"><b>만드는 것:</b> 정적 페이지(소개·메뉴판). JS 붙이기 전 화면 먼저.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 태그 = 의미 있는 상자</h3>
+<p>HTML은 내용을 <b>태그로 감싸</b> 뜻을 부여. 여는 태그 <code>&lt;p&gt;</code> + 닫는 태그 <code>&lt;/p&gt;</code> 짝.</p>
+<pre>&lt;h1&gt;큰 제목&lt;/h1&gt;
+&lt;p&gt;문단입니다&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;목록 항목&lt;/li&gt;&lt;/ul&gt;
+&lt;a href="https://naver.com"&gt;링크&lt;/a&gt;
+&lt;img src="cat.jpg" alt="고양이"&gt;</pre>
+<div class="easy"><b>쉽게:</b> 글에 형광펜으로 "여긴 제목, 여긴 문단" 표시하는 것. 의미대로 골라 쓰기(시맨틱).</div>
+
+<h3>2. 박스 모델 — 모든 요소는 상자</h3>
+<p>각 요소 = 내용 + <b>padding(안쪽 여백)</b> + <b>border(테두리)</b> + <b>margin(바깥 여백)</b>.</p>
+<pre>.box {
+  padding: 16px;        /* 내용~테두리 사이 */
+  border: 1px solid #ccc;
+  margin: 24px;         /* 상자~상자 사이 */
+}</pre>
+<div class="easy"><b>쉽게:</b> 선물상자 = 물건(내용) + 포장지 안 완충재(padding) + 상자(border) + 상자끼리 거리(margin).</div>
+
+<h3>3. 선택자 — 누구를 꾸밀까</h3>
+<pre>h1        { color: blue; }     /* 모든 h1 */
+.btn      { ... }              /* class="btn" */
+#header   { ... }              /* id="header" */
+.btn:hover{ ... }              /* btn에 마우스 올렸을 때 */</pre>
+<div class="easy"><b>쉽게:</b> <code>.</code>=클래스(여러 개), <code>#</code>=아이디(딱 하나), <code>:hover</code>=상태.</div>
+
+<h3>4. 레이아웃 — Flexbox</h3>
+<p>요소를 가로·세로로 정렬하는 현대 표준.</p>
+<pre>.row {
+  display: flex;            /* 가로 배치 */
+  justify-content: space-between;  /* 양끝 정렬 */
+  align-items: center;      /* 세로 가운데 */
+  gap: 12px;
+}</pre>
+<div class="easy"><b>쉽게:</b> 컨테이너에 <code>display:flex</code> 주면 자식들이 줄 맞춰 섬. 정렬은 옵션으로.</div>
+
+<h3>5. 반응형 — 화면 크기 대응</h3>
+<pre>@media (max-width: 600px) {
+  .menu { display: none; }   /* 폰에선 숨김 */
+  .row  { flex-direction: column; }  /* 세로 쌓기 */
+}</pre>
+<div class="easy"><b>쉽게:</b> "폰처럼 좁으면 이렇게 바꿔" 규칙. PC는 가로, 폰은 세로.</div>

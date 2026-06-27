@@ -1,0 +1,68 @@
+<h1>서비스 만들기 — 할 일(Todo) 앱 풀스택</h1>
+<p class="sub">배운 언어를 합쳐 하나의 진짜 서비스로. 기획→DB→백→프론트→연결→배포.</p>
+
+<div class="note"><b>전체 그림</b>: 사용자가 브라우저(React)에서 할 일 추가 → API(FastAPI/Express)가 받아 → DB(PostgreSQL)에 저장 → 다시 화면에 표시. 이 한 바퀴가 모든 웹서비스의 기본.</div>
+
+<h2>STEP 1. 기획 — MVP 정하기 <span class="lv b">기초</span></h2>
+<p>기능 욕심 버리고 <b>핵심 하나</b>. Todo 앱이면: <b>할 일 추가·목록보기·완료체크</b>. 끝.</p>
+<div class="easy"><b>왜:</b> 카카오톡도 처음엔 "대화"만. 작게 시작해 굴러가게 먼저.</div>
+
+<h2>STEP 2. DB 설계 — PostgreSQL <span class="lv b">기초</span></h2>
+<p>데이터를 어떻게 저장할지. 할 일 = 테이블 하나.</p>
+<pre>CREATE TABLE todos (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  done BOOLEAN DEFAULT false
+);</pre>
+<div class="easy"><b>이건:</b> "할일" 방(테이블)에 id·제목·완료여부 칸. <span class="pill">DB</span></div>
+
+<h2>STEP 3. 백엔드 API — FastAPI(또는 Express) <span class="lv m">중급</span></h2>
+<p>프론트가 호출할 통로(CRUD). 같은 걸 두 언어로 — 하나 골라 시작.</p>
+<pre># FastAPI (Python)
+@app.get("/todos")          # 목록
+def list_todos(): ...
+@app.post("/todos")         # 추가
+def add_todo(t: Todo): ...
+@app.patch("/todos/{id}")   # 완료체크
+def toggle(id: int): ...</pre>
+<pre>// Express (Node) — 같은 API
+app.get('/todos', ...);
+app.post('/todos', ...);
+app.patch('/todos/:id', ...);</pre>
+<div class="easy"><b>이건:</b> "할일 줘/추가해/체크해" 요청을 받아 DB에 반영. <span class="pill">백엔드</span></div>
+
+<h2>STEP 4. 프론트엔드 — React <span class="lv m">중급</span></h2>
+<p>사용자가 보는 화면. API를 fetch로 호출해 표시.</p>
+<pre>function App() {
+  const [todos, setTodos] = useState([]);
+  useEffect(() =&gt; {
+    fetch('/todos').then(r =&gt; r.json()).then(setTodos);
+  }, []);
+  return todos.map(t =&gt; &lt;li key={t.id}&gt;{t.title}&lt;/li&gt;);
+}</pre>
+<div class="easy"><b>이건:</b> 서버에서 할일 받아 목록 그림. 추가 버튼은 POST 호출. <span class="pill">프론트</span></div>
+
+<h2>STEP 5. 연결 — 프론트 ↔ 백 <span class="lv m">중급</span></h2>
+<p>React가 fetch로 API 호출 → API가 DB 조회 → 응답을 화면에. CORS 설정 필요.</p>
+<div class="card">데이터 한 바퀴:
+<div style="line-height:2;margin-top:6px">
+React(추가 클릭) → <code>POST /todos</code> → FastAPI → <code>INSERT</code> → PostgreSQL<br>
+PostgreSQL → FastAPI → JSON → React(목록 갱신)
+</div></div>
+
+<h2>STEP 6. 배포 — 세상에 공개 <span class="lv a">심화</span></h2>
+<p>내 컴퓨터(localhost) → 인터넷. 도커로 포장 → 클라우드(VPS) 서버 → 도메인 연결.</p>
+<div class="step"><div class="n">1</div><div class="b">백엔드+DB를 서버(클라우드)에 올림 (도커)</div></div>
+<div class="step"><div class="n">2</div><div class="b">프론트는 정적 호스팅(Vercel 등)</div></div>
+<div class="step"><div class="n">3</div><div class="b">도메인 사고 DNS 연결 → 누구나 접속</div></div>
+
+<h2>정리 — 어디서 뭘 썼나</h2>
+<div class="tw"><table>
+<tr><th>단계</th><th>기술</th><th>분류</th></tr>
+<tr><td>기획</td><td>MVP 정의</td><td>-</td></tr>
+<tr><td>데이터 저장</td><td>PostgreSQL + SQL</td><td>DB</td></tr>
+<tr><td>API 서버</td><td>FastAPI / Express</td><td>백엔드</td></tr>
+<tr><td>화면</td><td>React (HTML·CSS·JS·TS)</td><td>프론트</td></tr>
+<tr><td>배포</td><td>도커·클라우드·도메인</td><td>인프라</td></tr>
+</table></div>
+<div class="note"><b>핵심</b>: 이 Todo 앱 한 번 끝까지 만들면 — DB·API·프론트·연결·배포 전체 흐름이 손에 익는다. 그다음 어떤 서비스든 이 틀의 확장. (vault "서비스 개발 전체과정"·"신입 백엔드 최소기준" 참고)</div>

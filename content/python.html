@@ -1,0 +1,79 @@
+<h1>Python <span class="pill">백엔드</span></h1>
+<p class="sub">쉽고 강력. 서버·AI·데이터. 입문 1순위.</p>
+
+<h2>기초 문법 — 0부터 순서대로</h2>
+<div class="tw"><table>
+<tr><th>#</th><th>배울 것</th><th>예시</th></tr>
+<tr><td>1</td><td>출력·주석</td><td><code>print("Hi")  # 주석</code></td></tr>
+<tr><td>2</td><td>변수</td><td><code>x = 1    name = "철수"</code> (타입 선언 X)</td></tr>
+<tr><td>3</td><td>자료형</td><td><code>int 1 · float 1.5 · str "a" · bool True · None</code></td></tr>
+<tr><td>4</td><td>문자열</td><td><code>f"안녕 {name}"</code> (f-string)</td></tr>
+<tr><td>5</td><td>연산자</td><td><code>+ - * / // % **</code> · 비교 <code>== != &gt; &lt;</code> · <code>and or not</code></td></tr>
+<tr><td>6</td><td>조건문</td><td><code>if x&gt;0:</code> ⏎ 들여쓰기 <code>else:</code></td></tr>
+<tr><td>7</td><td>반복문</td><td><code>for i in range(3):</code> · <code>while</code></td></tr>
+<tr><td>8</td><td>함수</td><td><code>def f(a): return a</code></td></tr>
+<tr><td>9</td><td>리스트</td><td><code>[1,2,3]</code> · <code>.append()</code> · 슬라이싱 <code>[0:2]</code></td></tr>
+<tr><td>10</td><td>딕셔너리</td><td><code>{"k": "v"}</code> · <code>d["k"]</code></td></tr>
+<tr><td>11</td><td>튜플·셋</td><td><code>(1,2)</code> 불변 · <code>{1,2}</code> 중복없음</td></tr>
+<tr><td>12</td><td>컴프리헨션</td><td><code>[n*2 for n in nums if n&gt;0]</code></td></tr>
+<tr><td>13</td><td>클래스</td><td><code>class A: def __init__(self): ...</code></td></tr>
+<tr><td>14</td><td>모듈·예외</td><td><code>import os</code> · <code>try: ... except: ...</code></td></tr>
+</table></div>
+<div class="easy"><b>순서대로:</b> 1~8 프로그래밍 공통 기초(JS와 같은 흐름, 문법만 다름). 9~14가 파이썬다움. <b>들여쓰기가 곧 문법</b>이라 6번부터 주의.</div>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 변수·타입, 자료구조(list·dict·set), 조건/반복, 함수, 파일 입출력</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> 클래스(OOP), 모듈·패키지(pip), 예외처리, 가상환경(venv), 컴프리헨션</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 데코레이터, 제너레이터, 타입힌트, 비동기(asyncio), 테스트(pytest)</div></div>
+<pre>def add_todo(todos: list, title: str) -&gt; list:
+    todos.append({"title": title, "done": False})
+    return todos</pre>
+<div class="easy"><b>만드는 것:</b> 로직·자동화 스크립트. 다음 단계 FastAPI로 서버화.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 변수·자료구조</h3>
+<pre>name = "철수"          # 타입 선언 불필요
+nums = [1, 2, 3]       # list (순서)
+user = {"name": "철수", "age": 20}   # dict (키-값)
+tags = {"a", "b"}      # set (중복 없음)
+user["name"]           # "철수"</pre>
+<div class="easy"><b>쉽게:</b> list=줄, dict=서랍(이름표), set=중복 없는 모음. JS의 배열·객체와 같은 개념.</div>
+
+<h3>2. 들여쓰기 = 블록</h3>
+<p>파이썬은 <b>{ } 대신 들여쓰기(4칸)</b>로 코드 묶음 표시.</p>
+<pre>if age &gt;= 20:
+    print("성인")      # 들여쓰기 안쪽 = if에 속함
+    print("입장 가능")
+else:
+    print("미성년")</pre>
+<div class="easy"><b>쉽게:</b> 줄 맞춤이 곧 문법. 들여쓰기 틀리면 에러 — 깔끔함이 강제됨.</div>
+
+<h3>3. 함수</h3>
+<pre>def greet(name, times=1):     # times 기본값 1
+    return f"안녕 {name}" * times   # f-string
+greet("철수")                 # "안녕 철수"</pre>
+<div class="easy"><b>쉽게:</b> <code>def</code>로 함수 정의. <code>f"{변수}"</code>=문자열에 값 끼워넣기(편함).</div>
+
+<h3>4. 반복·컴프리헨션</h3>
+<pre>for n in nums:
+    print(n)
+squared = [n*n for n in nums]   # 컴프리헨션 → [1,4,9]
+evens = [n for n in nums if n%2==0]</pre>
+<div class="easy"><b>쉽게:</b> 컴프리헨션 = "한 줄 for". 리스트를 빠르게 변형·필터. 파이썬 시그니처.</div>
+
+<h3>5. 클래스 (OOP)</h3>
+<pre>class Todo:
+    def __init__(self, title):   # 생성자
+        self.title = title
+        self.done = False
+    def toggle(self):
+        self.done = not self.done
+
+t = Todo("공부")
+t.toggle()</pre>
+<div class="easy"><b>쉽게:</b> 붕어빵 틀(class)로 붕어빵(객체) 찍기. <code>self</code>=자기 자신. 데이터+기능 묶음.</div>
+
+<h3>6. 모듈·가상환경</h3>
+<pre>pip install requests        # 패키지 설치
+import requests             # 가져오기
+python -m venv .venv        # 가상환경(프로젝트별 격리)
+source .venv/bin/activate</pre>
+<div class="easy"><b>쉽게:</b> venv = 프로젝트마다 따로 쓰는 도구상자(버전 충돌 방지). 필수 습관.</div>

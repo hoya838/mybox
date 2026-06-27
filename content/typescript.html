@@ -1,0 +1,54 @@
+<h1>TypeScript <span class="pill">프론트 + 백</span></h1>
+<p class="sub">JavaScript + 타입 안전장치. 큰 프로젝트 필수.</p>
+<div class="note"><b>선수</b>: JavaScript 기초 먼저(이건 JS에 타입만 더한 것).</div>
+
+<h2>기초 문법 — 순서대로</h2>
+<div class="tw"><table>
+<tr><th>#</th><th>배울 것</th><th>예시</th></tr>
+<tr><td>1</td><td>기본 타입</td><td><code>: string · number · boolean</code></td></tr>
+<tr><td>2</td><td>배열·튜플</td><td><code>number[]</code> · <code>[string, number]</code></td></tr>
+<tr><td>3</td><td>함수 타입</td><td><code>(a:number)=&gt;number</code></td></tr>
+<tr><td>4</td><td>인터페이스/타입</td><td><code>interface User{name:string}</code></td></tr>
+<tr><td>5</td><td>유니온·옵셔널</td><td><code>number|string</code> · <code>age?:number</code></td></tr>
+<tr><td>6</td><td>제네릭</td><td><code>function f&lt;T&gt;(x:T):T</code></td></tr>
+<tr><td>7</td><td>유틸리티 타입</td><td><code>Partial&lt;T&gt; · Pick&lt;T,K&gt;</code></td></tr>
+</table></div>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 타입 표기(string·number·boolean), 인터페이스, 함수 타입</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> 제네릭, 유니온·옵셔널, 타입 추론, 유틸리티 타입</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 타입 가드, 고급 제네릭, 타입 안전 API, tsconfig 설계</div></div>
+<pre>interface Todo { id: number; title: string; done: boolean; }
+function toggle(t: Todo): Todo {
+  return { ...t, done: !t.done };   // 타입 안 맞으면 미리 에러
+}</pre>
+<div class="easy"><b>만드는 것:</b> 오타·타입 실수가 실행 전에 잡히는 안전한 코드.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 타입 표기</h3>
+<pre>let name: string = "철수";
+let age: number = 20;
+let ok: boolean = true;
+let nums: number[] = [1, 2, 3];     // 숫자 배열
+function add(a: number, b: number): number { return a+b; }</pre>
+<div class="easy"><b>쉽게:</b> 변수 옆에 "이건 숫자야" 라벨. 문자열 넣으면 코딩 중 빨간 줄로 경고.</div>
+
+<h3>2. 인터페이스 — 객체 모양 정의</h3>
+<pre>interface User {
+  name: string;
+  age: number;
+  email?: string;   // ? = 있어도 없어도 됨(옵셔널)
+}
+const u: User = { name: "철수", age: 20 };</pre>
+<div class="easy"><b>쉽게:</b> "User는 이런 칸을 가져야 해" 설계도. 칸 빠지면 에러.</div>
+
+<h3>3. 유니온 — 여러 타입 허용</h3>
+<pre>let id: number | string;   // 둘 중 하나
+id = 1;     // OK
+id = "a1";  // OK
+type Status = "active" | "done";  // 정해진 값만</pre>
+<div class="easy"><b>쉽게:</b> <code>|</code>=또는. "숫자 또는 문자" 식으로 허용 범위 지정.</div>
+
+<h3>4. 제네릭 — 타입을 변수처럼</h3>
+<pre>function first&lt;T&gt;(arr: T[]): T { return arr[0]; }
+first([1,2,3]);       // number
+first(["a","b"]);     // string</pre>
+<div class="easy"><b>쉽게:</b> <code>T</code>=나중에 정해질 타입 자리. 한 함수로 여러 타입 안전하게.</div>

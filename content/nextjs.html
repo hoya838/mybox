@@ -1,0 +1,97 @@
+<h1>Next.js <span class="pill">프론트 (React 프레임워크)</span></h1>
+<p class="sub">React 기반 풀 프레임워크. 라우팅·서버렌더·API까지 한 틀에.</p>
+<div class="note"><b>선수</b>: JavaScript → <b>React 먼저</b>. Next.js = React에 라우팅·SSR·API를 얹은 것. 아래 React 기초가 곧 Next.js 기초.</div>
+<div class="card"><b>Next.js가 React에 더해주는 것</b>
+<div class="tw"><table>
+<tr><th>기능</th><th>뜻</th></tr>
+<tr><td>파일 기반 라우팅</td><td><code>app/about/page.tsx</code> = <code>/about</code> 자동 라우트</td></tr>
+<tr><td>서버 컴포넌트</td><td>기본이 서버 렌더 — 빠르고 SEO 좋음</td></tr>
+<tr><td>SSR / SSG</td><td>서버에서 미리 그려 보냄 / 빌드 때 정적 생성</td></tr>
+<tr><td>API Routes</td><td><code>app/api/todos/route.ts</code>로 백엔드 API도 같은 프로젝트에</td></tr>
+<tr><td>최적화 내장</td><td><code>&lt;Image&gt;</code>·폰트·번들 자동 최적화</td></tr>
+</table></div></div>
+<div class="easy"><b>쉽게:</b> React = 화면 조립 부품. Next.js = 그 부품 + "주소 자동 연결 + 서버에서 미리 그리기 + API까지" 다 갖춘 완성 키트. 실무 웹은 대부분 Next.js.</div>
+<h2>React 기초 (= Next.js 기초)</h2>
+
+<h2>기초 — 순서대로</h2>
+<div class="tw"><table>
+<tr><th>#</th><th>배울 것</th><th>예시</th></tr>
+<tr><td>1</td><td>컴포넌트·JSX</td><td><code>function App(){return &lt;h1&gt;Hi&lt;/h1&gt;}</code></td></tr>
+<tr><td>2</td><td>props</td><td><code>&lt;Hello name="철수"/&gt;</code></td></tr>
+<tr><td>3</td><td>state</td><td><code>const [n,setN]=useState(0)</code></td></tr>
+<tr><td>4</td><td>이벤트</td><td><code>onClick={()=&gt;setN(n+1)}</code></td></tr>
+<tr><td>5</td><td>리스트·조건</td><td><code>{arr.map(x=&gt;&lt;li key&gt;...)}</code></td></tr>
+<tr><td>6</td><td>useEffect</td><td><code>useEffect(()=&gt;{...},[])</code></td></tr>
+<tr><td>7</td><td>폼·입력</td><td>controlled input</td></tr>
+<tr><td>8</td><td>라우팅·상태관리</td><td>React Router · Context</td></tr>
+</table></div>
+<div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 컴포넌트·JSX, props, state(useState), 이벤트</div></div>
+<div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> useEffect, 리스트·조건 렌더, 폼, 커스텀 훅, 라우팅</div></div>
+<div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 상태관리(Context·Zustand), 성능(memo), Next.js(SSR)</div></div>
+<pre>function Todo({ title }) {
+  const [done, setDone] = useState(false);
+  return &lt;li onClick={() =&gt; setDone(!done)}&gt;
+    {done ? 'O' : '-'} {title}
+  &lt;/li&gt;;
+}</pre>
+<div class="easy"><b>만드는 것:</b> 클릭하면 바뀌는 동적 UI. 부품 재사용으로 빠르게.</div>
+
+<h2>핵심 개념</h2>
+<h3>1. 컴포넌트 + JSX</h3>
+<p>화면 조각을 <b>함수</b>로. HTML 같은 JSX를 반환.</p>
+<pre>function Hello({ name }) {     // props로 값 받기
+  return &lt;h1&gt;안녕 {name}&lt;/h1&gt;;  // JSX (HTML+JS)
+}
+&lt;Hello name="철수" /&gt;          // 사용</pre>
+<div class="easy"><b>쉽게:</b> 레고 블록 하나 = 컴포넌트. <code>{ }</code> 안엔 JS 값. 재사용 가능.</div>
+
+<h3>2. state — 바뀌는 값(useState)</h3>
+<pre>const [count, setCount] = useState(0);  // [값, 바꾸는함수]
+&lt;button onClick={() =&gt; setCount(count+1)}&gt;
+  {count}
+&lt;/button&gt;</pre>
+<div class="easy"><b>쉽게:</b> state 바뀌면 화면 <b>자동 다시 그림</b>. setCount로만 바꿔야 React가 앎.</div>
+
+<h3>3. useEffect — 부수 작업</h3>
+<pre>useEffect(() =&gt; {
+  fetch('/api/todos').then(r=&gt;r.json()).then(setTodos);
+}, []);   // [] = 처음 1번만 실행</pre>
+<div class="easy"><b>쉽게:</b> "화면 뜨면 데이터 불러와" 같은 곁다리 작업. <code>[]</code>=언제 실행할지.</div>
+
+<h3>4. 리스트 렌더</h3>
+<pre>{todos.map(t =&gt; (
+  &lt;li key={t.id}&gt;{t.title}&lt;/li&gt;   // key 필수
+))}</pre>
+<div class="easy"><b>쉽게:</b> 배열을 <code>map</code>으로 화면 요소들로. <code>key</code>=각 항목 구분표(React가 추적).</div>
+
+<h2>Next.js 핵심 (React 위에)</h2>
+<h3>1. 파일 기반 라우팅 (App Router)</h3>
+<p>폴더 구조가 곧 URL. 라우터 설정 코드 없음.</p>
+<pre>app/
+ ├ page.tsx          → /
+ ├ about/page.tsx    → /about
+ └ todos/[id]/page.tsx → /todos/3  (동적)</pre>
+<div class="easy"><b>쉽게:</b> 폴더 만들면 그게 주소. <code>[id]</code>=바뀌는 부분(상세페이지).</div>
+
+<h3>2. 서버 컴포넌트 (기본)</h3>
+<pre>// app/todos/page.tsx — 서버에서 실행
+async function Page() {
+  const todos = await db.query('SELECT * FROM todos'); // DB 직접!
+  return &lt;ul&gt;{todos.map(t =&gt; &lt;li&gt;{t.title}&lt;/li&gt;)}&lt;/ul&gt;;
+}</pre>
+<div class="easy"><b>쉽게:</b> 컴포넌트가 서버에서 돌아 DB를 직접 불러옴 → 빠르고 SEO 좋음. 클릭 동작 필요하면 <code>'use client'</code> 붙임.</div>
+
+<h3>3. API Routes (백엔드 내장)</h3>
+<pre>// app/api/todos/route.ts
+export async function GET() {
+  return Response.json([{ title: '공부' }]);
+}
+export async function POST(req) {
+  const body = await req.json(); ...
+}</pre>
+<div class="easy"><b>쉽게:</b> 프론트 프로젝트 안에 <b>백엔드 API까지</b>. 작은 서비스는 Next.js 하나로 끝(FastAPI·Express 없이도).</div>
+
+<h3>4. 시작하기</h3>
+<pre>npx create-next-app@latest my-app
+cd my-app && npm run dev   # localhost:3000</pre>
+<div class="note"><b>학습 순서</b>: JavaScript → React(컴포넌트·state·useEffect 위 기초) → Next.js(라우팅·서버컴포넌트·API). 백엔드를 Python(FastAPI)/Node(Express)로 따로 둘지, Next API로 합칠지는 규모 따라.</div>
