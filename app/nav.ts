@@ -1,31 +1,31 @@
 export const NAV = [
-  { sec: "학습", items: [
-    { slug: "roadmap", label: "로드맵" },
-    { slug: "web", label: "웹개발" },
-    { slug: "ai", label: "AI·LLM" },
-    { slug: "lectures", label: "강의" },
+  { sec: "학습", icon: "BookOpen", items: [
+    { slug: "roadmap", label: "로드맵", icon: "Map" },
+    { slug: "web", label: "웹개발", icon: "Globe" },
+    { slug: "ai", label: "AI·LLM", icon: "Cpu" },
+    { slug: "lectures", label: "강의", icon: "GraduationCap" },
   ]},
-  { sec: "언어 커리큘럼", items: [
-    { slug: "curriculum", label: "개요·분류·순서" },
-    { slug: "html-css", label: "HTML · CSS" },
-    { slug: "javascript", label: "JavaScript" },
-    { slug: "typescript", label: "TypeScript" },
-    { slug: "nextjs", label: "Next.js" },
-    { slug: "python", label: "Python" },
-    { slug: "fastapi", label: "FastAPI" },
-    { slug: "nodejs", label: "Node.js" },
-    { slug: "express", label: "Express" },
-    { slug: "postgresql", label: "PostgreSQL" },
+  { sec: "언어 커리큘럼", icon: "Code", items: [
+    { slug: "curriculum", label: "개요·분류·순서", icon: "List" },
+    { slug: "html-css", label: "HTML · CSS", icon: "FileCode" },
+    { slug: "javascript", label: "JavaScript", icon: "Braces" },
+    { slug: "typescript", label: "TypeScript", icon: "FileType" },
+    { slug: "nextjs", label: "Next.js", icon: "Triangle" },
+    { slug: "python", label: "Python", icon: "FileCode2" },
+    { slug: "fastapi", label: "FastAPI", icon: "Zap" },
+    { slug: "nodejs", label: "Node.js", icon: "Hexagon" },
+    { slug: "express", label: "Express", icon: "Route" },
+    { slug: "postgresql", label: "PostgreSQL", icon: "Database" },
   ]},
-  { sec: "실전", items: [
-    { slug: "build", label: "서비스 만들기" },
+  { sec: "실전", icon: "Rocket", items: [
+    { slug: "build", label: "서비스 만들기", icon: "Rocket" },
   ]},
-  { sec: "AI 도구", items: [
-    { slug: "ai-tools", label: "AI 도구" },
-    { slug: "claude-code", label: "클로드코드" },
-    { slug: "codex", label: "코덱스" },
+  { sec: "AI 도구", icon: "Sparkles", items: [
+    { slug: "ai-tools", label: "AI 도구", icon: "Sparkles" },
+    { slug: "claude-code", label: "클로드코드", icon: "Bot" },
+    { slug: "codex", label: "코덱스", icon: "Terminal" },
   ]},
-  { sec: "참고", items: [
-    { slug: "glossary", label: "용어사전" },
+  { sec: "참고", icon: "Library", items: [
+    { slug: "glossary", label: "용어사전", icon: "BookA" },
   ]},
 ];

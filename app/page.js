@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import { ArrowRight, Map } from 'lucide-react';
 
 export default function Landing() {
   return (
     <section className="landing">
-      <div className="blob b1" />
-      <div className="blob b2" />
-      <div className="blob b3" />
+      <div className="grid-bg" />
+      <div className="glow" />
       <div className="inner">
         <span className="eyebrow">입문 → 실무 → AI 도구</span>
         <h1>코딩 0에서<br />AI 시대 개발자까지</h1>
@@ -14,8 +14,8 @@ export default function Landing() {
           언어별 기초→심화, 예문과 쉬운 해석으로 정리한 학습 가이드.
         </p>
         <div className="cta">
-          <Link className="btn p" href="/roadmap">로드맵부터 시작</Link>
-          <Link className="btn g" href="/javascript">언어 바로가기</Link>
+          <Link className="btn p" href="/roadmap"><Map size={16} strokeWidth={1.9} /> 로드맵부터 시작</Link>
+          <Link className="btn g" href="/javascript">언어 바로가기 <ArrowRight size={16} strokeWidth={1.9} /></Link>
         </div>
       </div>
     </section>
