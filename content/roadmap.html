@@ -36,6 +36,15 @@
 </table></div>
 <div class="note"><b>입문은 REST부터.</b> 95%의 시작점. 나머지는 필요할 때(실시간=WebSocket, 데이터 효율=GraphQL).</div>
 
+<div class="card"><b>헷갈림 주의 — FastAPI는 API 종류가 아니다</b>
+<div class="tw"><table style="margin-top:8px">
+<tr><th></th><th>예시</th><th>정체</th></tr>
+<tr><td><b>API 설계 방식</b></td><td>REST · GraphQL · gRPC</td><td>"어떻게 주고받을지" 약속·스타일 (설계도)</td></tr>
+<tr><td><b>프레임워크</b></td><td>FastAPI · Express · Spring</td><td>그 API를 실제로 <b>만드는 연장</b> (공구)</td></tr>
+</table></div>
+</div>
+<div class="easy"><b>쉽게:</b> REST = 집 설계도(어떤 방식으로 지을지). <b>FastAPI</b> = 그 설계도대로 짓는 공구(Python용). Express = 같은 일을 하는 다른 공구(JS용). 즉 "FastAPI로 REST API를 만든다"가 맞는 말. → 자세히는 <b>FastAPI 탭</b>.</div>
+
 <h3>REST = 주소 + HTTP 메서드</h3>
 <p>REST는 <b>"자원을 URL로 표현하고, 행동은 HTTP 메서드로"</b>. 같은 주소 <code>/todos</code>라도 메서드가 다르면 다른 동작.</p>
 <pre>GET    /todos      → 목록 조회 (읽기)
