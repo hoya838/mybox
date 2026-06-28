@@ -112,6 +112,37 @@ PostgreSQL → FastAPI → JSON → React(목록 갱신)
 </div></div>
 <div class="note"><b>한 줄 정리</b>: Next.js 입문이면 <b>Vercel + Supabase</b>로 시작(공짜·코드 최소). 백엔드를 직접 깊게 짜려면 <b>Railway/Render</b> 추가. 한국 타깃·쇼핑몰이면 <b>카페24</b>. 셋은 경쟁이 아니라 <b>역할 분담</b>이다.</div>
 
+<h2>STEP 8. 헷갈림 정리 — API 키·데이터는 어디에, 서버는 몇 개? <span class="lv a">심화</span></h2>
+
+<h3>API 키는 어디에 두나 (2종류)</h3>
+<div class="tw"><table>
+<tr><th>키 종류</th><th>예시</th><th>저장 위치</th></tr>
+<tr><td>① Supabase 접속 키</td><td>anon key, service_role key</td><td>Supabase가 발급 → 호스팅 환경변수에 넣어 사용</td></tr>
+<tr><td>② 외부 서비스 키</td><td>OpenAI, 토스/Stripe 결제, 카카오 로그인</td><td><b>Supabase 아님</b> — 호스팅(Vercel/Railway) 환경변수</td></tr>
+</table></div>
+<div class="note"><b>환경변수(Environment Variables)</b>: 키를 코드에 직접 안 쓰고 플랫폼 대시보드에 따로 저장하는 칸. 코드는 <code>process.env.OPENAI_KEY</code>로 불러옴. <b>git·프론트 코드에 키 올리면 즉시 유출</b> — 반드시 환경변수.</div>
+<div class="easy"><b>규칙:</b> 비밀 키(service_role·결제·OpenAI)는 <b>백엔드/서버에서만</b> 사용. 프론트(브라우저)에 넣으면 누구나 볼 수 있음. Supabase anon key만 프론트 노출 OK(권한 제한됨).</div>
+
+<h3>데이터는 어디에</h3>
+<div class="tw"><table>
+<tr><th>데이터</th><th>저장 위치</th></tr>
+<tr><td>회원·게시글·할일 등 표 데이터</td><td>Supabase <b>Postgres</b></td></tr>
+<tr><td>로그인·세션·비밀번호</td><td>Supabase <b>Auth</b> (직접 저장 안 함, 맡김)</td></tr>
+<tr><td>이미지·첨부파일</td><td>Supabase <b>Storage</b></td></tr>
+<tr><td>외부 API 키·비밀값</td><td>호스팅 <b>환경변수</b> (DB 아님)</td></tr>
+</table></div>
+
+<h3>서버·호스팅 몇 개 필요? — "대수" 아닌 "플랫폼 수"</h3>
+<p>요즘은 서버를 직접 사서 관리(0대 가능)하지 않고, <b>매니지드 플랫폼 2~3개</b>를 조합한다. 각각 청구서 하나.</p>
+<div class="tw"><table>
+<tr><th>구성</th><th>프론트</th><th>백엔드</th><th>DB·인증·파일</th><th>플랫폼 수</th></tr>
+<tr><td><b>최소 (입문 추천)</b></td><td>Vercel</td><td colspan="2">Supabase가 백엔드+DB 다 담당</td><td><b>2개</b></td></tr>
+<tr><td>API 직접 운영</td><td>Vercel</td><td>Railway/Render</td><td>Supabase 또는 Railway Postgres</td><td><b>2~3개</b></td></tr>
+<tr><td>올인원(국내·전통)</td><td colspan="3">카페24 가상서버 1대에 프론트+백+DB 전부 설치</td><td><b>1개</b></td></tr>
+</table></div>
+<div class="note"><b>핵심</b>: "Vercel + Supabase = 2개"가 가장 흔한 실전 구성. <b>직접 관리하는 물리 서버는 0대</b> — 둘 다 클라우드가 알아서 켜고 끈다. 트래픽 늘어도 자동 확장. 옛날 방식(VPS 1대에 다 깔기)은 관리 부담 대신 비용·통제 이점.</div>
+<div class="easy"><b>실서비스 추가 조각(선택):</b> 도메인 등록(가비아·Cloudflare), 이메일 발송(Resend), 결제(토스페이먼츠·Stripe), 에러 모니터링(Sentry). 이건 "서버"가 아니라 붙이는 외부 서비스 — 각각 키를 환경변수에 넣어 연결.</div>
+
 <h2>정리 — 어디서 뭘 썼나</h2>
 <div class="tw"><table>
 <tr><th>단계</th><th>기술</th><th>분류</th></tr>
