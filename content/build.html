@@ -56,6 +56,62 @@ PostgreSQL → FastAPI → JSON → React(목록 갱신)
 <div class="step"><div class="n">2</div><div class="b">프론트는 정적 호스팅(Vercel 등)</div></div>
 <div class="step"><div class="n">3</div><div class="b">도메인 사고 DNS 연결 → 누구나 접속</div></div>
 
+<h2>STEP 7. 어디에 올릴까 — 배포·서비스 추천 <span class="lv a">심화</span></h2>
+<p>웹서비스는 <b>3개 층</b>으로 나눠 각각 다른 곳에 올린다. 한 곳에 다 넣을 필요 없음 — 층마다 잘하는 플랫폼이 다르다.</p>
+<div class="note"><b>3층 구조</b>: ① <b>프론트</b>(사용자 화면·정적/SSR) ② <b>백엔드</b>(API 서버·항상 켜짐) ③ <b>DB</b>(데이터 저장). 플랫폼은 이 중 하나 또는 둘을 담당한다.</div>
+
+<h3>추천 조합 (목적별)</h3>
+<div class="tw"><table>
+<tr><th>상황</th><th>프론트</th><th>백엔드·DB</th><th>왜</th></tr>
+<tr><td><b>입문·개인 (가장 추천)</b></td><td>Vercel</td><td>Supabase</td><td>둘 다 무료티어 + git push 배포. 백엔드 코드 거의 안 짜도 됨</td></tr>
+<tr><td>풀스택 직접 (FastAPI·Express)</td><td>Vercel</td><td>Railway / Render</td><td>내 API 서버를 컨테이너로 직접 운영 + Postgres 추가</td></tr>
+<tr><td>한국 사용자·전자상거래</td><td>카페24 / Vercel</td><td>카페24 가상서버 / AI SPACE</td><td>국내 서버 속도·한국어 지원·결제/법규 대응</td></tr>
+<tr><td>AI 기능 (벡터검색)</td><td>Vercel</td><td>Supabase (pgvector)</td><td>Postgres 확장 제한 없음 — pgvector 기본 지원</td></tr>
+</table></div>
+
+<h3>플랫폼별 정리</h3>
+
+<h4>프론트(화면) — Vercel · Netlify · 카페24</h4>
+<p><b>Vercel</b> <span class="pill">프론트</span> <span class="pill">서버리스</span> — Next.js 만든 회사. git push 한 번에 배포·미리보기·HTTPS 자동·전세계 CDN. <b>Next.js면 1순위.</b> API Routes(서버리스 함수)도 같이 돌아가 가벼운 백엔드는 따로 안 필요.</p>
+<div class="easy"><b>한계:</b> 항상 켜진 서버(웹소켓·장시간 작업·무거운 Python)는 부적합. 함수가 잠깐 떴다 꺼지는 구조. <b>DB 없음</b> → Supabase 등 붙여야 함.</div>
+<p><b>Netlify</b> — Vercel과 거의 동급 대안. 정적·JAMstack 강함. Next.js 최적화는 Vercel이 우위.</p>
+
+<h4>백엔드+DB 한방 — Supabase</h4>
+<p><b>Supabase</b> <span class="pill">백엔드</span> <span class="pill">DB</span> — "백엔드를 코드 없이". <b>PostgreSQL + 회원가입/로그인(Auth) + 파일저장(Storage) + 실시간 + 자동 API</b>를 한 번에. STEP 2~3(DB·API)을 직접 안 짜도 프론트에서 바로 호출.</p>
+<div class="easy"><b>이건:</b> 테이블만 만들면 <code>supabase.from('todos').select()</code>처럼 프론트에서 DB 직접 호출. 인증도 함수 한 줄. 풀 Postgres라 확장(pgvector 등) 제한 없음.</div>
+<div class="note"><b>Vercel과 관계</b>: <b>경쟁 아님, 짝꿍.</b> Vercel=프론트, Supabase=백엔드·DB. 2026년 Next.js 앱의 기본 스택. 각각 무료→유료 $20·$25 별도.</div>
+
+<h4>내 서버 직접 운영 — Railway · Render</h4>
+<p><b>Railway / Render</b> <span class="pill">백엔드</span> <span class="pill">인프라</span> — FastAPI·Express 같은 <b>내가 짠 서버 코드를 컨테이너로 직접</b> 올림(Heroku 후속). Postgres도 클릭 한 번 추가. Vercel이 못하는 "항상 켜진 서버"를 담당.</p>
+<div class="tw"><table>
+<tr><th></th><th>Railway</th><th>Render</th></tr>
+<tr><td>과금</td><td>분당 사용량 기반(쓴 만큼)</td><td>월 고정·넉넉한 무료티어</td></tr>
+<tr><td>성향</td><td>속도·유연·변동 워크로드</td><td>예산 예측·취미/소규모 안정</td></tr>
+</table></div>
+<div class="easy"><b>Supabase와 차이:</b> Supabase는 "이미 만들어진 백엔드"를 빌려쓰는 것, Railway/Render는 "내 백엔드 코드"를 올리는 것. 커스텀 로직 많으면 후자.</div>
+
+<h4>한국 서비스 — 카페24</h4>
+<p><b>카페24</b> <span class="pill">한국</span> <span class="pill">호스팅</span> — 국내 전통 호스팅. 종류가 여럿:</p>
+<div class="tw"><table>
+<tr><th>상품</th><th>용도</th></tr>
+<tr><td>웹호스팅(뉴아우토반)</td><td>정적 사이트·PHP — 가장 쉬움</td></tr>
+<tr><td>Node.js 호스팅</td><td>JS 서버 구동. git push 방식(Heroku 유사), FTP 아님</td></tr>
+<tr><td>가상서버(VPS)</td><td>리눅스 직접 구축 — 자유도 최고, 직접 관리</td></tr>
+<tr><td>AI SPACE</td><td>신규. 월 4,900원·한국서버·DB 내장·한국어 — Vercel/Railway 국내 대안</td></tr>
+</table></div>
+<div class="easy"><b>언제:</b> 사용자가 한국 위주(속도), 국내 결제·사업자·고객센터가 필요, 쇼핑몰. <b>주의:</b> Vercel/Supabase보다 배포가 번거롭다(git 터미널·SSL 설정). 편의성은 해외 플랫폼 우위.</div>
+
+<h3>전체 상관관계 한눈에</h3>
+<div class="card">데이터 흐름과 담당 플랫폼:
+<div style="line-height:2.1;margin-top:8px">
+브라우저 → <b>[Vercel]</b> 프론트(React/Next) → API 호출<br>
+&nbsp;&nbsp;↳ 가벼우면 <b>[Vercel]</b> 서버리스 함수에서 처리<br>
+&nbsp;&nbsp;↳ 백엔드 빌려쓰기 <b>[Supabase]</b> (Auth·DB·Storage 자동)<br>
+&nbsp;&nbsp;↳ 내 서버 직접 <b>[Railway/Render]</b> FastAPI·Express → <b>[Postgres]</b><br>
+국내 통합 운영 → <b>[카페24 가상서버 / AI SPACE]</b>
+</div></div>
+<div class="note"><b>한 줄 정리</b>: Next.js 입문이면 <b>Vercel + Supabase</b>로 시작(공짜·코드 최소). 백엔드를 직접 깊게 짜려면 <b>Railway/Render</b> 추가. 한국 타깃·쇼핑몰이면 <b>카페24</b>. 셋은 경쟁이 아니라 <b>역할 분담</b>이다.</div>
+
 <h2>정리 — 어디서 뭘 썼나</h2>
 <div class="tw"><table>
 <tr><th>단계</th><th>기술</th><th>분류</th></tr>
@@ -64,5 +120,6 @@ PostgreSQL → FastAPI → JSON → React(목록 갱신)
 <tr><td>API 서버</td><td>FastAPI / Express</td><td>백엔드</td></tr>
 <tr><td>화면</td><td>React (HTML·CSS·JS·TS)</td><td>프론트</td></tr>
 <tr><td>배포</td><td>도커·클라우드·도메인</td><td>인프라</td></tr>
+<tr><td>호스팅(어디에)</td><td>Vercel(프론트)·Supabase/Railway/Render·카페24(국내)</td><td>플랫폼</td></tr>
 </table></div>
 <div class="note"><b>핵심</b>: 이 Todo 앱 한 번 끝까지 만들면 — DB·API·프론트·연결·배포 전체 흐름이 손에 익는다. 그다음 어떤 서비스든 이 틀의 확장. (vault "서비스 개발 전체과정"·"신입 백엔드 최소기준" 참고)</div>
