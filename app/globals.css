@@ -42,7 +42,7 @@ a{color:var(--ink);text-decoration:none}a:hover{text-decoration:underline}
 .drawer{display:none}
 
 /* ===== 본문 (content-band) ===== */
-.main{max-width:1400px;margin:0 auto;padding:56px 24px 96px}
+.main{max-width:1400px;margin:0 auto;padding:86px 24px 96px}
 .panel{max-width:1000px;margin:0 auto;display:block}
 .eyebrow,.kv{font-family:"Geist Mono","SF Mono",Menlo,monospace;text-transform:uppercase;letter-spacing:.12em;
   font-size:12px;color:var(--mut)}
@@ -127,6 +127,6 @@ footer{color:var(--mut);font-size:13px;border-top:1px solid var(--hairline);padd
   .drawer a{display:flex;align-items:center;gap:10px;color:var(--body);padding:10px 8px;border-radius:6px;font-size:15px}
   .drawer a svg{color:var(--mut)}
   .drawer a:hover,.drawer a.active{background:var(--canvas-soft);color:var(--ink);text-decoration:none}
-  .main{padding:36px 16px 64px}h2{font-size:26px}body{font-size:15px}
+  .main{padding:66px 16px 64px}h2{font-size:26px}body{font-size:15px}
   table{display:block;overflow-x:auto;white-space:nowrap}
 }
