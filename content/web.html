@@ -24,6 +24,22 @@
 </table>
 <div class="ex"><b>예문:</b> 로그인 = 프론트가 보낸 아이디/비번을 백엔드가 받아 DB의 회원 정보와 대조  맞으면 "통과" 응답.</div>
 
+<h3>웹서버 vs WAS — 뭐가 다른가</h3>
+<p>둘 다 "서버"지만 역할이 다르다. <b>웹서버</b>는 앞단 <b>문지기</b>, <b>WAS</b>는 뒷단 <b>주방</b>.</p>
+<div class="tw"><table>
+<tr><th></th><th>웹서버 (Web Server)</th><th>WAS (Web Application Server)</th></tr>
+<tr><td>역할</td><td>요청 받기 + <b>정적 파일</b>(HTML·CSS·이미지) 그대로 전달</td><td><b>동적 처리</b> — 로그인·DB조회·계산 등 로직 실행</td></tr>
+<tr><td>처리</td><td>이미 만들어진 파일을 꺼내 줌 (연산 거의 없음)</td><td>요청마다 그 자리에서 결과를 <b>만들어</b> 냄</td></tr>
+<tr><td>예시 제품</td><td>Nginx · Apache</td><td>Tomcat · Node.js · (Spring·Django 구동)</td></tr>
+<tr><td>비유</td><td>식당 <b>카운터·홀</b> — 주문 받고 완성품 서빙, 정해진 건 바로 줌</td><td><b>주방</b> — 주문대로 요리(연산)</td></tr>
+</table></div>
+<div class="card">요청 흐름:
+<div style="line-height:2;margin-top:6px">
+브라우저 → <b>[웹서버]</b> 정적이면(이미지·HTML) 바로 응답<br>
+&nbsp;&nbsp;↳ 동적이면(로그인·검색) → <b>[WAS]</b> 로직 실행 → <b>[DB]</b> 조회 → 결과를 웹서버 거쳐 응답
+</div></div>
+<div class="easy"><b>왜 나눠?</b> 웹서버가 앞에서 정적 요청·트래픽을 빠르게 쳐내고, 무거운 연산만 WAS로 넘겨 <b>부하 분산·보안</b>. 작은 프로젝트는 한 덩어리(Node 하나)로도 가능 — 커지면 분리.</div>
+
 <h2>③ API / REST</h2>
 <p>프론트와 백엔드가 데이터 주고받는 <b>약속(메뉴판)</b>. "이렇게 요청하면 이렇게 응답한다."</p>
 <div class="card"><b>REST = CRUD</b> (가장 널리 쓰는 형식)
