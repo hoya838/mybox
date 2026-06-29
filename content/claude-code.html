@@ -197,7 +197,7 @@
 <h2>③ 더 알아둘 관련 용어</h2>
 <table>
 <tr><th>용어</th><th>뜻 / 쉽게</th></tr>
-<tr><td><b>AGENTS.md</b></td><td>CLAUDE.md의 도구 중립 버전(표준화 움직임). 역할 동일 — 항상 읽히는 규칙</td></tr>
+<tr><td><b>AGENTS.md</b></td><td>CLAUDE.md의 도구 중립 버전(표준화 움직임). 코덱스 등이 읽음. 클로드는 <code>@AGENTS.md</code> 임포트해야 봄 (↓ 우선순위 참고)</td></tr>
 <tr><td><b>SOUL.md / IDENTITY.md</b></td><td>표준 아닌 <b>프로젝트 관습</b>. 팀의 정체성·가치관을 적어 hook으로 항상 로드(이 위키가 쓰는 방식)</td></tr>
 <tr><td><b>settings.json</b></td><td>권한·환경변수·훅 설정 파일(<code>.claude/</code>)</td></tr>
 <tr><td><b>permissions(권한)</b></td><td>AI가 쓸 수 있는 도구 허용목록(Read·Write·Bash 등)</td></tr>
@@ -207,6 +207,16 @@
 <tr><td><b>오케스트레이션</b></td><td>여러 에이전트의 흐름을 조율</td></tr>
 <tr><td><b>permission mode</b></td><td>자동승인 정도(plan·default·accept edits 등)</td></tr>
 </table>
+
+<h3>CLAUDE.md vs AGENTS.md — 둘 다 있으면 뭘 읽나</h3>
+<div class="tw"><table>
+<tr><th>툴</th><th>기본으로 읽는 파일</th></tr>
+<tr><td>클로드 코드</td><td><b>CLAUDE.md</b> (AGENTS.md는 자동으로 안 읽음)</td></tr>
+<tr><td>코덱스 등 타 툴</td><td><b>AGENTS.md</b></td></tr>
+</table></div>
+<div class="note"><b>둘 다 있으면?</b> 클로드는 <b>CLAUDE.md만</b> 보고 AGENTS.md는 무시. 서로 폴백 안 함. AGENTS.md를 쓰려면 CLAUDE.md 안에서 <code>@AGENTS.md</code>로 <b>임포트</b>해야 함.</div>
+<div class="ex"><b>우선순위:</b> CLAUDE.md에 <b>직접 쓴 규칙</b> &gt; 임포트한 AGENTS.md. 임포트는 가장 약한 층 — 충돌 시 직접 규칙이 항상 이김(작업 폴더에 가까운 게 뒤에 붙어 우선).</div>
+<div class="easy"><b>권장 패턴(Anthropic 공식):</b> 공통 규칙은 AGENTS.md에 두고, CLAUDE.md엔 <code>@AGENTS.md</code> 한 줄 + 클로드 전용 오버라이드만. → 한 벌 규칙을 두 툴(클로드·코덱스)이 공유. <span class="pill">한 벌 관리</span></div>
 
 <h2>④ 멀티에이전트 시스템 (동적 워크플로우·팀즈·뷰)</h2>
 <p>서브에이전트 여럿을 굴리는 방식들. <b>구분 기준 = 조율 계획을 누가 드냐.</b></p>
