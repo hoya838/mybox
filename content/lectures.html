@@ -1,140 +1,102 @@
-<h1>강의 — 로드맵 단계별 수업</h1>
-<p class="sub">roadmap.sh 순서대로. 각 강의 = 개념 + 예문(코드) + 쉬운 해석.</p>
+<h1>강의 — 한 서비스가 도는 과정을 따라가며 배우기</h1>
+<p class="sub">"온라인 책방"을 하나 만든다고 상상하자. 손님이 책을 주문하는 순간부터 끝까지 따라가면, 웹개발 전체가 자연스럽게 이어진다. 외울 필요 없이 흐름으로.</p>
 
-<h2>프론트엔드 트랙</h2>
+<div class="note"><b>이 강의의 약속</b>: 흩어진 용어 암기 X. <b>책방 주문 시나리오 하나</b>를 처음부터 끝까지 따라간다. 각 장면에서 필요한 기술이 "왜 여기서 등장하는지" 자연스럽게 만난다.</div>
 
-<h3>1강. HTML — 화면 뼈대 <span class="lv b">입문</span></h3>
-<p>웹페이지의 <b>구조·내용</b>을 만드는 마크업. 태그로 요소를 표시.</p>
-<pre>&lt;h1&gt;제목&lt;/h1&gt;
-&lt;p&gt;문단 내용&lt;/p&gt;
-&lt;a href="https://naver.com"&gt;링크&lt;/a&gt;
-&lt;button&gt;클릭&lt;/button&gt;</pre>
-<div class="easy"><b>쉽게:</b> 집 짓기로 치면 골조·벽. <code>&lt;h1&gt;</code>=큰 제목, <code>&lt;p&gt;</code>=문단, <code>&lt;a&gt;</code>=링크. 여는 태그 <code>&lt;p&gt;</code>·닫는 태그 <code>&lt;/p&gt;</code> 짝.</div>
+<h2>장면 0. 우리가 만들 것</h2>
+<p>온라인 책방. 손님이 <b>책 목록을 보고 → 주문하고 → 주문내역을 확인</b>한다. 딱 이 세 가지. 이 한 바퀴 안에 프론트·백엔드·DB·API·배포가 전부 들어있다. 하나씩 따라가 보자.</p>
 
-<h3>2강. CSS — 꾸미기 <span class="lv b">입문</span></h3>
-<p>HTML 요소의 <b>색·크기·배치</b>를 지정.</p>
-<pre>h1 { color: blue; font-size: 32px; }
-.box { background: gray; padding: 20px; }</pre>
-<div class="ex"><b>예문:</b> <code>h1 { color: blue }</code> = "모든 제목을 파란색으로". <code>.box</code>는 class="box"인 요소에 적용.</div>
-<div class="easy"><b>쉽게:</b> HTML이 골조면 CSS는 페인트·인테리어. "이 부분을 이렇게 보이게" 지시.</div>
-
-<h3>3강. JavaScript — 동작 <span class="lv b">입문</span></h3>
-<p>버튼 클릭·데이터 변경 등 <b>움직임</b>을 담당. 웹의 공용 프로그래밍 언어.</p>
-<pre>const btn = document.querySelector('button');
+<h2>장면 1. 손님이 화면을 본다 — 프론트엔드</h2>
+<p>손님이 우리 사이트에 들어오면 <b>화면</b>이 보인다. 이 화면을 만드는 게 프론트엔드, 세 가지로 이뤄진다.</p>
+<p>먼저 <b>HTML</b>로 뼈대를 세운다. 무엇이 화면에 있는지(제목·목록·버튼).</p>
+<pre>&lt;h1&gt;우리 책방&lt;/h1&gt;
+&lt;ul id="book-list"&gt;&lt;/ul&gt;        &lt;!-- 책 목록이 들어갈 자리 --&gt;
+&lt;button id="buy"&gt;주문하기&lt;/button&gt;</pre>
+<div class="easy"><b>쉽게:</b> 집의 골조·벽. 여는 <code>&lt;h1&gt;</code>·닫는 <code>&lt;/h1&gt;</code> 짝으로 "여긴 제목"을 표시.</div>
+<p>뼈대만 있으면 밋밋하다. <b>CSS</b>로 색·크기·배치를 입힌다.</p>
+<pre>h1 { color: #6ea8fe; font-size: 32px; }
+button { background: black; color: white; padding: 10px 20px; }</pre>
+<div class="easy"><b>쉽게:</b> HTML이 골조면 CSS는 페인트·인테리어. 화면(그릇)이 작아지면 모양이 바뀌게 하는 게 <b>반응형 디자인</b> — 폰에선 메뉴를 햄버거(☰)로 접는 식.</div>
+<p>그런데 화면은 가만히 있으면 안 된다. 버튼을 누르면 <b>움직여야</b> 한다. 그게 <b>JavaScript</b>.</p>
+<pre>const btn = document.querySelector('#buy');
 btn.addEventListener('click', () =&gt; {
-  alert('안녕!');   // 클릭하면 알림창
+  // 주문하기를 누르면... 여기서 무슨 일이 일어날까? (장면 2로)
 });</pre>
-<div class="easy"><b>쉽게:</b> 집의 전기·움직이는 장치. "버튼 누르면(이벤트)  이렇게 해라" 적는 것.</div>
+<div class="easy"><b>쉽게:</b> 집의 전기·움직이는 장치. "버튼 누르면(이벤트) → 이렇게 해라". 그리고 모두가 쓰게 하려면(<b>접근성</b>) 이미지에 <code>alt</code> 설명을, 헤매지 않게(<b>UX</b>) 버튼은 버튼처럼 보이게.</div>
 
-<h3>4강. Git — 버전관리 <span class="lv b">입문</span></h3>
-<p>코드 변경 이력을 저장·되돌리기. 협업 필수.</p>
-<pre>git add .          # 변경 담기
-git commit -m "로그인 기능 추가"   # 저장(스냅샷)
-git push           # 원격(GitHub)에 올리기</pre>
-<div class="easy"><b>쉽게:</b> 게임 세이브 포인트. 망치면 이전 저장으로 복구. 여럿이 같이 작업할 때 충돌도 관리.</div>
+<h2>장면 2. "주문하기"를 누르면? — 요청(Request)</h2>
+<p>손님이 버튼을 눌렀다. 그런데 책 주문 정보는 <b>우리 서버 컴퓨터</b>로 보내야 저장된다. 내 브라우저(클라이언트)가 서버에 <b>메시지</b>를 보낸다. 이걸 <b>요청(request)</b>이라 한다.</p>
+<pre>fetch('/orders', {
+  method: 'POST',                 // 타입: 새로 만든다
+  body: JSON.stringify({ bookId: 3, qty: 1 })  // 무슨 책 몇 권
+});</pre>
+<div class="ex"><b>요청 안에 든 것:</b> 타입(POST=생성)·목적지(도메인)·경로(<code>/orders</code>)·내용(주문 정보).</div>
+<div class="easy"><b>쉽게:</b> 식당에서 점원에게 주문서를 건네는 것. "이 책, 한 권요." 어디로 가는지(도메인)·뭘 하려는지(타입+경로)가 적혀 있다.</div>
+<p>여기서 <b>경로 이름 짓는 약속</b>이 <b>REST</b>다. 경로는 명사(<code>/orders</code>), 동작은 타입(메서드)으로.</p>
+<pre>POST   /orders     주문 생성
+GET    /orders     주문 목록 조회
+DELETE /orders/3   3번 주문 취소</pre>
+<div class="easy"><b>쉽게:</b> 메뉴판 약속. 명사(주문)+동사(만들기/보기/지우기)로 나눈다. REST 말고 GraphQL·RPC 약속도 있지만, 입문은 REST.</div>
 
-<h3>5강. 반응형 디자인 <span class="lv b">입문</span></h3>
-<p>화면 크기(PC·모바일)에 맞춰 레이아웃이 <b>자동 변형</b>.</p>
-<pre>@media (max-width: 600px) {
-  .menu { display: none; }   /* 폰에선 메뉴 숨김 */
-}</pre>
-<div class="easy"><b>쉽게:</b> 물처럼 그릇(화면)에 맞춰 모양 바뀜. PC는 가로 메뉴, 폰은 햄버거 메뉴.</div>
+<h2>장면 3. 서버가 메시지를 받는다 — 백엔드</h2>
+<p>요청이 서버에 도착했다. 그런데 컴퓨터는 원래 인터넷 메시지를 못 받는다. <b>받을 수 있게 프로그래밍</b>해야 한다. 그래서 백엔드 언어가 필요하다(Python·JavaScript·Java…). 입문은 <b>Python</b>이나 <b>Node.js</b>.</p>
+<p>맨바닥부터 짜면 코드가 너무 많다. <b>프레임워크</b>(서버 조립 키트)를 쓴다.</p>
+<pre># FastAPI (Python) — "POST /orders 오면 이렇게 처리해라"
+@app.post("/orders")
+def create_order(order):
+    # 1) 주문을 저장하고  2) 결과를 돌려준다 (장면 4로)
+    ...</pre>
+<div class="easy"><b>쉽게:</b> 골격은 프레임워크가 깔아주고, 나는 "주문 오면 뭘 할지"만 채운다. 그리고 남이 만든 기능(<b>라이브러리</b>)은 <b>패키지 매니저</b>로 설치 — <code>pip install fastapi</code> / <code>npm install express</code>. "바퀴를 다시 발명하지 마라."</div>
 
-<h3>6강. 접근성(a11y) <span class="lv b">입문</span></h3>
-<p>장애가 있어도 쓸 수 있게. 시각장애인 화면낭독기 등.</p>
-<div class="ex"><b>예문:</b> <code>&lt;img src="cat.jpg" alt="고양이 사진"&gt;</code> — <code>alt</code>로 이미지 설명  낭독기가 읽어줌.</div>
-<div class="easy"><b>쉽게:</b> 모두가 쓰게 만들기. 점자블록·경사로 같은 거.</div>
+<h2>장면 4. 주문을 저장한다 — 데이터베이스</h2>
+<p>서버가 주문을 받았으니 <b>어딘가 저장</b>해야 한다. 안 그러면 껐다 켜면 사라진다(그게 변수). 영구 보관은 <b>데이터베이스(DB)</b>. 대표는 PostgreSQL·MySQL.</p>
+<pre>-- 주문 한 건 저장 (Create)
+INSERT INTO orders (book_id, qty) VALUES (3, 1);
+-- 내 주문 다 보기 (Read)
+SELECT * FROM orders WHERE user_id = 12;</pre>
+<div class="easy"><b>쉽게:</b> DB=엑셀 창고, 테이블=종류별 시트. 다루는 4동작이 <b>CRUD</b>(생성·조회·수정·삭제) — 장면 2의 REST 메서드(POST·GET·PATCH·DELETE)와 정확히 짝.</div>
+<div class="note"><b>흐름 점검</b>: 버튼 클릭 → <code>POST /orders</code>(요청) → FastAPI가 받음 → <code>INSERT</code>로 DB 저장. 절반 왔다. 이제 손님에게 결과를 돌려줄 차례.</div>
 
-<h3>7강. UX 원칙 <span class="lv b">입문</span></h3>
-<p>사용자 경험. "쓰기 편한가?" 직관적 흐름·일관성.</p>
-<div class="easy"><b>쉽게:</b> 처음 온 사람도 헤매지 않게. 버튼은 버튼처럼 보이게, 중요한 건 위에.</div>
+<h2>장면 5. 결과가 화면으로 돌아온다 — 응답(Response)</h2>
+<p>서버가 저장을 마치고 손님에게 "주문 완료!"를 보낸다. 이게 <b>응답(response)</b>. 요청↔응답 한 바퀴를 <b>요청-응답 사이클</b>이라 하고, 이게 모든 웹서비스가 도는 방식이다.</p>
+<pre>// 프론트: 응답을 받아 화면 갱신
+fetch('/orders').then(r =&gt; r.json()).then(orders =&gt; {
+  // 받은 주문 목록을 화면(HTML)에 그린다
+});</pre>
+<div class="easy"><b>쉽게:</b> 점원이 주방(DB)에 주문 넣고 → "나왔습니다" 하고 음식을 가져다주는 것. 프론트는 그걸 받아 화면에 다시 그린다. 이 <b>API 연동</b>이 프론트·백을 잇는 다리.</div>
 
-<h3>8강. RESTful API 연동 <span class="lv m">중급</span></h3>
-<p>백엔드에서 데이터를 가져와 화면에 표시.</p>
-<pre>fetch('/api/books')          // 책 목록 요청
-  .then(res =&gt; res.json())
-  .then(data =&gt; console.log(data));  // 받은 데이터 사용</pre>
-<div class="ex"><b>예문:</b> 쇼핑몰 상품 목록 = <code>fetch('/api/products')</code>로 서버에서 받아와 화면에 그림.</div>
-<div class="easy"><b>쉽게:</b> 점원(API)에게 "상품 목록 줘"  받아서 화면에 뿌리기.</div>
+<h2>장면 6. "근데 너 누구야?" — 인증·인가</h2>
+<p>주문하려면 로그인이 필요하다. <b>인증</b>=너 누구냐(로그인), <b>인가</b>=뭘 할 수 있냐(권한).</p>
+<div class="ex"><b>예문:</b> 로그인(인증) → 토큰 발급 → 내 주문만 조회 가능(인가). 남의 주문 삭제 시도 → 거부(403).</div>
+<div class="easy"><b>쉽게:</b> 인증=출입증, 인가=갈 수 있는 층. 비밀번호를 직접 관리하면 위험하니 보통 <b>구글·카카오 로그인(소셜 로그인)</b>으로 맡긴다 — "비밀번호를 내가 안 갖는다"가 핵심.</div>
 
-<h3>9강. 테스트 & 디버깅 <span class="lv m">중급</span></h3>
-<p>코드가 의도대로 도는지 확인·버그 잡기. 코딩 시간의 80%.</p>
-<pre>console.log(변수);   // 값 찍어보며 추적
-// 테스트: 입력 X 넣으면 결과 Y 나오나 자동 확인</pre>
-<div class="easy"><b>쉽게:</b> 디버깅 = 고장 원인 찾기. <code>console.log</code>로 "여기까지 값이 뭐지?" 하나씩 확인.</div>
+<h2>장면 7. 세상에 공개한다 — 배포·클라우드</h2>
+<p>지금까진 내 컴퓨터(로컬)에서만 돈다. 친구도 쓰게 하려면 인터넷에 올려야 한다 = <b>배포</b>. 서버 컴퓨터는 직접 사지 않고 <b>빌린다</b>(클라우드).</p>
+<div class="tw"><table>
+<tr><th>단계</th><th>뜻</th><th>쉽게</th></tr>
+<tr><td>IaaS</td><td>가상 컴퓨터를 빌림(AWS·GCP)</td><td>빈 땅 임대</td></tr>
+<tr><td>PaaS</td><td>코드만 올리면 자동 배포(Vercel·Railway)</td><td>풀옵션 입주</td></tr>
+<tr><td>SaaS</td><td>완성 기능을 API로 빌림(이메일·결제)</td><td>완제품 구독</td></tr>
+</table></div>
+<div class="easy"><b>쉽게:</b> 손님 몰리면(명절) 서버 여러 대로 늘리고 <b>로드밸런서</b>가 요청을 나눠준다(작업반장). 입문은 <b>PaaS(Vercel+Supabase)</b>로 <code>git push</code> 한 번이면 끝.</div>
 
-<h3>10강. 브라우저 개발자도구 <span class="lv m">중급</span></h3>
-<p>F12. 화면 요소 검사·네트워크 요청·콘솔 오류 확인.</p>
-<div class="easy"><b>쉽게:</b> 웹페이지의 X-레이. 어떤 HTML·CSS인지, 어떤 데이터 오갔는지 다 보임.</div>
+<h2>장면 8. 더 빠르고 튼튼하게 — 운영 기술</h2>
+<p>서비스가 돌기 시작하면 다듬는다. 이 단계 기술들은 흐름의 곳곳을 보강한다.</p>
+<div class="step"><div class="n">1</div><div class="b"><b>테스트·디버깅</b> — 의도대로 도는지 확인하고 버그 잡기. <code>console.log</code>로 값 추적. 코딩 시간의 80%.</div></div>
+<div class="step"><div class="n">2</div><div class="b"><b>브라우저 개발자도구(F12)</b> — 화면의 X-레이. HTML·네트워크 요청·콘솔 오류 다 보임.</div></div>
+<div class="step"><div class="n">3</div><div class="b"><b>성능 최적화</b> — 이미지 압축·지연로딩·<b>캐시(Redis)</b>로 빠르게. "3초 안 뜨면 절반 이탈."</div></div>
+<div class="step"><div class="n">4</div><div class="b"><b>Git</b> — 코드 세이브 포인트·협업. 처음부터 끝까지 매일 <code>commit·push</code>.</div></div>
 
-<h3>11강. 웹 성능 최적화 <span class="lv m">중급</span></h3>
-<p>빨리 뜨게. 이미지 압축·코드 줄이기·로딩 순서.</p>
-<div class="ex"><b>예문:</b> 큰 이미지를 그대로 올리면 느림  압축·지연로딩(보일 때 로드).</div>
-<div class="easy"><b>쉽게:</b> 페이지 = 가벼울수록 빨리 열림. 라이트하우스로 점수 측정(성능·접근성·SEO).</div>
+<h2>장면 9. 규모가 커지면 — 심화 선택지</h2>
+<p>책방이 잘 돼서 코드가 커지면 다음을 만난다. 필요해질 때 배우면 된다.</p>
+<div class="dgrid">
+<div class="dcard"><div class="t">TypeScript</div><div class="d">JS에 안전벨트. "이건 숫자" 미리 정해 오타·타입 오류를 코딩 중 차단. 큰 프로젝트 필수.</div></div>
+<div class="dcard"><div class="t">React / Next.js</div><div class="d">화면을 레고 블록(컴포넌트)으로. 버튼·카드를 부품화해 재사용. Next는 SSR로 SEO·속도까지.</div></div>
+<div class="dcard"><div class="t">MSA</div><div class="d">백엔드를 기능 단위(주문·결제·이메일)로 쪼갬. 각각 다른 언어·DB 가능.</div></div>
+<div class="dcard"><div class="t">SEO</div><div class="d">검색에 잘 걸리게. 제목 태그·설명·빠른 속도가 점수.</div></div>
+<div class="dcard"><div class="t">보조 DB</div><div class="d">이미지=S3+CDN, 검색=Elasticsearch, 캐시=Redis, 분석=Snowflake. 주 DB는 운영에 집중.</div></div>
+</div>
 
-<h3>12강. TypeScript <span class="lv a">심화</span></h3>
-<p>JavaScript + 타입. 오타·타입 오류를 코딩 중에 잡음.</p>
-<pre>function add(a: number, b: number): number {
-  return a + b;   // 문자열 넣으면 에러로 미리 경고
-}</pre>
-<div class="easy"><b>쉽게:</b> JS에 안전벨트. "이건 숫자여야 해"라고 미리 정해 실수 방지. 큰 프로젝트 필수.</div>
-
-<h3>13강. 프레임워크 (React/Vue) <span class="lv a">심화</span></h3>
-<p>화면을 부품(컴포넌트)으로 조립. 반복·상태관리 효율.</p>
-<pre>function Button() {
-  return &lt;button&gt;클릭&lt;/button&gt;;  // 재사용 부품
-}</pre>
-<div class="easy"><b>쉽게:</b> 레고 블록. 버튼·카드를 부품으로 만들어 여기저기 재사용. React가 대세.</div>
-
-<h3>14강. SEO <span class="lv a">심화</span></h3>
-<p>검색엔진 최적화. 구글에서 잘 검색되게.</p>
-<div class="easy"><b>쉽게:</b> 검색에 잘 걸리게 만들기. 제목 태그·설명·빠른 속도가 점수.</div>
-
-<h2>백엔드 트랙</h2>
-
-<h3>1강. 백엔드 언어 고르기 <span class="lv b">입문</span></h3>
-<p>Python·Java·Go·Ruby 중 하나. 입문은 <b>Python</b> 추천(쉽고 AI 생태계).</p>
-<pre># Python 예
-def hello(name):
-    return f"안녕 {name}"</pre>
-<div class="easy"><b>쉽게:</b> 서버 만들 외국어 하나 정하기. 여러 개 기웃대지 말고 하나 깊게.</div>
-
-<h3>2강. 패키지 매니저 <span class="lv b">입문</span></h3>
-<p>남이 만든 코드(라이브러리)를 설치·관리.</p>
-<pre>pip install fastapi    # Python
-npm install express    # Node.js</pre>
-<div class="easy"><b>쉽게:</b> 앱스토어. 필요한 기능(라이브러리)을 명령 한 줄로 설치.</div>
-
-<h3>3강. 관계형 DB + CRUD <span class="lv m">중급</span></h3>
-<p>PostgreSQL 등. SQL로 데이터 생성·조회·수정·삭제.</p>
-<pre>SELECT * FROM users WHERE age &gt; 20;   -- 조회
-INSERT INTO users (name) VALUES ('철수');  -- 생성</pre>
-<div class="easy"><b>쉽게:</b> DB=엑셀 창고. SQL로 "20살 넘는 회원 다 보여줘" 같은 명령.</div>
-
-<h3>4강. 웹 프레임워크 <span class="lv m">중급</span></h3>
-<p>서버를 빠르게 만드는 틀. Python=Django/FastAPI, Java=Spring, Node=Express.</p>
-<pre># FastAPI 예
-@app.get("/books")
-def get_books():
-    return ["책1", "책2"]</pre>
-<div class="easy"><b>쉽게:</b> 서버 조립 키트. 밑바닥부터 안 짜고 골격 위에 내 로직만.</div>
-
-<h3>5강. RESTful API 만들기 <span class="lv m">중급</span></h3>
-<p>프론트가 쓸 데이터 통로 제공. CRUD를 HTTP 메서드로.</p>
-<pre>GET    /books       목록
-POST   /books       생성
-PATCH  /books/3     3번 수정
-DELETE /books/3     3번 삭제</pre>
-<div class="easy"><b>쉽게:</b> 식당 메뉴판 만들기. "이렇게 요청하면 이렇게 준다"를 정의.</div>
-
-<h3>6강. 인증 / 인가 <span class="lv a">심화</span></h3>
-<p><b>인증</b>=너 누구냐(로그인). <b>인가</b>=뭘 할 수 있냐(권한).</p>
-<div class="ex"><b>예문:</b> 로그인(인증) 후 토큰 발급  관리자만 삭제 가능(인가). 일반유저가 삭제 시도  거부(403).</div>
-<div class="easy"><b>쉽게:</b> 인증=건물 출입증, 인가=어느 층 갈 수 있나. 세션·쿠키·JWT로 관리.</div>
-
-<h3>7강. Git / GitHub <span class="lv b">전 과정</span></h3>
-<p>코드 버전관리·협업. 프론트 4강과 동일 — 처음부터 끝까지 씀.</p>
-<div class="easy"><b>쉽게:</b> 백엔드든 프론트든 Git은 필수 동반자. 매일 commit·push.</div>
-
-<div class="note"><b>전 과정 공통</b>: 각 강의 끝나면 <b>작은 프로젝트로 직접 만들어보기</b>. 게시판 CRUD 하나면 백엔드 핵심(API·DB·인증) 다 연습됨. 그다음 AI 도구(클로드·코덱스)로 속도 올리기.</div>
-<footer>강의자료 · roadmap.sh 순서 기반 · 각 강의 개념+예문+쉬운해석 · 더 깊은 강의 원하는 단계 있으면 보강.</footer>
+<div class="note"><b>한 바퀴 정리</b>: 화면(프론트) → 클릭하면 요청(REST) → 서버가 받고(백엔드·프레임워크) → DB 저장(CRUD) → 응답으로 화면 갱신 → 로그인(인증) → 배포(클라우드). <b>이 한 흐름이 모든 웹서비스의 뼈대.</b> 책방을 한 번 끝까지 만들면 어떤 서비스든 이 틀의 확장이다.</div>
+<div class="easy"><b>다음:</b> 각 장면을 작은 프로젝트로 직접 만들어보기(게시판·Todo면 충분). 그다음 AI 도구(클로드·코덱스)로 속도를 올린다. — 입력만 말고 직접 만들어야 실력이 된다.</div>
+<footer>강의자료 · 한 서비스(책방) 흐름 기반 재구성 · 각 장면 = 개념+예문+쉬운해석 · roadmap.sh 순서 포함</footer>
