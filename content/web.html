@@ -15,6 +15,32 @@
 <div class="ex"><b>예문:</b> 쇼핑몰 "장바구니 담기" 버튼을 눌렀을 때 숫자가 +1 되는 것 = JavaScript가 처리한 이벤트.</div>
 <div class="easy"><b>쉽게:</b> React는 사실 "프레임워크"처럼 보여도 갖다 붙이는 라이브러리에 가깝다. 왜 생겼는지 알면 외울 필요 없음.</div>
 
+<h3>SPA / MPA / CSR / SSR — 렌더링 용어 정리</h3>
+<p>프론트 공부하다 자주 나오는 4개 용어. <b>두 개의 독립된 축</b>이다.</p>
+<div class="tw"><table>
+<tr><th></th><th>SPA</th><th>MPA</th></tr>
+<tr><td>뜻</td><td>Single Page App — HTML 파일 <b>1개</b></td><td>Multi Page App — HTML 파일 <b>여러 개</b></td></tr>
+<tr><td>페이지 이동</td><td>JS가 DOM 갈아끼움, 새로고침 없음</td><td>새 HTML 요청·로드, 깜빡임 있음</td></tr>
+<tr><td>비유</td><td>방 하나, 가구만 바꿈</td><td>방 바꿀 때마다 다른 방으로 이동</td></tr>
+<tr><td>예시</td><td>Gmail, 트위터</td><td>쇼핑몰 상품페이지, 블로그</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th></th><th>CSR</th><th>SSR</th></tr>
+<tr><td>뜻</td><td>Client-Side Rendering — <b>브라우저</b>가 HTML 생성</td><td>Server-Side Rendering — <b>서버</b>가 HTML 생성</td></tr>
+<tr><td>흐름</td><td>서버 → 빈 HTML+JS → 브라우저가 화면 그림</td><td>서버 → 완성된 HTML → 바로 표시</td></tr>
+<tr><td>첫 화면</td><td>느림 (JS 실행 대기)</td><td>빠름</td></tr>
+<tr><td>SEO</td><td>약함 (크롤러가 빈 HTML만 봄)</td><td>강함</td></tr>
+<tr><td>비유</td><td>재료만 주고 손님이 직접 요리</td><td>주방에서 완성해서 냄</td></tr>
+</table></div>
+<div class="card"><b>SPA/MPA = 건물 구조(방 몇 개?), CSR/SSR = 요리 방식(누가 만드나?)</b><br>독립된 두 축 — 조합 가능, 상하위 없음.
+<table style="margin-top:8px">
+<tr><th>조합</th><th>예시</th><th>특징</th></tr>
+<tr><td>SPA + CSR</td><td>React (CRA)</td><td>첫 로딩 느림, SEO 약함</td></tr>
+<tr><td>SPA + SSR</td><td><b>Next.js</b></td><td>첫 HTML은 서버, 이후 JS가 SPA처럼 동작</td></tr>
+<tr><td>MPA + SSR</td><td>PHP · Django</td><td>전통 웹, 페이지마다 서버 렌더</td></tr>
+</table></div>
+<div class="easy"><b>Next.js가 왜 쓰이나:</b> CSR 단점 3개(첫 로딩 느림·SEO 약함·프론트+백 서버 두 개 관리)를 SSR+SPA 조합으로 동시에 해결. 첫 접속만 서버가 완성 HTML 주고, 이후는 JS가 SPA처럼 처리 — 이걸 <b>하이드레이션(Hydration)</b>이라 함.</div>
+
 <h2>② 백엔드 (Back-end)</h2>
 <p><i>흐름상 여기 — 요청을 받아 처리하는 뒷단.</i> 화면 뒤에서 <b>데이터를 처리·저장</b>하는 엔진. 서버에서 돌아감.</p>
 <div class="note">탄생 이유 = <b>동적 생성</b>. 옛날엔 서버가 HTML 파일을 그냥 꺼내줬는데, 방명록·검색은 "누가 뭘 남길지" 미리 못 만듦  요청 올 때 그 자리에서 만들어야 했다(1993 CGIPHP…).</div>
