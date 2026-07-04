@@ -18,48 +18,87 @@
 <div class="easy"><b>쉽게:</b> FastAPI·Express = "서버 만드는 틀"(백). PostgreSQL = "데이터 창고"(백). React = "화면 조립 키트"(프론트). 프레임워크는 언어 위에 얹는 골격이다.</div>
 <div class="note"><b>내 백엔드 2갈래</b>: Python → <b>FastAPI</b>로 서버 / JavaScript → <b>Node.js + Express</b>로 서버. 둘 다 PostgreSQL에 연결. 같은 일을 두 언어로 — 비교하며 배우면 개념이 또렷해짐.</div>
 
-<h2>1. JS 생태계 포함관계 — 뭐가 뭘 감싸나</h2>
-<p>이 기술들은 따로따로가 아니라 <b>층층이 쌓이는 구조</b>다. 아래가 위를 받쳐준다.</p>
+<h2>1. 기술 전체 지도 — 화면·서버·데이터로 나누면</h2>
+<p>이 기술들은 각자 <b>담당 구역</b>이 다르다. 구역부터 잡으면 관계가 보인다.</p>
 
 <div class="card">
-<b>전체 지도</b>
-<div style="font-family:monospace;line-height:2;margin-top:10px;font-size:13px">
-JavaScript (언어 — 가장 기반)<br>
-├── <b>TypeScript</b> ← JS에 타입 추가한 상위집합. JS 파일 그대로 TS에서 동작<br>
-│<br>
-├── [브라우저 환경 — 프론트엔드]<br>
-│   ├── 바닐라 JS (순수, 라이브러리 없음)<br>
-│   ├── <b>React</b> ← JS(또는 TS) 위에 올라가는 UI 라이브러리<br>
-│   └── <b>Next.js</b> ← React 위에 올라가는 프레임워크 (SSR·파일기반라우팅 추가)<br>
-│<br>
-└── [서버 환경 — 백엔드]<br>
-&nbsp;&nbsp;&nbsp;&nbsp;├── <b>Node.js</b> ← JS를 서버(브라우저 밖)에서 실행하는 런타임<br>
-&nbsp;&nbsp;&nbsp;&nbsp;└── <b>Express</b> ← Node.js 위에 올라가는 웹 프레임워크
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center">
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:12px">
+    <div style="color:var(--mut);font-size:11px;letter-spacing:.08em;margin-bottom:8px">🖥 화면 (프론트엔드)</div>
+    <div style="line-height:2.2;font-size:13px">
+      <code>HTML</code> — 뼈대<br>
+      <code>CSS</code> — 스타일<br>
+      <code>JavaScript</code> — 동작<br>
+      <code>TypeScript</code> — JS + 타입<br>
+      <code>React</code> — 화면 조립 도구<br>
+      <code>Next.js</code> — React + 서버렌더
+    </div>
+  </div>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:12px">
+    <div style="color:var(--mut);font-size:11px;letter-spacing:.08em;margin-bottom:8px">⚙️ 서버 (백엔드)</div>
+    <div style="line-height:2.2;font-size:13px">
+      <code>Node.js</code> — JS 서버 실행환경<br>
+      <code>Express</code> — Node API 프레임워크<br>
+      <code>Python</code> — 서버 언어<br>
+      <code>FastAPI</code> — Python API 프레임워크<br>
+    </div>
+  </div>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:12px">
+    <div style="color:var(--mut);font-size:11px;letter-spacing:.08em;margin-bottom:8px">🗄 데이터 (DB)</div>
+    <div style="line-height:2.2;font-size:13px">
+      <code>PostgreSQL</code> — 데이터 저장소<br>
+      <code>SQL</code> — DB 조작 언어<br>
+    </div>
+  </div>
+</div>
+</div>
+
+<h3>프론트엔드 안에서 층층이 쌓이는 구조</h3>
+<p>HTML·CSS·JS는 기본 재료, 그 위에 도구들이 올라간다.</p>
+
+<div class="card">
+<div style="line-height:2.4;font-size:13px">
+  <span style="color:var(--mut)">① 기본 재료</span><br>
+  &nbsp;&nbsp;<code>HTML</code> — 화면 뼈대 ("여기 제목, 여기 버튼")<br>
+  &nbsp;&nbsp;<code>CSS</code> — 색·크기·배치 꾸미기<br>
+  &nbsp;&nbsp;<code>JavaScript</code> — 버튼 클릭, 데이터 불러오기 등 동작<br>
+  <br>
+  <span style="color:var(--mut)">② JS에 안전장치 추가</span><br>
+  &nbsp;&nbsp;<code>TypeScript</code> — JS 그대로인데 타입 오류를 미리 잡아줌. "JS의 업그레이드판"<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;→ JS 코드 = TS에서 그대로 동작. TS ⊃ JS<br>
+  <br>
+  <span style="color:var(--mut)">③ JS로 화면을 더 쉽게 만드는 도구</span><br>
+  &nbsp;&nbsp;<code>React</code> — 화면을 작은 부품(컴포넌트)으로 나눠 조립. 상태(state) 바뀌면 자동 갱신<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;→ JS(또는 TS) 위에 올라가는 라이브러리<br>
+  <br>
+  <span style="color:var(--mut)">④ React에 서버 기능 추가</span><br>
+  &nbsp;&nbsp;<code>Next.js</code> — React로 만든 화면을 서버에서 미리 렌더링(SSR). 라우팅·API도 포함<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;→ React 위에 올라가는 프레임워크. "React가 못 하는 것까지"
+</div>
+</div>
+
+<h3>백엔드 — JS가 서버로 가는 방법</h3>
+<div class="card">
+<div style="line-height:2.4;font-size:13px">
+  <span style="color:var(--mut)">문제: JS는 원래 브라우저 전용 언어</span><br>
+  &nbsp;&nbsp;→ 서버에서 실행하려면 실행환경이 필요<br>
+  <br>
+  <code>Node.js</code> — "JS를 서버에서 돌려주는 엔진(런타임)". 언어가 아님<br>
+  &nbsp;&nbsp;→ Node 덕분에 JS 하나로 프론트+백 모두 가능해짐<br>
+  <br>
+  <code>Express</code> — Node.js 위에 올라가는 웹 프레임워크<br>
+  &nbsp;&nbsp;→ "이 URL로 요청 오면 이렇게 응답해라" 라우팅·미들웨어 제공
 </div>
 </div>
 
 <div class="tw"><table>
-<tr><th>기술</th><th>종류</th><th>무엇 위에?</th><th>한 줄</th></tr>
-<tr><td><code>JavaScript</code></td><td>언어</td><td>— (기반)</td><td>모든 것의 뿌리. 브라우저·서버 둘 다 동작</td></tr>
-<tr><td><code>TypeScript</code></td><td>언어 (JS 상위집합)</td><td>JavaScript 포함</td><td>JS에 타입 안전장치 추가. JS 코드 그대로 TS에서 돌아감</td></tr>
-<tr><td><code>Node.js</code></td><td>런타임 (실행환경)</td><td>JavaScript</td><td>"JS는 원래 브라우저 전용" → Node가 서버에서 실행 가능하게 함</td></tr>
-<tr><td><code>React</code></td><td>라이브러리</td><td>JavaScript (또는 TS)</td><td>UI를 컴포넌트 단위로 만드는 도구. 프레임워크 아님</td></tr>
-<tr><td><code>Next.js</code></td><td>프레임워크</td><td>React</td><td>React에 SSR·파일기반 라우팅·API 라우트 추가. React만으론 부족한 것들을 채움</td></tr>
-<tr><td><code>Express</code></td><td>프레임워크</td><td>Node.js</td><td>Node.js로 API 서버 만드는 틀. 라우팅·미들웨어 제공</td></tr>
+<tr><th>질문</th><th>답</th></tr>
+<tr><td>TypeScript랑 JavaScript 뭐가 달라?</td><td>TS = JS + 타입 체크. JS 코드 그대로 TS에서 동작. 오타·타입 오류를 실행 전에 잡음</td></tr>
+<tr><td>Node.js가 언어야?</td><td>아님. JS를 서버에서 실행하는 환경(런타임). 언어는 그대로 JavaScript</td></tr>
+<tr><td>React랑 Next.js 뭐가 달라?</td><td>React = 화면만. Next = React + SSR + 라우팅 + API. React 위에 올라감</td></tr>
+<tr><td>React가 프레임워크야?</td><td>아님. 라이브러리. UI만 담당. 라우팅·서버는 React 밖(Next.js가 해결)</td></tr>
+<tr><td>Express랑 FastAPI 차이?</td><td>언어만 다름. Express = Node.js(JS)로 서버. FastAPI = Python으로 서버. 역할 같음</td></tr>
 </table></div>
-
-<div class="card"><b>핵심 포인트</b>
-<ul style="margin:8px 0 0;padding-left:20px;line-height:2">
-<li><b>TypeScript ⊃ JavaScript</b> — TS는 JS를 포함한다. JS 파일을 TS 프로젝트에 그냥 넣어도 동작. "JS에 타입 레이어 추가" = TS</li>
-<li><b>Node.js ≠ 언어</b> — Node는 언어가 아니라 <b>실행 환경(런타임)</b>. "JS를 서버에서 돌려주는 엔진"</li>
-<li><b>React ≠ 프레임워크</b> — React는 <b>라이브러리</b>. UI만 담당. 라우팅·서버·배포는 React 밖</li>
-<li><b>Next.js = React + α</b> — Next는 React를 포함하고 SSR·라우팅·API·이미지최적화 추가. "React로 할 수 있는 것 + 못하는 것까지"</li>
-</ul>
-</div>
-
-<div class="easy"><b>비유로:</b>
-JavaScript = 재료(밀가루). TypeScript = 밀가루+계량컵(오차 방지). Node.js = 오븐(밀가루를 서버에서 구울 수 있게). React = 제빵 키트(쉽게 빵 모양 만들기). Next.js = 제빵 키트+배달포장+레시피북(빵 만들기+배달까지).
-</div>
 
 <h2>5. 권장 학습 순서</h2>
 <div class="card">
