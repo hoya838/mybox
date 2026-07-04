@@ -100,6 +100,92 @@
 <tr><td>Express랑 FastAPI 차이?</td><td>언어만 다름. Express = Node.js(JS)로 서버. FastAPI = Python으로 서버. 역할 같음</td></tr>
 </table></div>
 
+<h2>2. 데이터 흐름 — 프론트·백엔드·DB가 어떻게 대화하나</h2>
+<p>실제 서비스에서 "게시글 목록 보기" 하나를 클릭하면 내부에서 이런 일이 일어난다.</p>
+
+<div class="card">
+<b>전체 흐름 한눈에</b>
+<div style="margin-top:12px;line-height:1;text-align:center;font-size:13px">
+<div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:8px">
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:90px;text-align:center">
+    🖥<br><b>브라우저</b><br><span style="color:var(--mut);font-size:11px">React / Next.js</span>
+  </div>
+  <div style="padding:0 6px;color:var(--mut)">── HTTP 요청 ──▶</div>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:90px;text-align:center">
+    ⚙️<br><b>서버</b><br><span style="color:var(--mut);font-size:11px">Node.js + Express</span>
+  </div>
+  <div style="padding:0 6px;color:var(--mut)">── SQL 쿼리 ──▶</div>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:90px;text-align:center">
+    🗄<br><b>DB</b><br><span style="color:var(--mut);font-size:11px">PostgreSQL</span>
+  </div>
+</div>
+<div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:8px;margin-top:6px">
+  <div style="min-width:90px"></div>
+  <div style="padding:0 6px;color:var(--mut)">◀── JSON 응답 ──</div>
+  <div style="min-width:90px"></div>
+  <div style="padding:0 6px;color:var(--mut)">◀── 데이터 반환 ──</div>
+  <div style="min-width:90px"></div>
+</div>
+</div>
+</div>
+
+<h3>예시 — "게시글 목록 불러오기"</h3>
+<p>사용자가 게시판 페이지를 열었을 때 일어나는 일을 단계별로 본다.</p>
+
+<div class="card">
+<div class="step"><div class="n">1</div><div class="b">
+<b>프론트 (React) — 서버에 요청</b><br>
+<span style="color:var(--mut);font-size:12px">컴포넌트가 화면에 뜨는 순간 서버로 HTTP GET 요청을 보낸다</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// React 컴포넌트
+useEffect(() => {
+  fetch('http://localhost:4000/posts')   // 서버 주소로 GET 요청
+    .then(res => res.json())
+    .then(data => setPosts(data));       // 받은 데이터를 화면에 저장
+}, []);</pre>
+</div></div>
+
+<div class="step"><div class="n">2</div><div class="b">
+<b>백엔드 (Express) — 요청 받아 DB 조회</b><br>
+<span style="color:var(--mut);font-size:12px">"/posts" 경로로 요청이 오면 PostgreSQL에 SQL을 날린다</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// Express 라우터
+app.get('/posts', async (req, res) => {
+  const result = await db.query('SELECT * FROM posts ORDER BY created_at DESC');
+  res.json(result.rows);   // DB에서 꺼낸 데이터를 JSON으로 응답
+});</pre>
+</div></div>
+
+<div class="step"><div class="n">3</div><div class="b">
+<b>DB (PostgreSQL) — 데이터 반환</b><br>
+<span style="color:var(--mut);font-size:12px">SQL 받아서 저장된 데이터 꺼내 돌려줌</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">-- PostgreSQL이 실행하는 SQL
+SELECT * FROM posts ORDER BY created_at DESC;
+-- 결과: [{id:1, title:"첫글", content:"..."}, ...]</pre>
+</div></div>
+
+<div class="step"><div class="n">4</div><div class="b">
+<b>프론트 — 받은 데이터로 화면 그리기</b><br>
+<span style="color:var(--mut);font-size:12px">JSON 데이터를 받아 React가 화면을 자동으로 업데이트</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// 받은 posts 배열을 화면에 표시
+return (
+  &lt;ul&gt;
+    {posts.map(post => &lt;li key={post.id}&gt;{post.title}&lt;/li&gt;)}
+  &lt;/ul&gt;
+);</pre>
+</div></div>
+</div>
+
+<h3>CRUD 4가지 — 글쓰기·보기·수정·삭제도 같은 방식</h3>
+<div class="tw"><table>
+<tr><th>동작</th><th>프론트가 보내는 것</th><th>Express 라우터</th><th>SQL</th></tr>
+<tr><td>글 목록 보기</td><td><code>GET /posts</code></td><td><code>app.get('/posts')</code></td><td><code>SELECT * FROM posts</code></td></tr>
+<tr><td>글 하나 보기</td><td><code>GET /posts/3</code></td><td><code>app.get('/posts/:id')</code></td><td><code>SELECT * FROM posts WHERE id=3</code></td></tr>
+<tr><td>글 쓰기</td><td><code>POST /posts</code> + 내용</td><td><code>app.post('/posts')</code></td><td><code>INSERT INTO posts ...</code></td></tr>
+<tr><td>글 수정</td><td><code>PUT /posts/3</code> + 내용</td><td><code>app.put('/posts/:id')</code></td><td><code>UPDATE posts SET ... WHERE id=3</code></td></tr>
+<tr><td>글 삭제</td><td><code>DELETE /posts/3</code></td><td><code>app.delete('/posts/:id')</code></td><td><code>DELETE FROM posts WHERE id=3</code></td></tr>
+</table></div>
+
+<div class="note"><b>핵심 한 줄:</b> 프론트는 "달라·줘·바꿔·지워"를 HTTP로 요청 → 서버는 받아서 DB에 SQL 실행 → 결과를 JSON으로 응답 → 프론트가 화면 업데이트. 이 한 바퀴가 웹 서비스의 전부다.</div>
+
 <h2>5. 권장 학습 순서</h2>
 <div class="card">
 <div class="step"><div class="n">1</div><div class="b"><b>HTML·CSS·JS</b> (프론트 기초) — 화면 먼저 만들어 보기</div></div>
