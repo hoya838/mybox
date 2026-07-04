@@ -101,108 +101,146 @@
 </table></div>
 
 <h2>2. 데이터 흐름 — 프론트·백엔드·DB가 어떻게 대화하나</h2>
-<p>실제 서비스에서 "게시글 목록 보기" 하나를 클릭하면 내부에서 이런 일이 일어난다.</p>
+<p>예시 서비스: <b>devlog.kr</b> — 개발자 커뮤니티 게시판. 사용자가 글 목록 페이지를 열면 내부에서 이런 일이 일어난다.</p>
 
 <div class="card">
-<b>전체 흐름 한눈에</b>
-<div style="margin-top:12px;line-height:1;text-align:center;font-size:13px">
+<b>devlog.kr 구성</b>
+<div style="margin-top:10px;font-size:12px;line-height:2;color:var(--mut)">
+  🖥 <b style="color:var(--ink)">devlog.kr</b> — Next.js 프론트 (Vercel 배포)<br>
+  ⚙️ <b style="color:var(--ink)">api.devlog.kr</b> — Express 백엔드 (Railway 배포)<br>
+  🗄 <b style="color:var(--ink)">DB: devlog</b> — PostgreSQL (Supabase)
+</div>
+<div style="margin-top:14px;line-height:1;text-align:center;font-size:13px">
 <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:8px">
-  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:90px;text-align:center">
-    🖥<br><b>브라우저</b><br><span style="color:var(--mut);font-size:11px">React / Next.js</span>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:100px;text-align:center">
+    🖥<br><b>devlog.kr</b><br><span style="color:var(--mut);font-size:11px">Next.js</span>
   </div>
-  <div style="padding:0 6px;color:var(--mut)">── HTTP 요청 ──▶</div>
-  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:90px;text-align:center">
-    ⚙️<br><b>서버</b><br><span style="color:var(--mut);font-size:11px">Node.js + Express</span>
+  <div style="padding:0 6px;color:var(--mut);font-size:12px">─ GET api.devlog.kr/posts ▶</div>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:100px;text-align:center">
+    ⚙️<br><b>api.devlog.kr</b><br><span style="color:var(--mut);font-size:11px">Express</span>
   </div>
-  <div style="padding:0 6px;color:var(--mut)">── SQL 쿼리 ──▶</div>
-  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:90px;text-align:center">
-    🗄<br><b>DB</b><br><span style="color:var(--mut);font-size:11px">PostgreSQL</span>
+  <div style="padding:0 6px;color:var(--mut);font-size:12px">─ SQL ▶</div>
+  <div style="border:1px solid var(--line2);border-radius:8px;padding:10px 14px;min-width:100px;text-align:center">
+    🗄<br><b>devlog DB</b><br><span style="color:var(--mut);font-size:11px">PostgreSQL</span>
   </div>
 </div>
-<div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:8px;margin-top:6px">
-  <div style="min-width:90px"></div>
-  <div style="padding:0 6px;color:var(--mut)">◀── JSON 응답 ──</div>
-  <div style="min-width:90px"></div>
-  <div style="padding:0 6px;color:var(--mut)">◀── 데이터 반환 ──</div>
-  <div style="min-width:90px"></div>
+<div style="display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:4px;margin-top:4px;font-size:12px">
+  <div style="min-width:100px"></div>
+  <div style="padding:0 6px;color:var(--mut)">◀ JSON [{id,title,...}] ─</div>
+  <div style="min-width:100px"></div>
+  <div style="padding:0 6px;color:var(--mut)">◀ rows 반환 ─</div>
+  <div style="min-width:100px"></div>
 </div>
 </div>
 </div>
 
-<h3>예시 — "게시글 목록 불러오기"</h3>
-<p>사용자가 게시판 페이지를 열었을 때 일어나는 일을 단계별로 본다.</p>
+<h3>DB 테이블 구조 — posts</h3>
+<div class="tw"><table>
+<tr><th>컬럼</th><th>타입</th><th>설명</th></tr>
+<tr><td><code>id</code></td><td>SERIAL (자동증가)</td><td>글 고유번호. 1, 2, 3…</td></tr>
+<tr><td><code>title</code></td><td>VARCHAR(200)</td><td>글 제목</td></tr>
+<tr><td><code>content</code></td><td>TEXT</td><td>글 본문</td></tr>
+<tr><td><code>author</code></td><td>VARCHAR(50)</td><td>작성자 이름</td></tr>
+<tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>작성 시각 (자동 기록)</td></tr>
+</table></div>
 
+<h3>글 목록 불러오기 — 4단계 전체 흐름</h3>
 <div class="card">
 <div class="step"><div class="n">1</div><div class="b">
-<b>프론트 (React) — 서버에 요청</b><br>
-<span style="color:var(--mut);font-size:12px">컴포넌트가 화면에 뜨는 순간 서버로 HTTP GET 요청을 보낸다</span>
-<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// React 컴포넌트
+<b>프론트 (devlog.kr) — 백엔드에 목록 요청</b><br>
+<span style="color:var(--mut);font-size:12px">게시판 페이지가 열리는 순간 api.devlog.kr 서버로 GET 요청</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// devlog.kr — 게시판 페이지 컴포넌트 (Next.js)
+const [posts, setPosts] = useState([]);  // 글 목록 저장할 빈 배열
+
 useEffect(() => {
-  fetch('http://localhost:4000/posts')   // 서버 주소로 GET 요청
-    .then(res => res.json())
-    .then(data => setPosts(data));       // 받은 데이터를 화면에 저장
-}, []);</pre>
+  // 컴포넌트가 화면에 뜨자마자 실행
+  fetch('https://api.devlog.kr/posts')   // 백엔드 서버 주소로 HTTP GET 요청
+    .then(res => res.json())             // 응답을 JSON으로 변환
+    .then(data => setPosts(data));       // 받은 글 목록을 posts에 저장 → 화면 자동 갱신
+}, []);  // [] = 처음 한 번만 실행</pre>
 </div></div>
 
 <div class="step"><div class="n">2</div><div class="b">
-<b>백엔드 (Express) — 요청 받아 DB 조회</b><br>
-<span style="color:var(--mut);font-size:12px">"/posts" 경로로 요청이 오면 PostgreSQL에 SQL을 날린다</span>
-<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// ── DB 연결 설정 (서버 시작할 때 한 번만) ──────────────────
-const { Pool } = require('pg');         // pg = Node.js용 PostgreSQL 드라이버 (npm install pg)
+<b>백엔드 (api.devlog.kr) — 요청 받아 DB 조회</b><br>
+<span style="color:var(--mut);font-size:12px">Express가 요청을 받고 PostgreSQL에 SQL을 전송</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// ── DB 연결 (서버 시작 시 한 번만 설정) ─────────────────────
+const { Pool } = require('pg');   // pg = Node.js ↔ PostgreSQL 연결 드라이버 (npm install pg)
 
-const db = new Pool({                   // Pool = DB 연결을 미리 여러 개 만들어두는 객체
-  host: 'localhost',                    // DB 서버 주소 (배포 시 실제 서버 IP)
-  port: 5432,                           // PostgreSQL 기본 포트
-  database: 'myapp',                    // 사용할 DB 이름
-  user: 'postgres',                     // DB 계정
-  password: 'secret',                   // DB 비밀번호 (실제론 환경변수로 숨김)
+const db = new Pool({
+  host: process.env.DB_HOST,      // 환경변수로 숨김 (예: db.supabase.com)
+  port: 5432,                     // PostgreSQL 기본 포트
+  database: 'devlog',             // DB 이름
+  user: process.env.DB_USER,      // 환경변수로 숨김
+  password: process.env.DB_PASS,  // 환경변수로 숨김 (코드에 비번 직접 쓰면 안 됨)
 });
-// 이제 db.query()를 쓰면 PostgreSQL에 SQL을 보낼 수 있음
+// db.query() 호출 시 → pg 드라이버가 PostgreSQL에 네트워크로 SQL 전달
 
-// ── 라우터 ────────────────────────────────────────────────
-app.get('/posts', async (req, res) => { // GET /posts 요청이 오면 이 함수 실행
-  const result = await db.query(        // db.query() = PostgreSQL에 SQL 문장을 전송
-    'SELECT * FROM posts ORDER BY created_at DESC'
-    //  ↑ "posts 테이블에서 전체 행을 가져오되 최신 순으로 정렬해줘"
-  );
-  // result.rows = DB가 돌려준 행(row) 배열
-  // 예: [{id:1, title:"첫글"}, {id:2, title:"두번째글"}, ...]
-  res.json(result.rows);               // 그 배열을 JSON 형태로 프론트에 응답
+// ── 라우터 — GET /posts ──────────────────────────────────
+app.get('/posts', async (req, res) => {
+  // GET https://api.devlog.kr/posts 요청이 오면 이 함수 실행
+  const result = await db.query(`
+    SELECT id, title, author, created_at
+    FROM posts
+    ORDER BY created_at DESC   -- 최신 글이 위에 오도록 정렬
+    LIMIT 20                   -- 한 번에 최대 20개만
+  `);
+  // result.rows = PostgreSQL이 돌려준 행(row) 배열
+  // [
+  //   { id: 3, title: "Next.js 배포 후기", author: "jun", created_at: "2026-07-04..." },
+  //   { id: 2, title: "Express 시작하기",  author: "hoya", created_at: "2026-07-03..." },
+  //   ...
+  // ]
+  res.json(result.rows);   // 그 배열을 JSON으로 변환해 프론트에 응답
 });</pre>
-<div class="easy" style="margin-top:8px"><b>흐름 요약:</b> pg 드라이버가 Node.js와 PostgreSQL 사이 통역사 역할. <code>db.query(SQL)</code> 하면 드라이버가 네트워크로 PostgreSQL에 SQL 전달 → PostgreSQL이 데이터 꺼내서 돌려줌 → <code>result.rows</code>에 담김 → 프론트로 JSON 전송.</div>
+<div class="easy" style="margin-top:8px"><b>pg 드라이버가 하는 일:</b> Node.js(JS)는 PostgreSQL(C++)과 직접 대화 불가. pg 드라이버가 중간에서 통역 — SQL 문자열을 PostgreSQL이 이해하는 프로토콜로 변환해 전송, 결과를 JS 객체 배열로 변환해 돌려줌.</div>
 </div></div>
 
 <div class="step"><div class="n">3</div><div class="b">
-<b>DB (PostgreSQL) — 데이터 반환</b><br>
-<span style="color:var(--mut);font-size:12px">SQL 받아서 저장된 데이터 꺼내 돌려줌</span>
-<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">-- PostgreSQL이 실행하는 SQL
-SELECT * FROM posts ORDER BY created_at DESC;
--- 결과: [{id:1, title:"첫글", content:"..."}, ...]</pre>
+<b>DB (devlog PostgreSQL) — SQL 실행 후 데이터 반환</b><br>
+<span style="color:var(--mut);font-size:12px">posts 테이블에서 조건에 맞는 행을 꺼내 Express에 돌려줌</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">-- PostgreSQL이 실행하는 SQL (Express가 보낸 것)
+SELECT id, title, author, created_at
+FROM posts
+ORDER BY created_at DESC
+LIMIT 20;
+
+-- 결과 (rows):
+-- id | title                  | author | created_at
+-- ---+------------------------+--------+---------------------
+--  3 | Next.js 배포 후기      | jun    | 2026-07-04 10:23:00
+--  2 | Express 시작하기       | hoya   | 2026-07-03 09:11:00
+--  1 | PostgreSQL 첫 설정     | jun    | 2026-07-02 14:05:00</pre>
 </div></div>
 
 <div class="step"><div class="n">4</div><div class="b">
-<b>프론트 — 받은 데이터로 화면 그리기</b><br>
-<span style="color:var(--mut);font-size:12px">JSON 데이터를 받아 React가 화면을 자동으로 업데이트</span>
-<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// 받은 posts 배열을 화면에 표시
+<b>프론트 — 받은 데이터로 화면 렌더링</b><br>
+<span style="color:var(--mut);font-size:12px">JSON 배열을 받아 게시판 목록 UI로 표시</span>
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// devlog.kr 게시판 목록 화면
 return (
-  &lt;ul&gt;
-    {posts.map(post => &lt;li key={post.id}&gt;{post.title}&lt;/li&gt;)}
-  &lt;/ul&gt;
+  &lt;div&gt;
+    &lt;h1&gt;devlog 게시판&lt;/h1&gt;
+    {posts.map(post => (               // posts 배열을 하나씩 꺼내 카드로 표시
+      &lt;div key={post.id}&gt;             // key = React가 각 항목 구분하는 고유값
+        &lt;h2&gt;{post.title}&lt;/h2&gt;        {/* "Next.js 배포 후기" */}
+        &lt;span&gt;{post.author}&lt;/span&gt;   {/* "jun" */}
+      &lt;/div&gt;
+    ))}
+  &lt;/div&gt;
 );</pre>
 </div></div>
 </div>
 
-<h3>CRUD 4가지 — 글쓰기·보기·수정·삭제도 같은 방식</h3>
+<h3>CRUD 전체 — devlog.kr 기준</h3>
 <div class="tw"><table>
-<tr><th>동작</th><th>프론트가 보내는 것</th><th>Express 라우터</th><th>SQL</th></tr>
-<tr><td>글 목록 보기</td><td><code>GET /posts</code></td><td><code>app.get('/posts')</code></td><td><code>SELECT * FROM posts</code></td></tr>
-<tr><td>글 하나 보기</td><td><code>GET /posts/3</code></td><td><code>app.get('/posts/:id')</code></td><td><code>SELECT * FROM posts WHERE id=3</code></td></tr>
-<tr><td>글 쓰기</td><td><code>POST /posts</code> + 내용</td><td><code>app.post('/posts')</code></td><td><code>INSERT INTO posts ...</code></td></tr>
-<tr><td>글 수정</td><td><code>PUT /posts/3</code> + 내용</td><td><code>app.put('/posts/:id')</code></td><td><code>UPDATE posts SET ... WHERE id=3</code></td></tr>
-<tr><td>글 삭제</td><td><code>DELETE /posts/3</code></td><td><code>app.delete('/posts/:id')</code></td><td><code>DELETE FROM posts WHERE id=3</code></td></tr>
+<tr><th>동작</th><th>프론트 요청</th><th>Express</th><th>PostgreSQL</th></tr>
+<tr><td>글 목록 보기</td><td><code>GET api.devlog.kr/posts</code></td><td><code>app.get('/posts')</code></td><td><code>SELECT ... FROM posts</code></td></tr>
+<tr><td>글 하나 보기</td><td><code>GET api.devlog.kr/posts/3</code></td><td><code>app.get('/posts/:id')</code></td><td><code>SELECT ... WHERE id=3</code></td></tr>
+<tr><td>글 쓰기</td><td><code>POST api.devlog.kr/posts</code> + {title, content}</td><td><code>app.post('/posts')</code></td><td><code>INSERT INTO posts ...</code></td></tr>
+<tr><td>글 수정</td><td><code>PUT api.devlog.kr/posts/3</code> + {title}</td><td><code>app.put('/posts/:id')</code></td><td><code>UPDATE posts SET ... WHERE id=3</code></td></tr>
+<tr><td>글 삭제</td><td><code>DELETE api.devlog.kr/posts/3</code></td><td><code>app.delete('/posts/:id')</code></td><td><code>DELETE FROM posts WHERE id=3</code></td></tr>
 </table></div>
 
-<div class="note"><b>핵심 한 줄:</b> 프론트는 "달라·줘·바꿔·지워"를 HTTP로 요청 → 서버는 받아서 DB에 SQL 실행 → 결과를 JSON으로 응답 → 프론트가 화면 업데이트. 이 한 바퀴가 웹 서비스의 전부다.</div>
+<div class="note"><b>핵심:</b> 프론트(devlog.kr)는 화면만. 데이터 요청은 항상 백엔드(api.devlog.kr)에 HTTP로. 백엔드는 받아서 DB에 SQL 실행 후 JSON 응답. 프론트는 절대 DB에 직접 접근하지 않는다 — 보안 때문.</div>
 
 <h2>5. 권장 학습 순서</h2>
 <div class="card">
