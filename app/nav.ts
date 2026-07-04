@@ -4,6 +4,7 @@ export const NAV = [
     { slug: "web", label: "웹개발", icon: "Globe" },
     { slug: "ai", label: "AI·LLM", icon: "Cpu" },
     { slug: "lectures", label: "강의", icon: "GraduationCap" },
+    { slug: "datastructures", label: "자료구조", icon: "GitBranch" },
   ]},
   { sec: "언어 커리큘럼", icon: "Code", items: [
     { slug: "curriculum", label: "개요·분류·순서", icon: "List" },

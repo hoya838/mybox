@@ -1,0 +1,126 @@
+<h1>자료구조 — 데이터를 어떻게 담을까</h1>
+<p class="sub">코딩테스트 필수 + 개발 사고력의 뼈대. C 기반 개념이지만 JS·Python으로 바로 쓸 수 있다.</p>
+
+<div class="note"><b>왜 배우나:</b> 자료구조 = <b>데이터를 저장하는 방식</b>. 어떤 그릇에 담느냐에 따라 꺼내는 속도·순서가 달라진다. 실무에서 직접 구현할 일은 적지만, 어떤 구조가 왜 빠른지 모르면 성능 문제가 생겼을 때 원인을 못 찾는다. 코딩테스트에선 직접 씀.</div>
+
+<h2>① 배열 (Array)</h2>
+<p><i>가장 기본 — 번호 붙은 칸에 순서대로 담기.</i></p>
+<div class="card">
+<b>특징:</b> 인덱스로 바로 접근 → 조회 O(1). 삽입·삭제는 뒤를 밀어야 해서 느림 O(n).<br>
+<b>비유:</b> 번호 매긴 사물함. 3번 사물함 바로 열 수 있음. 근데 2번 뺄 때 3·4·5번을 한 칸씩 당겨야 함.
+</div>
+<div class="tw"><table>
+<tr><th>언어</th><th>코드</th></tr>
+<tr><td>JavaScript</td><td><code>const arr = [1, 2, 3];<br>arr[0]; // 1, O(1)</code></td></tr>
+<tr><td>Python</td><td><code>arr = [1, 2, 3]<br>arr[0]  # 1, O(1)</code></td></tr>
+</table></div>
+<div class="easy"><b>쓰는 때:</b> 순서 있고, 자주 조회하고, 삽입·삭제가 드물 때.</div>
+
+<h2>② 스택 (Stack)</h2>
+<p><i>나중에 넣은 게 먼저 나온다 — LIFO (Last In, First Out).</i></p>
+<div class="card">
+<b>비유:</b> 접시 쌓기. 맨 위 접시부터 꺼냄. 아래 꺼내려면 위를 다 빼야 함.<br>
+<b>연산 2개:</b> push(추가) / pop(꺼내기) — 둘 다 O(1).
+</div>
+<div class="tw"><table>
+<tr><th>실생활 쓰임</th><th>이유</th></tr>
+<tr><td>브라우저 뒤로가기</td><td>방문 기록을 스택에 쌓고 pop</td></tr>
+<tr><td>함수 콜스택</td><td>함수 호출 순서 추적 (재귀)</td></tr>
+<tr><td>Ctrl+Z 실행취소</td><td>변경 이력 스택에 쌓고 pop</td></tr>
+<tr><td>괄호 검증</td><td>여는 괄호 push, 닫는 괄호에 pop 비교</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th>언어</th><th>코드</th></tr>
+<tr><td>JavaScript</td><td><code>const stack = [];<br>stack.push(1); stack.push(2);<br>stack.pop(); // 2</code></td></tr>
+<tr><td>Python</td><td><code>stack = []<br>stack.append(1); stack.append(2)<br>stack.pop()  # 2</code></td></tr>
+</table></div>
+
+<h2>③ 큐 (Queue)</h2>
+<p><i>먼저 넣은 게 먼저 나온다 — FIFO (First In, First Out).</i></p>
+<div class="card">
+<b>비유:</b> 줄서기(대기열). 먼저 온 사람이 먼저 처리됨.<br>
+<b>연산 2개:</b> enqueue(뒤에 추가) / dequeue(앞에서 꺼내기).
+</div>
+<div class="tw"><table>
+<tr><th>실생활 쓰임</th><th>이유</th></tr>
+<tr><td>프린터 인쇄 대기</td><td>먼저 보낸 문서부터 인쇄</td></tr>
+<tr><td>서버 요청 처리</td><td>먼저 온 요청부터 처리</td></tr>
+<tr><td>너비 우선 탐색(BFS)</td><td>그래프 탐색 알고리즘 핵심</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th>언어</th><th>코드</th></tr>
+<tr><td>JavaScript</td><td><code>const queue = [];<br>queue.push(1); queue.push(2);<br>queue.shift(); // 1 (앞에서 꺼냄)</code></td></tr>
+<tr><td>Python</td><td><code>from collections import deque<br>q = deque()<br>q.append(1); q.append(2)<br>q.popleft()  # 1</code></td></tr>
+</table></div>
+<div class="easy"><b>Python 팁:</b> 일반 리스트로 큐 쓰면 popleft()가 O(n). <code>collections.deque</code> 쓰면 O(1).</div>
+
+<h2>④ 해시 (Hash / 딕셔너리)</h2>
+<p><i>키(key)로 값(value)을 바로 꺼낸다 — 조회 O(1).</i></p>
+<div class="card">
+<b>비유:</b> 사전(dictionary). "apple"을 찾으면 바로 뜻이 나옴. 처음부터 뒤질 필요 없음.<br>
+<b>실제론:</b> 키를 해시 함수로 변환 → 배열 인덱스로 저장. 그래서 조회가 O(1).
+</div>
+<div class="tw"><table>
+<tr><th>실생활 쓰임</th><th>이유</th></tr>
+<tr><td>로그인 세션 관리</td><td>user_id → 세션 데이터 빠른 조회</td></tr>
+<tr><td>중복 제거</td><td>set도 해시 기반 — 이미 있는지 O(1) 확인</td></tr>
+<tr><td>빈도 카운트</td><td>단어 → 등장 횟수 매핑</td></tr>
+</table></div>
+<div class="tw"><table>
+<tr><th>언어</th><th>코드</th></tr>
+<tr><td>JavaScript</td><td><code>const map = { name: "홍길동", age: 20 };<br>map["name"]; // "홍길동", O(1)</code></td></tr>
+<tr><td>Python</td><td><code>d = {"name": "홍길동", "age": 20}<br>d["name"]  # "홍길동", O(1)</code></td></tr>
+</table></div>
+
+<h2>⑤ 트리 (Tree)</h2>
+<p><i>계층 구조 — 부모·자식 관계로 뻗어나가는 구조.</i></p>
+<div class="card">
+<b>비유:</b> 회사 조직도, 파일 시스템(폴더 안에 폴더).<br>
+<b>구성:</b> 루트(최상단) → 부모 → 자식 노드. 사이클(순환) 없음.
+</div>
+<div class="tw"><table>
+<tr><th>종류</th><th>특징</th><th>쓰임</th></tr>
+<tr><td>이진 트리</td><td>자식 최대 2개</td><td>기반 구조</td></tr>
+<tr><td>이진 탐색 트리(BST)</td><td>왼쪽<부모<오른쪽 규칙 → 탐색 O(log n)</td><td>정렬된 데이터 검색</td></tr>
+<tr><td>DOM 트리</td><td>HTML 요소 계층</td><td>브라우저가 화면 렌더링</td></tr>
+</table></div>
+<div class="easy"><b>쉽게:</b> 탐색이 O(log n) — 100만 개 데이터도 20번이면 찾음. 배열 순차탐색(O(n))과 차원이 다름.</div>
+
+<h2>⑥ 그래프 (Graph)</h2>
+<p><i>노드(점)와 간선(선)으로 관계를 표현 — 트리의 상위 개념.</i></p>
+<div class="card">
+<b>비유:</b> 지하철 노선도(역=노드, 노선=간선), SNS 친구 관계.<br>
+<b>트리와 차이:</b> 그래프는 사이클(순환) 가능, 방향 없을 수도 있음.
+</div>
+<div class="tw"><table>
+<tr><th>탐색 방법</th><th>도구</th><th>언제</th></tr>
+<tr><td>BFS (너비 우선)</td><td>큐</td><td>최단 경로, 가까운 것부터</td></tr>
+<tr><td>DFS (깊이 우선)</td><td>스택 or 재귀</td><td>경로 탐색, 미로 풀기</td></tr>
+</table></div>
+<div class="easy"><b>쓰임:</b> 지도 길찾기·SNS 친구추천·인터넷 라우팅·의존성 관리(npm 패키지 충돌 탐지).</div>
+
+<h2>정리 — 어떤 걸 언제?</h2>
+<div class="card">
+<table>
+<tr><th>상황</th><th>자료구조</th><th>이유</th></tr>
+<tr><td>인덱스로 빠르게 꺼낼 때</td><td>배열</td><td>조회 O(1)</td></tr>
+<tr><td>키로 빠르게 찾을 때</td><td>해시(딕셔너리)</td><td>조회 O(1)</td></tr>
+<tr><td>되돌리기·재귀 추적</td><td>스택</td><td>LIFO</td></tr>
+<tr><td>순서대로 처리(대기열)</td><td>큐</td><td>FIFO</td></tr>
+<tr><td>정렬된 데이터 빠른 검색</td><td>이진탐색트리</td><td>O(log n)</td></tr>
+<tr><td>계층 구조(폴더·DOM)</td><td>트리</td><td>부모-자식 관계</td></tr>
+<tr><td>관계·경로 탐색(지도·SNS)</td><td>그래프</td><td>노드+간선</td></tr>
+</table>
+</div>
+
+<h2>코딩테스트에서 주로 나오는 패턴</h2>
+<div class="tw"><table>
+<tr><th>패턴</th><th>필요한 자료구조</th></tr>
+<tr><td>괄호 짝 검증</td><td>스택</td></tr>
+<tr><td>최단 경로</td><td>큐(BFS)</td></tr>
+<tr><td>중복 제거·존재 확인</td><td>해시(Set)</td></tr>
+<tr><td>빈도 카운트</td><td>해시(Map)</td></tr>
+<tr><td>계층 탐색</td><td>트리·재귀</td></tr>
+<tr><td>관계 탐색</td><td>그래프·BFS/DFS</td></tr>
+</table></div>
+<div class="note"><b>C 기반 강의를 보는 이유:</b> 자료구조 개념은 언어와 무관하다. C는 포인터로 구조를 직접 구현해서 원리가 명확하게 보임. 개념 이해 후 JS·Python으로 코딩테스트 풀면 됨 — 언어 바꿀 필요 없다.</div>
