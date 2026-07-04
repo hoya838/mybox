@@ -230,6 +230,55 @@ return (
 </div></div>
 </div>
 
+<h3>코드 구역 한눈에 — 어느 코드가 어디서 실행되나</h3>
+<pre style="font-size:12px;background:var(--canvas-soft);padding:16px;border-radius:8px;overflow-x:auto;line-height:1.9">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🖥  프론트  (devlog.kr — 브라우저에서 실행)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // ① 백엔드에 "글 목록 줘" 요청 보내는 부분
+  fetch('https://api.devlog.kr/posts')
+
+  // ⑥ 응답 받아서 화면에 뿌리는 부분
+  .then(data =&gt; setPosts(data))
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+               ↕  HTTP  (인터넷)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ⚙️  백엔드  (api.devlog.kr — 서버에서 실행)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // ② 프론트 요청 받는 부분
+  app.get('/posts', async (req, res) =&gt; {
+
+    // ③ DB에 SQL 보내는 부분
+    const result = await db.query('SELECT ...')
+
+    // ⑤ DB 결과를 프론트로 돌려보내는 부분
+    res.json(result.rows)
+  })
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            ↕  SQL  (내부 네트워크)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  🗄  DB  (Supabase PostgreSQL — DB 서버에서 실행)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  // ④ SQL 실행 후 결과 반환
+  SELECT * FROM posts ORDER BY created_at DESC</pre>
+
+<div class="tw"><table>
+<tr><th>#</th><th>구역</th><th>코드</th><th>하는 일</th></tr>
+<tr><td>①</td><td>프론트</td><td><code>fetch(...)</code></td><td>백엔드에 요청 <b>보냄</b></td></tr>
+<tr><td>②</td><td>백엔드</td><td><code>app.get('/posts', ...)</code></td><td>프론트 요청 <b>받음</b></td></tr>
+<tr><td>③</td><td>백엔드</td><td><code>db.query('SELECT ...')</code></td><td>DB에 SQL <b>보냄</b></td></tr>
+<tr><td>④</td><td>DB</td><td><code>SELECT * FROM posts</code></td><td>SQL 실행 후 백엔드에 <b>반환</b></td></tr>
+<tr><td>⑤</td><td>백엔드</td><td><code>res.json(result.rows)</code></td><td>DB 결과를 프론트에 <b>전달</b></td></tr>
+<tr><td>⑥</td><td>프론트</td><td><code>setPosts(data)</code></td><td>받은 데이터로 화면 <b>그림</b></td></tr>
+</table></div>
+<div class="easy"><b>핵심:</b> 백엔드가 중간 다리. 프론트는 DB를 직접 모름 — 항상 백엔드를 통해서만 데이터를 받는다.</div>
+
 <h3>CRUD 전체 — devlog.kr 기준</h3>
 <div class="tw"><table>
 <tr><th>동작</th><th>프론트 요청</th><th>Express</th><th>PostgreSQL</th></tr>
