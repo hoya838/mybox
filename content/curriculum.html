@@ -147,11 +147,29 @@ useEffect(() => {
 <div class="step"><div class="n">2</div><div class="b">
 <b>백엔드 (Express) — 요청 받아 DB 조회</b><br>
 <span style="color:var(--mut);font-size:12px">"/posts" 경로로 요청이 오면 PostgreSQL에 SQL을 날린다</span>
-<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// Express 라우터
-app.get('/posts', async (req, res) => {
-  const result = await db.query('SELECT * FROM posts ORDER BY created_at DESC');
-  res.json(result.rows);   // DB에서 꺼낸 데이터를 JSON으로 응답
+<pre style="margin:8px 0 0;font-size:12px;background:var(--canvas-soft);padding:10px;border-radius:6px;overflow-x:auto">// ── DB 연결 설정 (서버 시작할 때 한 번만) ──────────────────
+const { Pool } = require('pg');         // pg = Node.js용 PostgreSQL 드라이버 (npm install pg)
+
+const db = new Pool({                   // Pool = DB 연결을 미리 여러 개 만들어두는 객체
+  host: 'localhost',                    // DB 서버 주소 (배포 시 실제 서버 IP)
+  port: 5432,                           // PostgreSQL 기본 포트
+  database: 'myapp',                    // 사용할 DB 이름
+  user: 'postgres',                     // DB 계정
+  password: 'secret',                   // DB 비밀번호 (실제론 환경변수로 숨김)
+});
+// 이제 db.query()를 쓰면 PostgreSQL에 SQL을 보낼 수 있음
+
+// ── 라우터 ────────────────────────────────────────────────
+app.get('/posts', async (req, res) => { // GET /posts 요청이 오면 이 함수 실행
+  const result = await db.query(        // db.query() = PostgreSQL에 SQL 문장을 전송
+    'SELECT * FROM posts ORDER BY created_at DESC'
+    //  ↑ "posts 테이블에서 전체 행을 가져오되 최신 순으로 정렬해줘"
+  );
+  // result.rows = DB가 돌려준 행(row) 배열
+  // 예: [{id:1, title:"첫글"}, {id:2, title:"두번째글"}, ...]
+  res.json(result.rows);               // 그 배열을 JSON 형태로 프론트에 응답
 });</pre>
+<div class="easy" style="margin-top:8px"><b>흐름 요약:</b> pg 드라이버가 Node.js와 PostgreSQL 사이 통역사 역할. <code>db.query(SQL)</code> 하면 드라이버가 네트워크로 PostgreSQL에 SQL 전달 → PostgreSQL이 데이터 꺼내서 돌려줌 → <code>result.rows</code>에 담김 → 프론트로 JSON 전송.</div>
 </div></div>
 
 <div class="step"><div class="n">3</div><div class="b">
