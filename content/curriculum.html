@@ -18,6 +18,49 @@
 <div class="easy"><b>쉽게:</b> FastAPI·Express = "서버 만드는 틀"(백). PostgreSQL = "데이터 창고"(백). React = "화면 조립 키트"(프론트). 프레임워크는 언어 위에 얹는 골격이다.</div>
 <div class="note"><b>내 백엔드 2갈래</b>: Python → <b>FastAPI</b>로 서버 / JavaScript → <b>Node.js + Express</b>로 서버. 둘 다 PostgreSQL에 연결. 같은 일을 두 언어로 — 비교하며 배우면 개념이 또렷해짐.</div>
 
+<h2>1. JS 생태계 포함관계 — 뭐가 뭘 감싸나</h2>
+<p>이 기술들은 따로따로가 아니라 <b>층층이 쌓이는 구조</b>다. 아래가 위를 받쳐준다.</p>
+
+<div class="card">
+<b>전체 지도</b>
+<div style="font-family:monospace;line-height:2;margin-top:10px;font-size:13px">
+JavaScript (언어 — 가장 기반)<br>
+├── <b>TypeScript</b> ← JS에 타입 추가한 상위집합. JS 파일 그대로 TS에서 동작<br>
+│<br>
+├── [브라우저 환경 — 프론트엔드]<br>
+│   ├── 바닐라 JS (순수, 라이브러리 없음)<br>
+│   ├── <b>React</b> ← JS(또는 TS) 위에 올라가는 UI 라이브러리<br>
+│   └── <b>Next.js</b> ← React 위에 올라가는 프레임워크 (SSR·파일기반라우팅 추가)<br>
+│<br>
+└── [서버 환경 — 백엔드]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;├── <b>Node.js</b> ← JS를 서버(브라우저 밖)에서 실행하는 런타임<br>
+&nbsp;&nbsp;&nbsp;&nbsp;└── <b>Express</b> ← Node.js 위에 올라가는 웹 프레임워크
+</div>
+</div>
+
+<div class="tw"><table>
+<tr><th>기술</th><th>종류</th><th>무엇 위에?</th><th>한 줄</th></tr>
+<tr><td><code>JavaScript</code></td><td>언어</td><td>— (기반)</td><td>모든 것의 뿌리. 브라우저·서버 둘 다 동작</td></tr>
+<tr><td><code>TypeScript</code></td><td>언어 (JS 상위집합)</td><td>JavaScript 포함</td><td>JS에 타입 안전장치 추가. JS 코드 그대로 TS에서 돌아감</td></tr>
+<tr><td><code>Node.js</code></td><td>런타임 (실행환경)</td><td>JavaScript</td><td>"JS는 원래 브라우저 전용" → Node가 서버에서 실행 가능하게 함</td></tr>
+<tr><td><code>React</code></td><td>라이브러리</td><td>JavaScript (또는 TS)</td><td>UI를 컴포넌트 단위로 만드는 도구. 프레임워크 아님</td></tr>
+<tr><td><code>Next.js</code></td><td>프레임워크</td><td>React</td><td>React에 SSR·파일기반 라우팅·API 라우트 추가. React만으론 부족한 것들을 채움</td></tr>
+<tr><td><code>Express</code></td><td>프레임워크</td><td>Node.js</td><td>Node.js로 API 서버 만드는 틀. 라우팅·미들웨어 제공</td></tr>
+</table></div>
+
+<div class="card"><b>핵심 포인트</b>
+<ul style="margin:8px 0 0;padding-left:20px;line-height:2">
+<li><b>TypeScript ⊃ JavaScript</b> — TS는 JS를 포함한다. JS 파일을 TS 프로젝트에 그냥 넣어도 동작. "JS에 타입 레이어 추가" = TS</li>
+<li><b>Node.js ≠ 언어</b> — Node는 언어가 아니라 <b>실행 환경(런타임)</b>. "JS를 서버에서 돌려주는 엔진"</li>
+<li><b>React ≠ 프레임워크</b> — React는 <b>라이브러리</b>. UI만 담당. 라우팅·서버·배포는 React 밖</li>
+<li><b>Next.js = React + α</b> — Next는 React를 포함하고 SSR·라우팅·API·이미지최적화 추가. "React로 할 수 있는 것 + 못하는 것까지"</li>
+</ul>
+</div>
+
+<div class="easy"><b>비유로:</b>
+JavaScript = 재료(밀가루). TypeScript = 밀가루+계량컵(오차 방지). Node.js = 오븐(밀가루를 서버에서 구울 수 있게). React = 제빵 키트(쉽게 빵 모양 만들기). Next.js = 제빵 키트+배달포장+레시피북(빵 만들기+배달까지).
+</div>
+
 <h2>5. 권장 학습 순서</h2>
 <div class="card">
 <div class="step"><div class="n">1</div><div class="b"><b>HTML·CSS·JS</b> (프론트 기초) — 화면 먼저 만들어 보기</div></div>
