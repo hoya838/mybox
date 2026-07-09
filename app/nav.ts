@@ -20,6 +20,7 @@ export const NAV = [
   ]},
   { sec: "실전", icon: "Rocket", items: [
     { slug: "build", label: "서비스 만들기", icon: "Rocket" },
+    { slug: "board-build", label: "게시판 만들기", icon: "ClipboardList" },
   ]},
   { sec: "AI 도구", icon: "Sparkles", items: [
     { slug: "ai-tools", label: "AI 도구", icon: "Sparkles" },
