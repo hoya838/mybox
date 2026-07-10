@@ -50,3 +50,42 @@ const { rows } = await db.query('SELECT * FROM todos');</pre>
 <tr><td>문서</td><td>자동(/docs)</td><td>수동(Swagger)</td></tr>
 </table></div>
 <div class="easy"><b>쉽게:</b> 둘이 거의 같은 일. FastAPI가 검증·문서 자동이라 편하고, Express는 JS라 프론트와 언어 통일.</div>
+
+<h2>필수 패턴 — 줄별 주석</h2>
+<p>Express = Node.js 위 최소 웹 프레임워크. <b>미들웨어(요청이 거치는 함수 사슬)</b> + 라우팅이 핵심. 주석 = 그 줄이 하는 일.</p>
+<pre>// ── 앱 만들기 ───────────────────────────────────
+const express = require("express");  // 프레임워크 불러오기(CommonJS)
+const app = express();               // 앱 객체 생성
+
+// ── 미들웨어: 모든 요청이 순서대로 거침 ─────────
+app.use(express.json());             // 요청 본문(JSON)을 req.body로 파싱해줌(필수)
+app.use((req, res, next) =&gt; {        // 커스텀 미들웨어(로깅 등)
+  console.log(req.method, req.url);  // 요청 메서드·경로 기록
+  next();                            // next()=다음 미들웨어로 넘김(안 부르면 멈춤)
+});
+
+// ── 라우트: 메서드 + 경로 + 핸들러 ──────────────
+app.get("/posts", (req, res) =&gt; {    // GET /posts
+  res.json([{ id: 1, title: "hi" }]); // res.json() = JSON 응답 전송
+});
+
+app.get("/posts/:id", (req, res) =&gt; {  // :id = 경로 변수
+  const id = req.params.id;          // req.params로 꺼냄("/posts/3" → "3")
+  res.json({ id });
+});
+
+app.post("/posts", (req, res) =&gt; {   // POST /posts
+  const { title } = req.body;        // 본문에서 title 꺼내기(express.json 덕분)
+  if (!title) return res.status(400).json({ error: "title 필요" });
+  //  검증 실패 시 400(잘못된 요청). return으로 함수 종료
+  res.status(201).json({ id: 1, title }); // 201=생성됨
+});
+
+// ── 에러 핸들러: 인자 4개짜리(맨 뒤에 위치) ─────
+app.use((err, req, res, next) =&gt; {   // err가 첫 인자면 에러 전용 미들웨어
+  res.status(500).json({ error: err.message }); // 500=서버 에러
+});
+
+// ── 서버 켜기 ───────────────────────────────────
+app.listen(8000, () =&gt; console.log("http://localhost:8000")); // 8000 포트 대기</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①<b>미들웨어는 순서대로</b> 실행 — <code>express.json()</code>을 라우트보다 위에 둬야 <code>req.body</code>가 참 ②<code>next()</code> 안 부르면 요청이 그 자리에서 멈춤 ③경로 <code>:id</code>=<code>req.params</code>, 쿼리 <code>?q=</code>=<code>req.query</code>, 본문=<code>req.body</code> ④에러 미들웨어는 <b>인자 4개</b>(err 포함)로 구분, 맨 마지막에 ⑤검증·문서는 수동(FastAPI와 차이) — zod·express-validator 별도 ⑥<code>res</code>는 한 번만 응답(두 번 보내면 에러).</div>

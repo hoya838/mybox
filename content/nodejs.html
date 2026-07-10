@@ -25,3 +25,39 @@ const data = await fs.readFile('a.txt', 'utf-8');  // 기다림</pre>
 <pre>const port = process.env.PORT || 3000;   // 환경변수 or 기본값
 // .env 파일에 비밀키·DB주소 보관 (git에 안 올림)</pre>
 <div class="easy"><b>쉽게:</b> 비밀번호·설정은 코드에 박지 말고 <code>.env</code>에. 환경마다 다르게.</div>
+
+<h2>필수 패턴 — 줄별 주석</h2>
+<p>Node.js는 <b>언어가 아니라 JS 실행환경(런타임)</b>. 브라우저 밖에서 파일·서버·프로세스를 다룬다. 주석 = 그 줄이 하는 일.</p>
+<pre>// ── 1. 모듈: 코드 나눠 쓰기 ─────────────────────
+const fs = require("fs");            // Node 내장 모듈 불러오기(CommonJS 방식)
+// import fs from "fs";              // ESM 방식(package.json에 "type":"module"일 때)
+const { add } = require("./math");   // 내가 만든 파일 가져오기(.js 생략 가능)
+module.exports = { add };            // 이 파일 것을 남에게 내주기
+
+// ── 2. 파일 읽고 쓰기(fs) ───────────────────────
+const data = fs.readFileSync("a.txt", "utf-8"); // 파일 통째로 읽기(동기=끝날 때까지 대기)
+fs.writeFileSync("b.txt", "내용");   // 파일 쓰기(없으면 생성)
+
+// ── 3. 환경변수: 비밀·설정 분리 ─────────────────
+const port = process.env.PORT || 3000; // process.env로 .env 값 읽기, 없으면 3000
+// process = 실행 중인 Node 프로세스 정보(인자·환경·종료 등)
+
+// ── 4. 비동기: 안 기다리고 넘어감 ───────────────
+const fsp = require("fs/promises");  // 프로미스 버전 fs
+async function readAll() {
+  const txt = await fsp.readFile("a.txt", "utf-8"); // await=결과 올 때까지 대기
+  return txt;                        // 동기(readFileSync)와 달리 서버를 안 멈춤
+}
+
+// ── 5. 내장 HTTP 서버(프레임워크 없이) ──────────
+const http = require("http");        // 내장 http 모듈
+http.createServer((req, res) =&gt; {    // 요청마다 이 함수 실행
+  res.writeHead(200, { "Content-Type": "application/json" }); // 상태·헤더
+  res.end(JSON.stringify({ ok: true })); // 응답 본문 전송하고 종료
+}).listen(port);                     // port에서 요청 대기(보통은 Express로 대체)
+
+// ── 6. npm: 패키지·스크립트 ─────────────────────
+// npm init -y            → package.json 생성
+// npm install express    → 외부 패키지 설치(node_modules에)
+// npm run dev            → package.json scripts의 dev 실행</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①<b>Node는 런타임</b> — 언어는 그대로 JS, 브라우저 API(document 등) 없고 대신 fs·http·process ②모듈 2방식: <code>require</code>(CommonJS)·<code>import</code>(ESM) — 섞으면 에러 ③<b>동기(<code>...Sync</code>) 남용 금지</b> — 서버가 그 동안 멈춤. 비동기 <code>await</code> 기본 ④<code>process.env</code> + <code>.env</code>로 비밀 분리, <code>.gitignore</code>에 <code>.env</code> 필수 ⑤<code>package.json</code>=프로젝트 명세(의존성·스크립트), <code>node_modules</code>는 git에 안 올림 ⑥실무 서버는 http 직접 대신 <a href="/express">Express</a>.</div>

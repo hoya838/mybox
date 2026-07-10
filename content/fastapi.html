@@ -44,3 +44,42 @@ def add(t: Todo):     # 자동으로 형식 검사
 <pre>pip install fastapi uvicorn sqlalchemy psycopg2
 uvicorn main:app --reload   # 서버 실행</pre>
 <div class="easy"><b>쉽게:</b> SQLAlchemy로 PostgreSQL 연결, uvicorn으로 서버 켬. <code>--reload</code>=코드 바뀌면 자동 재시작.</div>
+
+<h2>필수 패턴 — 줄별 주석</h2>
+<p>FastAPI = 데코레이터로 경로 연결 + Pydantic으로 입출력 자동 검증 + <code>/docs</code> 문서 자동 생성. 주석 = 그 줄이 하는 일.</p>
+<pre># ── 앱 만들기 ───────────────────────────────────
+from fastapi import FastAPI          # 프레임워크 임포트
+from pydantic import BaseModel       # 데이터 검증용 베이스
+
+app = FastAPI()                      # 앱 객체 생성 — 모든 라우트가 여기 붙음
+
+# ── Pydantic 모델: 입출력 계약 ──────────────────
+class PostIn(BaseModel):             # 요청 본문 모양 정의
+    title: str                       # title은 문자열 필수(없으면 자동 422 에러)
+    content: str = ""                # 기본값 있으면 선택 항목
+
+class PostOut(BaseModel):            # 응답 모양
+    id: int
+    title: str
+
+# ── 라우트: 데코레이터로 URL+메서드 연결 ────────
+@app.get("/posts")                   # GET /posts 요청을 아래 함수에 연결
+async def list_posts():              # async = 비동기(DB 대기 중 다른 요청 처리)
+    return [{"id": 1, "title": "hi"}] # 반환값이 자동으로 JSON 변환
+
+@app.get("/posts/{post_id}")         # {post_id} = 경로 변수
+async def get_post(post_id: int):    # 타입 int → 문자열 아니면 자동 422
+    return {"id": post_id}
+
+@app.post("/posts", response_model=PostOut, status_code=201)
+#  response_model=응답 검증·문서화, status_code=201(생성됨)
+async def create_post(post: PostIn): # 본문을 PostIn으로 자동 파싱·검증
+    return {"id": 1, "title": post.title}  # PostOut 모양대로 반환
+
+# ── 쿼리 파라미터·의존성 주입 ───────────────────
+@app.get("/search")
+async def search(q: str, limit: int = 10):  # ?q=..&limit=.. URL 쿼리 자동 매핑
+    return {"q": q, "limit": limit}          # limit 기본 10
+
+# 실행: uvicorn main:app --reload   → http://127.0.0.1:8000/docs 자동 문서</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①<b>Pydantic 모델이 검증·문서를 자동</b> — 타입 안 맞으면 손 안 대도 422 응답 ②경로 <code>{id}</code>=path, 함수 인자 기본값=query 파라미터 ③<code>async def</code> + 비동기 드라이버(asyncpg)로 동시성 ④<code>response_model</code>로 응답에서 민감필드(비번) 제외 ⑤<code>/docs</code>(Swagger)·<code>/redoc</code> 자동 생성 — 별도 문서화 불필요 ⑥DB 세션은 <code>Depends()</code> 의존성 주입으로 요청마다 관리.</div>

@@ -95,3 +95,51 @@ export async function POST(req) {
 <pre>npx create-next-app@latest my-app
 cd my-app && npm run dev   # localhost:3000</pre>
 <div class="note"><b>학습 순서</b>: JavaScript → React(컴포넌트·state·useEffect 위 기초) → Next.js(라우팅·서버컴포넌트·API). 백엔드를 Python(FastAPI)/Node(Express)로 따로 둘지, Next API로 합칠지는 규모 따라.</div>
+
+<h2>필수 패턴 — 줄별 주석 (App Router)</h2>
+<p>Next.js는 <b>폴더 구조가 곧 라우팅</b>이다. 파일 위치·이름이 URL·역할을 정한다. 주석 = 그 줄/파일이 하는 일.</p>
+<pre>app/
+├─ layout.tsx        // 모든 페이지 공통 껍데기(헤더·푸터). 필수
+├─ page.tsx          // "/" 경로 화면
+├─ posts/
+│  ├─ page.tsx       // "/posts" 목록 화면
+│  └─ [id]/page.tsx  // "/posts/3" 상세. [id]=동적 구간(폴더명이 변수)
+└─ api/hello/route.ts // "/api/hello" 백엔드 엔드포인트</pre>
+<pre>// ── 서버 컴포넌트 (기본값): 서버에서 실행, DB·API 직접 호출 ──
+// app/posts/page.tsx  — "use client" 없으면 서버 컴포넌트
+async function PostsPage() {          // async 가능 — 서버라서
+  const res = await fetch("https://api.../posts", { cache: "no-store" });
+  //  cache:"no-store" = 매 요청 최신값(캐시 안 함)
+  const posts = await res.json();     // 서버에서 데이터 준비
+  return (                            // 완성된 HTML을 브라우저로 전송
+    &lt;ul&gt;
+      {posts.map((p) =&gt; (             // 배열을 &lt;li&gt; 목록으로
+        &lt;li key={p.id}&gt;{p.title}&lt;/li&gt; // key=React가 항목 구분(필수)
+      ))}
+    &lt;/ul&gt;
+  );
+}
+export default PostsPage;             // 이 파일의 기본 내보내기 = 그 경로 화면
+
+// ── 클라이언트 컴포넌트: 브라우저에서 실행, 상태·이벤트 필요할 때 ──
+"use client";                         // 이 지시어가 있어야 useState·onClick 가능
+import { useState } from "react";
+function LikeButton() {
+  const [n, setN] = useState(0);      // 상태 = 바뀌면 화면 자동 갱신
+  return &lt;button onClick={() =&gt; setN(n + 1)}&gt;{n}&lt;/button&gt;; // 클릭 시 +1
+}
+
+// ── 동적 라우트: URL의 값 꺼내기 ──────────────────
+// app/posts/[id]/page.tsx
+async function PostDetail({ params }) {  // params에 URL 구간이 담김
+  const { id } = await params;           // "/posts/3" → id="3"
+  const post = await fetch(`https://api.../posts/${id}`).then(r =&gt; r.json());
+  return &lt;h1&gt;{post.title}&lt;/h1&gt;;
+}
+
+// ── API 라우트: Next 안에 백엔드 ──────────────────
+// app/api/hello/route.ts
+export async function GET() {         // GET 요청 처리 함수(POST면 export POST)
+  return Response.json({ msg: "hi" }); // JSON 응답 반환
+}</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①<b>기본은 서버 컴포넌트</b>(빠름·SEO·DB직접) — 상태/이벤트 필요할 때만 <code>"use client"</code> ②폴더명 <code>[id]</code>=동적, 파일 <code>page.tsx</code>=화면·<code>route.ts</code>=API·<code>layout.tsx</code>=공통틀 ③<code>fetch</code> 캐시 옵션(<code>no-store</code>=항상 최신, 기본=캐시)이 렌더 방식 결정 ④클라이언트 컴포넌트는 최대한 작게(잎사귀만) ⑤데이터 바꾼 뒤 <code>router.refresh()</code>로 서버 데이터 다시 당김.</div>
