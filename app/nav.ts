@@ -1,5 +1,6 @@
 export const NAV = [
   { sec: "학습", icon: "BookOpen", items: [
+    { slug: "how-to-learn", label: "학습법", icon: "Lightbulb" },
     { slug: "roadmap", label: "로드맵", icon: "Map" },
     { slug: "web", label: "웹개발", icon: "Globe" },
     { slug: "ai", label: "AI·LLM", icon: "Cpu" },

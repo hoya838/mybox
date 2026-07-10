@@ -1,0 +1,82 @@
+<style>
+.htl .big{font-size:15px;line-height:1.7}
+.htl .vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+@media(max-width:640px){.htl .vs{grid-template-columns:1fr}}
+.htl .vc{background:var(--card);border:1px solid var(--hairline);border-radius:8px;padding:16px 18px}
+.htl .vc.bad{border-left:2px solid var(--mut)}
+.htl .vc.good{border-left:2px solid var(--sunset)}
+.htl .vc .h{font-size:13px;color:var(--mut);margin-bottom:6px}
+.htl .vc.good .h{color:var(--sunset)}
+.htl .vc .m{font-size:20px;font-weight:400;color:var(--ink);font-family:"Geist Mono",monospace}
+.htl .vc .s{font-size:13px;color:var(--body);margin-top:6px;line-height:1.6}
+.htl .xlinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:16px 0}
+.htl .xlinks a{display:block;background:var(--card);border:1px solid var(--hairline);border-radius:8px;padding:13px 15px;color:var(--ink)}
+.htl .xlinks a:hover{background:var(--canvas-soft);text-decoration:none;border-color:var(--line2)}
+.htl .xlinks .t{font-size:14px}.htl .xlinks .d{font-size:12.5px;color:var(--mut);margin-top:3px;line-height:1.5}
+</style>
+
+<div class="htl">
+
+<h1>학습법 — 거꾸로 배우기 <span class="pill">이 가이드를 여는 법</span></h1>
+<p class="sub">학위 없이 챗지피티 독학으로 OpenAI에 입사한 연구원의 방법. 이 가이드의 모든 페이지를 <b>어떤 순서·태도로 읽을지</b>를 먼저 정한다. 도구가 아니라 방법이 실력을 만든다.</p>
+
+<div class="note"><b>한 줄:</b> AI에게 <b>"만들어줘"가 아니라 "왜 그런지 12세한테 설명하듯 알려줘"</b>를 붙여라. AI를 대신 일하는 도구가 아니라 <b>기초를 빨리 이해하는 지름길</b>로 쓴다.</div>
+
+<h2>거꾸로 배우기 (Top-down)</h2>
+<p class="big">이론·문법부터 쌓지 않는다. <b>문제(코드)부터 짜고</b>, 막히는 지점에서 "이건 왜 이렇게 되지?"를 파고들어 <b>지식의 빈틈을 메운다</b>. 순서가 반대일 뿐인데 속도가 다르다.</p>
+
+<div class="vs">
+  <div class="vc bad"><div class="h">상향식 (문법 → 이론 → 실전)</div><div class="m">6년</div><div class="s">기초부터 차곡차곡. 언제 쓰는지 모른 채 외우다 지침.</div></div>
+  <div class="vc good"><div class="h">하향식 (문제 → 왜? → 기초)</div><div class="m">3일</div><div class="s">막히는 데서만 기초로 내려감. 필요가 먼저라 안 잊음.</div></div>
+</div>
+<div class="easy"><b>쉽게:</b> 수영 책 6년 읽기 vs 일단 물에 들어가 허우적대다 "숨 어떻게 쉬지?"만 찾아보기. 후자가 빠르다.</div>
+
+<h2>AI를 "가르쳐줘"로 쓴다 — "해줘" 아니라</h2>
+<div class="step"><div class="n">1</div><div class="b"><b>"해줘"만 쓰면 결과만 남고 실력은 안 남는다.</b> AI가 짠 코드는 <b>반드시 한 줄 한 줄 직접 읽는다</b>. "바이브 코더가 되지 마라" — 지름길은 기초를 건너뛰는 게 아니라 <b>기초를 빨리 이해하는</b> 지름길이어야 한다.</div></div>
+<div class="step"><div class="n">2</div><div class="b"><b>질문을 하루 100번 반복한다.</b> "왜?"를 붙이는 습관 자체가 훈련이다. 한 번의 완벽한 프롬프트보다 100번의 "왜 이렇게 돼?"가 실력을 만든다.</div></div>
+
+<h3>실전 프롬프트 3원칙</h3>
+<div class="tw">
+<table>
+  <thead><tr><th>원칙</th><th>나쁜 예 → 좋은 예</th></tr></thead>
+  <tbody>
+    <tr><td><b>① 직접·구체적으로</b></td><td>"로그인 만들어줘" → "이메일+비번 로그인에서 세션은 어디 저장돼? 왜 쿠키야?"</td></tr>
+    <tr><td><b>② 결과 말고 중간 과정</b></td><td>"정답 코드 줘" → "단계마다 왜 그렇게 되는지 과정을 보여줘"</td></tr>
+    <tr><td><b>③ 12세한테 설명하듯</b></td><td>"async 설명해줘" → "async를 열두 살한테 설명하듯 비유로 알려줘"</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="note"><b>출처:</b> 이 방법론의 원본은 볼트 노트 <code>OpenAI 연구원이 공개한 프롬프트 한 줄</code>(챗지피티 독학 OpenAI 입사 사례). 아래 5개 보조 원칙은 이 가이드 여러 강의가 공통으로 말하는 것을 묶은 것.</div>
+
+<h2>이 가이드를 떠받치는 5개 학습 원칙</h2>
+<p>거꾸로 배우기와 같은 축. 각 원칙이 어느 페이지에서 자세히 나오는지 함께 표기.</p>
+<div class="tw">
+<table>
+  <thead><tr><th>원칙</th><th>뜻</th><th>자세히</th></tr></thead>
+  <tbody>
+    <tr><td><b>왜 생겼는지로 이해</b></td><td>암기 금지. 모든 기술은 문제 해결의 결과 — 문제를 알면 자동 이해</td><td><a href="/web">웹개발</a></td></tr>
+    <tr><td><b>필요성 먼저</b></td><td>"왜 배우나"부터. 필요를 느낀 뒤 개념으로</td><td><a href="/datastructures">자료구조</a></td></tr>
+    <tr><td><b>근본 구조 먼저</b></td><td>구조를 제대로 잡으면 세부(문법·알고리즘)는 자연히 풀림 (Pike 5번)</td><td><a href="/datastructures">자료구조</a></td></tr>
+    <tr><td><b>비유로 진입</b></td><td>도로/우편·식당 홀·주방·전화번호부 — 낯선 개념은 아는 것에 붙여서</td><td><a href="/roadmap">로드맵</a></td></tr>
+    <tr><td><b>안 변하는 것에 투자</b></td><td>휘발성 툴 말고 근본(CS·아키텍처·설계)에 학습 시간</td><td><a href="/ai">AI·LLM</a></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>그래서 이 순서로 읽어라</h2>
+<div class="step"><div class="n">1</div><div class="b"><b>로드맵</b>에서 전체 지형만 훑는다 (외우지 말고 "왜 이 순서인지"만).</div></div>
+<div class="step"><div class="n">2</div><div class="b"><b>실전(서비스·게시판 만들기)</b>을 먼저 건드린다. 막힌다 — 정상이다.</div></div>
+<div class="step"><div class="n">3</div><div class="b">막힌 지점의 <b>언어·커리큘럼 페이지</b>로 내려가 "왜?"만 찾아 읽는다.</div></div>
+<div class="step"><div class="n">4</div><div class="b">AI에게 그 지점을 <b>"12세 설명 + 중간 과정"</b>으로 물어 빈틈을 메운다.</div></div>
+
+<div class="xlinks">
+  <a href="/roadmap"><div class="t">로드맵 →</div><div class="d">전체 지형 — 뭘·왜 배우는지 순서</div></a>
+  <a href="/build"><div class="t">서비스 만들기 →</div><div class="d">먼저 부딪히는 실전. 막히면 커리큘럼으로</div></a>
+  <a href="/board-build"><div class="t">게시판 만들기 →</div><div class="d">풀스택 CRUD 실전 기록</div></a>
+  <a href="/curriculum"><div class="t">언어 커리큘럼 →</div><div class="d">막힌 지점만 내려가 읽는 참조</div></a>
+  <a href="/ai-5elements"><div class="t">AI 학습 5요소 →</div><div class="d">"도메인지식이 곧 AI 검증 능력"의 큰 그림</div></a>
+</div>
+
+<footer>학습법 · 거꾸로 배우기(문제→왜?→기초) + AI를 가르쳐줘로 · 상향식 6년을 하향식 3일로</footer>
+
+</div>
