@@ -42,3 +42,50 @@ UPDATE accounts SET bal = bal-100 WHERE id=1;
 UPDATE accounts SET bal = bal+100 WHERE id=2;
 COMMIT;                                 -- 둘 다 성공해야 확정</pre>
 <div class="easy"><b>쉽게:</b> 인덱스=책 색인(빨리 찾기). 트랜잭션=송금처럼 "전부 되거나 전부 취소"(중간 사고 방지).</div>
+
+<h2>필수 문법 총정리 — 한 파일, 줄별 주석</h2>
+<p>SQL은 "무엇을 원하는지" 선언하는 언어. 테이블 만들기부터 CRUD·JOIN·집계까지 한 흐름으로. 주석은 <code>--</code>(두 하이픈). 명령 끝은 <code>;</code>.</p>
+<pre>-- ── 1. 테이블 생성: 칸(컬럼)과 규칙 정의 ─────────
+CREATE TABLE users (            -- users 테이블 만들기
+  id     SERIAL PRIMARY KEY,    -- SERIAL=자동증가, PRIMARY KEY=중복없는 대표키
+  name   VARCHAR(50) NOT NULL,  -- 최대 50자 문자열, NOT NULL=빈 값 금지
+  email  VARCHAR(100) UNIQUE    -- UNIQUE=같은 값 중복 금지
+);
+CREATE TABLE posts (
+  id        SERIAL PRIMARY KEY,
+  title     TEXT NOT NULL,      -- TEXT=길이 제한 없는 문자열
+  user_id   INTEGER REFERENCES users(id),  -- 외래키: users.id를 가리킴(연결)
+  created   TIMESTAMP DEFAULT now()         -- DEFAULT=값 안 주면 현재시각 자동
+);
+
+-- ── 2. CRUD: 생성·조회·수정·삭제 ────────────────
+INSERT INTO users (name, email)          -- 어느 컬럼에
+VALUES ('철수', 'chul@x.com');           -- 어떤 값을 넣을지. → 1행 생성
+
+SELECT id, name FROM users               -- users에서 id,name 컬럼만 꺼내기
+WHERE name = '철수'                       -- 조건: 이름이 철수인 행만
+ORDER BY id DESC                          -- id 내림차순 정렬(큰 게 위)
+LIMIT 10;                                 -- 최대 10개만
+
+UPDATE users SET email = 'new@x.com'     -- email 값을 바꿈
+WHERE id = 1;                            -- id=1 행만(WHERE 없으면 전체 변경 — 위험!)
+
+DELETE FROM users WHERE id = 1;          -- id=1 행 삭제(WHERE 필수)
+
+-- ── 3. JOIN: 여러 테이블 합쳐 보기 ──────────────
+SELECT posts.title, users.name           -- 두 테이블의 컬럼을 함께
+FROM posts                               -- 기준 테이블
+JOIN users ON posts.user_id = users.id;  -- 연결 조건: 외래키=대표키가 같은 행끼리
+
+-- ── 4. 집계: 그룹으로 묶어 계산 ─────────────────
+SELECT user_id, COUNT(*) AS cnt          -- user_id별로, 행 개수를 cnt라는 이름으로
+FROM posts
+GROUP BY user_id                         -- user_id가 같은 것끼리 묶기
+HAVING COUNT(*) &gt;= 2;                     -- 묶은 결과 중 2개 이상인 그룹만(WHERE의 집계판)
+
+-- ── 5. 트랜잭션: 전부 성공 or 전부 취소 ─────────
+BEGIN;                                    -- 트랜잭션 시작
+UPDATE accounts SET bal = bal - 100 WHERE id = 1;  -- 출금
+UPDATE accounts SET bal = bal + 100 WHERE id = 2;  -- 입금
+COMMIT;                                   -- 둘 다 성공 시 확정(하나 실패면 ROLLBACK)</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①<b><code>WHERE</code> 없는 UPDATE·DELETE = 전체 행</b> 변경/삭제 — 사고 1순위, 항상 확인 ②<code>PRIMARY KEY</code>=행 고유식별, <code>REFERENCES</code>(외래키)=테이블 연결 ③<code>WHERE</code>=행 필터, <code>HAVING</code>=그룹 필터(다름) ④인덱스는 자주 <code>WHERE</code>·<code>JOIN</code>하는 컬럼에 — 조회 빠르지만 쓰기 느려짐 ⑤<code>NULL</code> 비교는 <code>= NULL</code> 아니라 <code>IS NULL</code> ⑥돈·재고처럼 여러 줄이 함께 바뀌면 <b>트랜잭션</b>으로 묶기.</div>

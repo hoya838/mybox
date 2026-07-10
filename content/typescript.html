@@ -52,4 +52,49 @@ type Status = "active" | "done";  // 정해진 값만</pre>
 <pre>function first&lt;T&gt;(arr: T[]): T { return arr[0]; }
 first([1,2,3]);       // number
 first(["a","b"]);     // string</pre>
+
+<h2>필수 문법 총정리 — 한 파일, 줄별 주석</h2>
+<p>TS는 <b>JS에 타입만 얹은 것</b> — JS 문법은 그대로다(위 JavaScript 페이지 참고). 여기선 <b>TS가 더하는 타입 문법</b>만 줄별로. 주석 = 그 줄이 하는 일 + 왜 그렇게 쓰는지.</p>
+<pre>// ── 1. 변수 타입 표기: 이름: 타입 ───────────────
+let age: number = 20;       // : number = "이 상자엔 숫자만". 다른 값 넣으면 컴파일 에러
+let uname: string = "철수";  // 문자열만
+let ok: boolean = true;      // 참/거짓만
+let tags: string[] = ["a"];  // string[] = 문자열 배열. number[]면 숫자 배열
+let pair: [string, number] = ["age", 20]; // 튜플 = 위치별 타입 고정
+
+// ── 2. 함수: 매개변수·반환 타입 ─────────────────
+function add(a: number, b: number): number {  // (a,b는 숫자), 뒤 :number = 반환도 숫자
+  return a + b;
+}
+const greet = (n: string = "손님"): string =&gt; `${n}님`; // 화살표+기본값+반환타입
+function log(msg: string): void {}  // void = 반환값 없음("돌려줄 게 없다")
+
+// ── 3. interface / type: 객체 모양 정의 ─────────
+interface User {            // User라는 "설계도" 정의
+  name: string;             // name 칸은 문자열 필수
+  age: number;
+  email?: string;           // ?=선택(없어도 됨). 있으면 문자열
+  readonly id: number;      // readonly=한 번 정하면 수정 금지
+}
+const u: User = { name: "철수", age: 20, id: 1 }; // 설계도대로 안 채우면 에러
+type Point = { x: number; y: number }; // type으로도 정의 가능(거의 동일)
+
+// ── 4. 유니온·리터럴: 허용 범위 좁히기 ──────────
+let id: number | string;    // |=또는. 숫자 또는 문자열만 허용
+id = 1; id = "a1";          // 둘 다 OK
+type Status = "active" | "done" | "hold"; // 이 3개 문자열만 허용(오타 방지)
+let s: Status = "active";   // "actve" 쓰면 즉시 에러
+
+// ── 5. 제네릭: 타입을 나중에 정하는 함수 ────────
+function first&lt;T&gt;(arr: T[]): T {  // &lt;T&gt;=타입 변수. 호출할 때 실제 타입 결정
+  return arr[0];            // T[] 받아 T 하나 반환(타입 유지)
+}
+first([1, 2, 3]);           // T=number로 추론 → 반환도 number
+first(["a", "b"]);          // T=string → 반환 string
+
+// ── 6. 타입 별칭·옵셔널 체이닝·널 병합 ──────────
+const len = u.email?.length;      // ?. = email 있으면 .length, 없으면 undefined(에러 방지)
+const nick = u.name ?? "익명";     // ?? = 왼쪽이 null/undefined면 오른쪽 사용
+const n = someValue as number;    // as = "이건 number라고 믿어"(타입 단언, 남용 주의)</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①TS는 <b>실행 안 됨</b> — <code>tsc</code>가 JS로 컴파일(브라우저·Node는 JS만 이해) ②<b><code>any</code> 남발 금지</b> — 타입 검사를 꺼버려 TS 쓰는 의미가 사라짐 ③<code>?</code>=선택 속성, <code>?.</code>=옵셔널 체이닝, <code>??</code>=널 병합(전부 다름) ④<code>interface</code>는 객체·확장에, <code>type</code>은 유니온·별칭에 주로 ⑤타입은 <b>컴파일 후 사라짐</b> — 런타임 검증엔 zod 같은 도구 별도 ⑥JS 문법 100% 그대로 + 타입만 추가.</div>
 <div class="easy"><b>쉽게:</b> <code>T</code>=나중에 정해질 타입 자리. 한 함수로 여러 타입 안전하게.</div>

@@ -67,4 +67,53 @@
   .menu { display: none; }   /* 폰에선 숨김 */
   .row  { flex-direction: column; }  /* 세로 쌓기 */
 }</pre>
+
+<h2>필수 문법 총정리 — 줄별 주석</h2>
+<p>HTML=구조, CSS=꾸미기. 둘은 언어라기보다 <b>표기법</b>이라 "문법"이 곧 태그·속성이다. 주석 표기가 서로 다르다: HTML <code>&lt;!-- --&gt;</code>, CSS <code>/* */</code>.</p>
+
+<h3>HTML — 페이지 뼈대</h3>
+<pre>&lt;!-- HTML 주석은 이렇게. 화면에 안 보임 --&gt;
+&lt;!DOCTYPE html&gt;              &lt;!-- "이 문서는 HTML5" 선언(맨 첫 줄) --&gt;
+&lt;html lang="ko"&gt;            &lt;!-- 문서 루트. lang=언어(검색·번역용) --&gt;
+&lt;head&gt;                      &lt;!-- 화면 밖 정보(제목·연결파일) --&gt;
+  &lt;meta charset="UTF-8"&gt;    &lt;!-- 글자 인코딩. 한글 안 깨지게 필수 --&gt;
+  &lt;title&gt;내 페이지&lt;/title&gt;   &lt;!-- 브라우저 탭에 뜨는 제목 --&gt;
+&lt;/head&gt;
+&lt;body&gt;                      &lt;!-- 실제 눈에 보이는 내용 전부 --&gt;
+  &lt;h1&gt;제목&lt;/h1&gt;             &lt;!-- 최상위 제목(페이지당 1개 권장) --&gt;
+  &lt;p&gt;문단 텍스트&lt;/p&gt;         &lt;!-- p=paragraph, 한 문단 --&gt;
+  &lt;a href="https://x.com"&gt;링크&lt;/a&gt;  &lt;!-- href=이동할 주소. a=anchor --&gt;
+  &lt;img src="cat.png" alt="고양이"&gt;  &lt;!-- src=이미지 경로, alt=대체텍스트(접근성) --&gt;
+  &lt;ul&gt;                     &lt;!-- 순서없는 목록(점) --&gt;
+    &lt;li&gt;항목1&lt;/li&gt;         &lt;!-- li=목록 항목 --&gt;
+  &lt;/ul&gt;
+  &lt;button id="go" class="btn"&gt;클릭&lt;/button&gt;  &lt;!-- id=고유이름(1개), class=분류(여러개 공유) --&gt;
+  &lt;input type="text" placeholder="입력"&gt;  &lt;!-- 사용자 입력칸. type이 종류 결정 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<div class="easy"><b>읽는 법:</b> <code>&lt;태그&gt;내용&lt;/태그&gt;</code>가 기본 단위. 여는 태그·닫는 태그로 감싼다. <code>id</code>는 이름표(유일), <code>class</code>는 그룹표(공유) — CSS·JS가 이걸로 요소를 찾는다.</div>
+
+<h3>CSS — 그 뼈대를 꾸미기</h3>
+<pre>/* CSS 주석은 이렇게 */
+h1 {                    /* 선택자: 어떤 요소에 적용할지. 여기선 모든 h1 */
+  color: #333;          /* 속성: 값 — 글자색(진회색). ;로 각 줄 끝냄 */
+  font-size: 24px;      /* 글자 크기 */
+}
+.btn {                  /* .클래스이름 = class="btn"인 요소 전부 */
+  background: #2563eb;  /* 배경색 */
+  padding: 8px 16px;    /* 안쪽 여백: 위아래 8, 좌우 16 */
+  border-radius: 6px;   /* 모서리 둥글게 */
+}
+#go {                   /* #아이디 = id="go"인 요소 하나 */
+  display: none;        /* 화면에서 숨김 */
+}
+.row {
+  display: flex;        /* 자식들을 가로로 나란히(Flexbox) */
+  gap: 12px;            /* 자식 사이 간격 */
+  justify-content: center;  /* 가로 가운데 정렬 */
+}
+@media (max-width: 600px) {  /* 화면 폭 600px 이하일 때만 아래 적용(반응형) */
+  .row { flex-direction: column; }  /* 세로로 쌓기 */
+}</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①CSS 구조 = <b>선택자 { 속성: 값; }</b> ②선택자 우선순위: <code>#id</code> &gt; <code>.class</code> &gt; <code>태그</code> ③박스모델 — 요소는 content→padding(안여백)→border→margin(바깥여백) 순 겹 ④레이아웃은 <b>Flexbox</b>(1차원)·<b>Grid</b>(2차원)가 현대 표준 ⑤<code>@media</code>로 화면 크기별 대응(반응형) ⑥HTML은 <b>의미 태그</b>(header·nav·main·footer)를 div보다 우선 — 접근성·SEO.</div>
 <div class="easy"><b>쉽게:</b> "폰처럼 좁으면 이렇게 바꿔" 규칙. PC는 가로, 폰은 세로.</div>

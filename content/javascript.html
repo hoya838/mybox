@@ -73,3 +73,81 @@ btn.addEventListener('click', () =&gt; {          // 클릭 시
 for (const f of fruits) { console.log(f); }   // 하나씩
 fruits.forEach(f =&gt; console.log(f));          // 같은 일</pre>
 <div class="easy"><b>쉽게:</b> if=갈림길, for=반복. 배열은 forEach/map으로도 돌림.</div>
+
+<h2>필수 문법 총정리 — 한 파일, 줄별 주석</h2>
+<p>아래 한 덩어리에 변수·자료형·함수·조건·반복·배열·객체·비동기가 다 들어있다. <b>주석은 그 줄이 하는 일 + 어떻게 읽는지</b>를 설명한다.</p>
+<pre>// ── 1. 출력과 주석 ──────────────────────────────
+console.log("Hello");   // console.log(x) = x를 콘솔에 찍어라. 디버깅 기본
+// 이 줄은 //로 시작 → 실행 안 됨(사람 메모)
+
+// ── 2. 변수: const(불변) / let(가변) ────────────
+const PI = 3.14;        // const = 한 번 정하면 재할당 금지. "고정값"으로 읽기
+let count = 0;          // let = 나중에 바뀔 값. "변할 상자"로 읽기
+count = count + 1;      // count에 1 더해 다시 넣음 → 1. const였다면 여기서 에러
+
+// ── 3. 자료형 6가지 ─────────────────────────────
+const num = 42;         // 숫자(정수·소수 구분 없음)
+const str = "글자";      // 문자열(따옴표)
+const bool = true;      // 불리언(참/거짓) — 조건에 씀
+const nothing = null;   // "값이 비었음"을 개발자가 명시
+let undef;              // 값 안 넣으면 undefined("아직 없음")
+const arr = [1, 2, 3];  // 배열(객체의 일종)
+
+// ── 4. 템플릿 문자열: 변수 끼워넣기 ──────────────
+const name = "철수";
+const msg = `안녕 ${name}, ${num}살`;  // 백틱`` 안에서 ${ } = 값 삽입. "안녕 철수, 42살"
+
+// ── 5. 연산자 ───────────────────────────────────
+const sum = 3 + 4;      // 산술: + - * / % (%=나머지)
+const same = (3 === 3); // === 값+타입 둘 다 같나? true. (== 는 쓰지 마라)
+const both = true &amp;&amp; false;  // &amp;&amp;(그리고) 둘 다 참이어야 참 → false
+const either = true || false; // ||(또는) 하나만 참이면 참 → true
+
+// ── 6. 조건문: 갈림길 ───────────────────────────
+if (num &gt;= 20) {        // 괄호 조건이 참이면 아래 블록 실행
+  console.log("성인");
+} else {                // 거짓이면 이쪽
+  console.log("미성년");
+}
+
+// ── 7. 반복문: 같은 일 여러 번 ──────────────────
+for (let i = 0; i &lt; 3; i++) {  // i=0에서 시작, 3보다 작은 동안, 매번 +1 → 0,1,2
+  console.log(i);
+}
+
+// ── 8. 함수: 입력→출력 기계 ─────────────────────
+function add(a, b) {    // a,b = 매개변수(받을 재료)
+  return a + b;         // return = 결과를 돌려줌. 이 줄에서 함수 끝
+}
+const mul = (a, b) =&gt; a * b;   // 화살표 함수. =&gt; 뒤가 곧 return값(요즘 스타일)
+const greet = (n = "손님") =&gt; `${n}님`;  // n=기본값. 안 넘기면 "손님"
+add(2, 3);              // 함수 호출 → 5
+
+// ── 9. 배열 메서드: 반복을 짧게 ─────────────────
+const nums = [1, 2, 3];
+nums.push(4);           // 끝에 추가 → [1,2,3,4]
+const doubled = nums.map(n =&gt; n * 2);      // 각 요소 변형 → [2,4,6,8]
+const evens = nums.filter(n =&gt; n % 2 === 0); // 조건 참인 것만 → [2,4]
+const total = nums.reduce((acc, n) =&gt; acc + n, 0); // 하나로 합침 → 10
+
+// ── 10. 객체: 이름표-값 묶음 ────────────────────
+const user = { name: "철수", age: 20 };  // 키:값 쌍
+user.age = 21;          // 점 표기로 값 변경
+const { name: userName } = user;  // 구조분해: user.name을 userName으로 꺼냄
+const copy = { ...user, city: "서울" };  // ...=펼치기(복사+추가)
+
+// ── 11. 비동기: 시간 걸리는 일 ──────────────────
+async function load() {           // async = 이 안에서 await 쓸 수 있음
+  try {                           // try = 실패할 수 있는 코드 감싸기
+    const res = await fetch("/api"); // await = 응답 올 때까지 멈춰서 기다림
+    const data = await res.json();   // 본문을 JSON 객체로 변환(이것도 대기)
+    return data;
+  } catch (err) {                 // 위에서 에러 나면 여기로 점프
+    console.error("실패:", err);
+  }
+}
+
+// ── 12. 모듈: 파일 나눠 쓰기 ────────────────────
+// import { add } from "./math.js";  // 다른 파일의 add 가져오기
+// export { add };                    // 이 파일 것을 남에게 내주기</pre>
+<div class="note"><b>꼭 알아야 할 지식:</b> ①<b>== 금지, === 사용</b>(타입까지 비교) ②변수는 <b>const 먼저</b>, 바뀔 때만 let, var는 안 씀 ③배열·객체는 <b>참조</b>로 전달 — 복사하려면 <code>...</code> 스프레드 ④<code>await</code>는 <code>async</code> 함수 안에서만 ⑤<code>null</code>=의도적 빈값, <code>undefined</code>=아직 없음 ⑥<code>map/filter/reduce</code>가 <code>for</code>보다 실무 표준.</div>
