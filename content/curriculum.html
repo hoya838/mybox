@@ -1,5 +1,6 @@
-<h1>내 커리큘럼 — 언어별 기초→심화</h1>
-<p class="sub">내 스택: 프론트(HTML·CSS·JS), 백(Python + Node.js 둘 다). 각 언어 단계별 학습안.</p>
+<h1>언어 커리큘럼 — 프론트·백 거꾸로 배우기</h1>
+<p class="sub">스택을 <b>프론트엔드 / 백엔드</b>로 나눠서. 그리고 기초부터 쌓지 않는다 — <a href="/how-to-learn">거꾸로 배우기</a>대로 <b>만드는 결과물부터</b> 시작해 막히는 지점만 기초로 내려간다.</p>
+<div class="note"><b>nav도 이 구조:</b> 좌측 <b>프론트엔드</b>(Next.js→TS→JS→HTML·CSS)·<b>백엔드</b>(FastAPI→Python→Express→Node→PostgreSQL) 두 갈래. 위가 만드는 것, 아래가 기초. 위에서 막히면 아래로.</div>
 
 <h2>0. 기술 분류 — 뭐가 어디 속하나</h2>
 <div class="tw"><table>
@@ -291,14 +292,40 @@ return (
 
 <div class="note"><b>핵심:</b> 프론트(devlog.kr)는 화면만. 데이터 요청은 항상 백엔드(api.devlog.kr)에 HTTP로. 백엔드는 받아서 DB에 SQL 실행 후 JSON 응답. 프론트는 절대 DB에 직접 접근하지 않는다 — 보안 때문.</div>
 
-<h2>5. 권장 학습 순서</h2>
-<div class="note"><b>순서보다 태도가 먼저:</b> 아래 순서를 위에서부터 완주하려 말고, <a href="/how-to-learn">학습법(거꾸로 배우기)</a>대로 실전을 먼저 건드리다 막히는 지점만 이 목록에서 골라 내려와 읽어라. 상향식 6년을 하향식 3일로.</div>
-<div class="card">
-<div class="step"><div class="n">1</div><div class="b"><b>HTML·CSS·JS</b> (프론트 기초) — 화면 먼저 만들어 보기</div></div>
-<div class="step"><div class="n">2</div><div class="b"><b>Python 기초</b> — 쉬운 언어로 프로그래밍 감 잡기</div></div>
-<div class="step"><div class="n">3</div><div class="b"><b>PostgreSQL + SQL</b> — 데이터 다루기</div></div>
-<div class="step"><div class="n">4</div><div class="b"><b>FastAPI</b> — Python으로 첫 API 서버 (게시판 CRUD 만들기)</div></div>
-<div class="step"><div class="n">5</div><div class="b"><b>Node.js + Express</b> — 같은 게시판을 JS로 다시 (비교 학습)</div></div>
-<div class="step"><div class="n">6</div><div class="b"><b>TypeScript → React</b> — 프론트 본격화, 만든 API와 연결</div></div>
+<h2>5. 학습 순서 — 거꾸로, 트랙별로</h2>
+<div class="note"><b>기초부터 완주하지 마라:</b> <a href="/how-to-learn">거꾸로 배우기</a>대로 <b>①번(만드는 것)을 먼저 부딪히고</b>, 막히는 지점에서만 아래 단계로 내려가 "왜?"를 물어라. 상향식 6년을 하향식 3일로. 각 트랙 위→아래 = 결과물→기초.</div>
+
+<div class="vs2">
+<div class="track">
+  <div class="th">🖥 프론트엔드 트랙</div>
+  <div class="step"><div class="n">1</div><div class="b"><b>Next.js 앱을 만든다</b> — 화면이 뜬다. 여기서 시작. <a href="/nextjs">Next.js</a> · <a href="/build">서비스 만들기</a></div></div>
+  <div class="dn">막히면 ↓ 타입 에러</div>
+  <div class="step"><div class="n">2</div><div class="b"><b>TypeScript</b> — 빨간 줄·타입 에러 나면 여기. <a href="/typescript">TS</a></div></div>
+  <div class="dn">막히면 ↓ 동작 원리</div>
+  <div class="step"><div class="n">3</div><div class="b"><b>JavaScript</b> — 변수·함수·비동기 동작이 안 잡히면 여기. <a href="/javascript">JS</a></div></div>
+  <div class="dn">막히면 ↓ 화면 구조</div>
+  <div class="step"><div class="n">4</div><div class="b"><b>HTML · CSS</b> — 레이아웃·스타일이 안 되면 여기 (기초). <a href="/html-css">HTML·CSS</a></div></div>
 </div>
-<div class="note"><b>핵심</b>: 각 단계마다 <b>작은 프로젝트로 직접</b>. "게시판 CRUD"를 FastAPI로 한 번, Express로 한 번 만들면 백엔드 핵심(라우팅·DB·인증)이 두 언어로 체화됨. (vault "생존법": 하나 깊게 → 둘째는 빠름)</div>
+
+<div class="track">
+  <div class="th">⚙️ 백엔드 트랙</div>
+  <div class="step"><div class="n">1</div><div class="b"><b>FastAPI로 API 서버를 만든다</b> — 게시판 CRUD가 돈다. 여기서 시작. <a href="/fastapi">FastAPI</a> · <a href="/board-build">게시판 만들기</a></div></div>
+  <div class="dn">막히면 ↓ 문법</div>
+  <div class="step"><div class="n">2</div><div class="b"><b>Python</b> — 문법·자료형이 막히면 여기. <a href="/python">Python</a></div></div>
+  <div class="dn">막히면 ↓ 데이터 저장</div>
+  <div class="step"><div class="n">3</div><div class="b"><b>PostgreSQL</b> — 데이터가 안 저장·조회되면 여기. <a href="/postgresql">PostgreSQL</a></div></div>
+  <div class="dn">그다음 · 비교 학습</div>
+  <div class="step"><div class="n">4</div><div class="b"><b>Node.js + Express</b> — 같은 게시판을 JS로 다시. 백엔드 본질이 두 언어로 체화. <a href="/express">Express</a> · <a href="/nodejs">Node.js</a></div></div>
+</div>
+</div>
+
+<div class="note"><b>핵심</b>: "게시판 CRUD"를 <b>FastAPI로 한 번, Express로 한 번</b> 만들면 백엔드 핵심(라우팅·DB·검증)이 두 언어로 체화됨. 하나 깊게 파면 둘째는 빠르다(vault "생존법"). 트랙은 순서가 아니라 <b>막혔을 때 내려가는 사다리</b>다.</div>
+
+<style>
+.vs2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media(max-width:680px){.vs2{grid-template-columns:1fr}}
+.vs2 .track{background:var(--card);border:1px solid var(--hairline);border-radius:8px;padding:14px 16px}
+.vs2 .th{font-size:14px;color:var(--ink);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--hairline)}
+.vs2 .dn{font-size:11px;color:var(--faint);text-align:center;margin:2px 0;font-family:"Geist Mono",monospace}
+.vs2 .step{margin:0}
+</style>
