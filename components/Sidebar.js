@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV } from '../app/nav';
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function Sidebar() {
   const path = usePathname();
   const isActive = (slug) =>
@@ -14,15 +16,27 @@ export default function Sidebar() {
       {NAV.map((group) => (
         <div key={group.sec}>
           <div className="navsec">{group.sec}</div>
-          {group.items.map((it) => (
-            <Link
-              key={it.slug}
-              className={'tab' + (isActive(it.slug) ? ' active' : '')}
-              href={'/' + it.slug}
-            >
-              {it.label}
-            </Link>
-          ))}
+          {group.items.map((it) =>
+            it.href ? (
+              <a
+                key={it.slug}
+                className="tab"
+                href={BASE + it.href}
+                target="_blank"
+                rel="noopener"
+              >
+                {it.label}
+              </a>
+            ) : (
+              <Link
+                key={it.slug}
+                className={'tab' + (isActive(it.slug) ? ' active' : '')}
+                href={'/' + it.slug}
+              >
+                {it.label}
+              </Link>
+            )
+          )}
         </div>
       ))}
     </aside>

@@ -10,6 +10,24 @@ function Ic({ name, size = 16 }) {
   return <C size={size} strokeWidth={1.9} />;
 }
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
+// href 있으면 public/ 정적 자산(새 탭), 없으면 Next 내부 라우트.
+function NavLink({ it, active, className }) {
+  if (it.href) {
+    return (
+      <a href={BASE + it.href} target="_blank" rel="noopener" className={className}>
+        <Ic name={it.icon} /> {it.label}
+      </a>
+    );
+  }
+  return (
+    <Link href={'/' + it.slug} className={className}>
+      <Ic name={it.icon} /> {it.label}
+    </Link>
+  );
+}
+
 export default function Header() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
@@ -26,10 +44,8 @@ export default function Header() {
                 <button><Ic name={g.icon} size={15} /> {g.sec} <span className="caret">▾</span></button>
                 <div className="dropdown">
                   {g.items.map((it) => (
-                    <Link key={it.slug} href={'/' + it.slug}
-                      className={active(it.slug) ? 'active' : ''}>
-                      <Ic name={it.icon} /> {it.label}
-                    </Link>
+                    <NavLink key={it.slug} it={it}
+                      className={active(it.slug) ? 'active' : ''} />
                   ))}
                 </div>
               </div>
@@ -45,10 +61,8 @@ export default function Header() {
           <div key={g.sec}>
             <div className="navsec"><Ic name={g.icon} size={14} /> {g.sec}</div>
             {g.items.map((it) => (
-              <Link key={it.slug} href={'/' + it.slug}
-                className={active(it.slug) ? 'active' : ''}>
-                <Ic name={it.icon} /> {it.label}
-              </Link>
+              <NavLink key={it.slug} it={it}
+                className={active(it.slug) ? 'active' : ''} />
             ))}
           </div>
         ))}

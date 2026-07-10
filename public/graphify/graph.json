@@ -1,0 +1,1813 @@
+{
+  "nodes": [
+    {
+      "id": "20260620_yt_남들과_정반대로_했더니_사업이_풀렸습니다",
+      "label": "남들과 정반대로 했더니 사업이 풀렸습니다",
+      "type": "리서치",
+      "department": "세일즈",
+      "project": "비즈니스_전략",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "영업전화·카톡상담 없이 고객이 알아서 찾아오는 인바운드 구조. 막힘은 리드·결제·시간 3가지로 진단.",
+      "created": "2026-06-20",
+      "source_url": "https://www.youtube.com/watch?v=S7QemaAXqzg",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260620_yt_랭체인_활용_GraphRAG_구축_방법",
+      "label": "랭체인 활용 GraphRAG 구축 방법",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "GraphRAG_구축",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "LangChain+Neo4j로 GraphRAG 구축. LLM이 엔티/관계 추출→가지치기→KG 저장, 사이퍼 QA체인으로 질의.",
+      "created": "2026-06-20",
+      "source_url": "https://www.youtube.com/watch?v=qNW2qdJVJ58",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260620_yt_모두_다_알지만_아무도_모름",
+      "label": "모두 다 알지만 아무도 모름 (브랜딩이란 무엇인가)",
+      "type": "리서치",
+      "department": "세일즈",
+      "project": "브랜딩",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "브랜드 = 소비자 마음속에 형성되는 감정·기억의 총합. 브랜딩은 그 결과를 향해 모든 접점을 정렬하는 동사.",
+      "created": "2026-06-20",
+      "source_url": "https://www.youtube.com/watch?v=wTd4-5gApaw",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260620_yt_에이전트의_성능을_높여줄_내_PC_최적의_로컬_LLM을_찾아주는_LLMF",
+      "label": "에이전트의 성능을 높여줄 내 PC 최적의 로컬 LLM을 찾아주는 LLMFit",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "로컬LLM_운영",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "LLMFit — 내 PC 스펙을 스캔해 돌릴 수 있는 로컬LLM을 추천하는 오픈소스(TUI). Score는 참고용, 맹신 금지.",
+      "created": "2026-06-20",
+      "source_url": "https://www.youtube.com/watch?v=zEms-3jC73o",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260620_yt_옵시디언_LLM_Wiki_아무_자료나_넣으면_안_됩니다__LLM_Wiki",
+      "label": "옵시디언 LLM Wiki — 아무 자료나 넣으면 안 됩니다",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_Wiki_운영",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "LLM Wiki는 자료고가 아니라 AI가 읽는 맥락 시스템. 선별 3기준으로 거르고, vault는 부서로 쪼개지 말고 속성으로 모아라.",
+      "created": "2026-06-20",
+      "source_url": "https://www.youtube.com/watch?v=of7Sr3uOlkA",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260620_yt_클로드_코드_10분안에_레벨업_시키는_필수_스킬_7개_전부_공개합니다",
+      "label": "클로드 코드 필수 스킬 8개",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "클로드코드_활용",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "300일 사용자가 추린 Claude Code 스킬 8개. 스킬=작업 전 읽는 매뉴얼. 많이 깔지 말고 작업흐름에 맞게 관리.",
+      "created": "2026-06-20",
+      "source_url": "https://www.youtube.com/watch?v=u23ZCPtkYjU&t=515s",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260621_yt_기획부터_개발까지_AI가_100_하네스_엔지니어링",
+      "label": "기획부터 개발까지 AI 100% — 하네스 엔지니어링 (B2B SaaS)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "멀티에이전트",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "B2B SaaS 플러그가 기획~개발을 멀티에이전트 하네스로. 핵심은 멀티에이전트 자체가 아니라 \"컨텍스트 브레인\". 과한 쪼갬은 역효과.",
+      "created": "2026-06-21",
+      "source_url": "https://www.youtube.com/watch?v=LO-pBPQSOtQ",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다",
+      "label": "아직도 RAG 쓰세요 — 단순 RAG의 한계와 실용 대안",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "검색엔진",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "단순 RAG는 청킹 시 맥락 손실로 부정확. 하이브리드서치·컨텍스추얼·롱컨텍스트·요약검색+원문전달이 실용 해법.",
+      "created": "2026-06-21",
+      "source_url": "https://www.youtube.com/watch?v=2jcOpJnHKBw",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260621_yt_클로드_코드가_혼자_100명처럼_일하는_법",
+      "label": "클로드 코드가 혼자 100명처럼 일하는 법 (멀티에이전트)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "멀티에이전트",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "클로드 코드 멀티에이전트 3종(동적워크플로우·서브에이전트·에이전트팀즈)은 \"계획 주체가 누구냐\"로 구분. 핵심 목적은 컨텍스트 격리.",
+      "created": "2026-06-21",
+      "source_url": "https://www.youtube.com/watch?v=nrCln3sWXqU",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_API_동기비동기_REST",
+      "label": "API · 동기/비동기 · REST (IT 필수지식)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "API = 프론트와 백엔드가 데이터 주고받는 약속. 백엔드가 API 제공→프론트 호출→DB 데이터 응답. REST는 그 규격.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=NfJFZ6TgWeI",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_루프_엔지니어링_시스템으로_대체",
+      "label": "루프 엔지니어링 — 프롬프트하는 나를 시스템으로 대체",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "멀티에이전트",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "루프 엔지니어링 = 프롬프트하는 나를 시스템으로 대체. 6 컴포넌트로 설계. 단 루프 자체가 목적 아님 — 이해·임팩트가 먼저.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=A7gwGNsL6y4",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_머신러닝_딥러닝_뿌리강의",
+      "label": "머신러닝·딥러닝 뿌리강의 (5강)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "규칙 직접 코딩의 한계(조합폭발·유지보수)에서 머신러닝(데이터+정답→규칙 학습), 딥러닝(특징까지 자동 학습)으로. 2012 알렉스넷이 폭발점.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=4iP-KGCKOx4",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_바이브코딩_DB_테이블_API_실습",
+      "label": "바이브코딩 DB·테이블·API 실습 (이거 모르면 시간낭비)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "바이브코딩이 안 되는 이유 = DB 기초 모름. DB=집, 테이블=방, API=배달부. PostgreSQL로 구축→시각화 실습.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=_61SBMoTx9g",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_바이브코딩_상권분석_AI_데모_AX사례",
+      "label": "바이브코딩 상권분석 AI 데모 (AX 컨설턴트 사례)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "AX_컨설팅",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "바이브코딩으로 상권분석 AI 데모 제작 사례. 데이터 없이도 공공데이터로 데모. 핵심은 \"어떤 데이터(피처)를 넣을지\" 사람의 판단.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=wyOFr71oPpo",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_브랜딩_작업기_제이든_시드니앤솔트",
+      "label": "브랜딩 작업기 — 시드니앤솔트 (제이든 ep5)",
+      "type": "리서치",
+      "department": "세일즈",
+      "project": "브랜딩",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "디자이너 제이든의 로컬 브랜딩 작업기. 클라이언트 핵심가치(\"편안한 고급\") 인터뷰로 도출→디자인 원칙→방향 점수화 제안. 먼저 손 내미는 게 시작.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=0SGfDKMLdaI",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드",
+      "label": "비개발자가 두려워하는 단어 '백엔드' (뿌리강의 2강)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "백엔드는 \"사용자마다 다른 결과를 그 자리에서 만들어주려고\" 탄생. 방명록·검색이 계기. CGI→PHP→DB→MVC→API→인증→캐싱→MSA 순 발전.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=rESpjQLptUs",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_여기까지_알면_풀스택_DB_스토리지",
+      "label": "풀스택 — DB와 스토리지 (뿌리강의 3강)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "DB(구조화 데이터)와 스토리지(파일)는 원래 별개인데 슈퍼베이스에서 인증과 함께 하나로 묶임. 그 흐름 이해가 핵심.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=yFuxjOHKips",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_웹서버_배포_도메인_DNS",
+      "label": "웹서버·배포·도메인·DNS (뿌리강의 배포편)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "코드 완성→인터넷 공개까지 하나의 흐름. 서버=그냥 컴퓨터, IP=주소, 도메인=이름, DNS=변환, 도커·버셀=배포 도구.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=UT0VcWwbkBg",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_젬마4_RAG_챗봇_설계",
+      "label": "젬마4 기반 RAG 챗봇 설계 (뿌리강의 7강)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "검색엔진",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "젬마4 기반 RAG 챗봇. RAG는 LLM 3한계(할루시·지식단절·컨텍스트제약)를 검색으로 보강. 코드 시연 + 오케스트레이션 예고.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=l1Q4MoKRpkA",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_트랜스포머_LLM_토큰_코드시연",
+      "label": "트랜스포머 이후 LLM이 언어를 처리하는 법 (6강, 코드시연)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "LLM은 텍스트를 토큰(조각) 단위로 처리. \"안녕\"도 토큰 2개. 토큰이 비용·용량 결정. 코드 시연으로 토큰화·확률 예측 직접 확인.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=Z_zR-WanGuQ",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260622_yt_프론트엔드_기본_역사",
+      "label": "프론트엔드 기본 (뿌리강의 1강)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "인터넷=도로망, 웹=우편시스템. HTML 한 줄에서 리액트·넥스트까지 — 왜 생겼는지 알면 외울 필요 없음. 모든 기술은 문제해결의 결과.",
+      "created": "2026-06-22",
+      "source_url": "https://www.youtube.com/watch?v=Kl5EcYd3G2E",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260623_yt_강민서_AX_컨설팅_시장형성기",
+      "label": "강민서 AX 컨설팅 — 시장 형성기 (1편)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "AX_컨설팅",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "AX 박사 강민서 인터뷰 1편. AX 컨설팅 시장이 ChatGPT(22.11) 이후 질문 폭주→무료강의→유료컨설팅으로 자연 형성된 과정.",
+      "created": "2026-06-23",
+      "source_url": "https://www.youtube.com/watch?v=2cuYpywrPZk",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260623_yt_클라우드_구성도_기초",
+      "label": "클라우드 구성도 기초",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "클라우드 = 서버를 서비스처럼 빌려 쓰는 것(구름 어딘가). 서비스는 대부분 클라이언트→서버→DB 구조라 서버=클라우드가 필요.",
+      "created": "2026-06-23",
+      "source_url": "https://www.youtube.com/watch?v=dTof9u_wTbA",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260623_yt_클로드_업무자동화_3단계",
+      "label": "클로드 업무 자동화 3단계",
+      "type": "매뉴얼",
+      "department": "운영",
+      "project": "업무자동화",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI 업무자동화 = 쪼개기→구분하기→자동화하기. 핵심은 AI와 함께 잘게 쪼개기(혼자 X). 사람일/AI일 나눠 스킬화.",
+      "created": "2026-06-23",
+      "source_url": "https://www.youtube.com/watch?v=2cuYpywrPZk",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260624_yt_AI_에이전트_핵심원리_총정리",
+      "label": "AI 에이전트 핵심 원리 총정리",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "멀티에이전트",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI 에이전트 = 대답만 아닌 상황 인식→판단→행동 실행. 구성=모델+도구+오케스트레이션, 루프 구조. 종류 8가지.",
+      "created": "2026-06-24",
+      "source_url": "https://www.youtube.com/watch?v=Z3DfXuEscb0",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260624_yt_기본_개발용어",
+      "label": "기본 개발 용어",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "입문 개발용어 — 디버깅(버그 원인 잡기, 코딩 시간 80%), 배포, 라이브러리 vs 프레임워크.",
+      "created": "2026-06-24",
+      "source_url": "https://www.youtube.com/watch?v=GYmuQJiPeM4",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260624_yt_스킬vs에이전트md_선택을_안시킨다",
+      "label": "왜 스킬이 졌을까 — AGENTS.md의 비밀",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "에이전트설계",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "버셀 실험 — 스킬(필요시 꺼냄) 79점 vs AGENTS.md(항상 눈앞) 100점. 핵심: AI에 선택을 시키면 틀린다. 눈앞에 펼치고 핵심만 압축.",
+      "created": "2026-06-24",
+      "source_url": "https://www.youtube.com/watch?v=q-HacOazKsA",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260624_yt_신입_백엔드_최소기준",
+      "label": "신입 백엔드 개발자 최소 기준",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "백엔드_역량",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "신입 백엔드 최소 기준 4개 — ①REST API 설계(게시판 CRUD) ②DB/SQL ③클라우드 배포 ④전반적 웹 흐름 이해. 면접·이력서 기반.",
+      "created": "2026-06-24",
+      "source_url": "https://www.youtube.com/watch?v=vixYMoSJZfE",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260625_yt_Insane_Search_봇차단_우회_크롤링",
+      "label": "Insane Search — 봇 차단 우회 크롤링 (클로드 코드 플러그인)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "도구",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "Insane Search = 클로드 코드 플러그인. 봇(에이전트) 차단으로 막힌 공개 웹페이지를 단계적 합법 방법으로 가져옴. 크롤링 코드 대체.",
+      "created": "2026-06-25",
+      "source_url": "https://www.youtube.com/watch?v=vjSZIyYd0NI",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260625_yt_Pike_5대규칙_데이터구조_먼저",
+      "label": "Pike 5대 규칙 — 데이터 구조 먼저",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "롭 파이크 5규칙 중 5번 — \"데이터 구조를 제대로 고르면 알고리즘은 자연히 풀린다\". 견고·확장 코드는 올바른 구조 설계에서 시작.",
+      "created": "2026-06-25",
+      "source_url": "https://www.youtube.com/watch?v=wIRfZSHOuMQ",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260625_yt_자료구조_스택_큐_해시_연결리스트",
+      "label": "자료구조 — 스택·큐·해시·연결리스트",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "자료구조 = 한정된 메모리에 데이터를 효율적으로 저장·관리하는 법. 스택·큐·해시테이블·연결리스트를 상황에 맞게 선택.",
+      "created": "2026-06-25",
+      "source_url": "https://www.youtube.com/watch?v=Q2Up3PN0-nM",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260625_yt_코딩_공부_순서",
+      "label": "평생 써먹는 코딩 공부 순서 (입문)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "코딩 입문 공부 순서. 코딩=코드 작성, 프로그래밍=프로그램(컴퓨터 할 일 순서대로) 만들기. 언어=컴퓨터와 소통 수단.",
+      "created": "2026-06-25",
+      "source_url": "https://www.youtube.com/watch?v=dKKRwe8DPw8",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_AX_100인조직_관심을_행동으로",
+      "label": "AX 100인 조직 — 관심을 행동으로",
+      "type": "리서치",
+      "department": "운영",
+      "project": "AX_컨설팅",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "100인 조직에서 구성원 AX 관심을 행동으로 유도하는 법. 화장품회사 품질팀 리더가 바이브코딩으로 AX 추진한 실증 사례.",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=tcVK3ufL36E",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_Context_Graph_에이전트_메모리",
+      "label": "Context Graph + 에이전트 메모리",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "멀티에이전트",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "Context Graph = 의사결정 과정을 포착하는 지식그래프. 에이전트 메모리로 활용 — 세션·선호·작업경로를 그래프로 저장(Neo4j 에이전트 메모리).",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=R2aSqw7S3Ws",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_LLM_실무_운영_시스템_가이드",
+      "label": "LLM 실무 운영 시스템 가이드 (2026)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_실무",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "LLM을 데모 아닌 실무 운영 시스템으로 연결하는 법. 파운데이션 모델만이 LLM이 아님 — 환각·RAG·멀티모달 실전 다룸. (장편 특강)",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=hgf3NjQHRGM",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_RAG_내_서비스에_어떻게_쓰지_우아콘",
+      "label": "RAG, 내 서비스엔 어떻게 쓰지 (우아콘 2025, 배민)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "검색엔진",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "RAG = 환각 해결책. 환각은 학습데이터에 없는 정보 요청 시 발생 → 쿼리+컨텍스트 함께 던짐. 내 서비스 적용 6단계.",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=dP2wliNlvuo",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_REST_API_CRUD",
+      "label": "REST API — 이거 하나로 끝",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "IT기초_뿌리강의",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "REST API = 가장 널리 쓰는 API 형식. 일을 CRUD(생성·조회·수정·삭제)로 구분, HTTP 메서드로 약속. 도서관 앱 예시.",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=fB3MB8TXNXM",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_브랜딩_리서치_인풋_쌓기",
+      "label": "브랜딩 리서치 — 인풋 쌓기",
+      "type": "리서치",
+      "department": "마케팅",
+      "project": "브랜딩",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "브랜딩 = 리서치(인풋)가 핵심. 목표 정해 엑셀에 100개 기록·현장 벤치마킹·사진·아웃풋 메모. AI 시대에도 아날로그 인풋.",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=rM6gwEyfKZ8",
+      "color": "#f59e0b",
+      "shape": "circle"
+    },
+    {
+      "id": "20260626_yt_옵시디언_클로드코드_AI팀_세컨드브레인",
+      "label": "옵시디언+클로드코드 AI팀 (세컨드 브레인)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_Wiki_운영",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "옵시디언 세컨드브레인 + 클로드코드 AI팀. 데이터 100% 소유 + AI가 좋아하는 텍스트·연결 포맷. 비즈니스 쪼개 AI 직원에 인계.",
+      "created": "2026-06-26",
+      "source_url": "https://www.youtube.com/watch?v=l6xaZaXr4IY",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식",
+      "label": "AI 시대 개발자 생존법 — 변하지 않는 지식",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "커리어",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI 공부에 시간 낭비 말고 '잘 변하지 않는 지식'(CS·OOP·아키텍처·커뮤니케이션·영업·재테크)에 투자. AI툴은 분야 1·2위만.",
+      "created": "2026-06-27",
+      "source_url": "https://www.youtube.com/watch?v=Ej87bv_6oA4",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260627_yt_SaaS_예약서비스_바이브코딩_Calendly",
+      "label": "SaaS 예약서비스 바이브코딩 (Calendly 따라하기)",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "바이브코딩_실습",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "Calendly/Cal.com 같은 예약 SaaS를 바이브코딩으로. 사용자화면+어드민화면 2개 구성, VPS 배포. 첫 프롬프트가 핵심.",
+      "created": "2026-06-27",
+      "source_url": "https://www.youtube.com/watch?v=aKYjUQsNkgY",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260627_yt_비즈니스_모델_캔버스_BMC",
+      "label": "비즈니스 모델 캔버스 (BMC)",
+      "type": "매뉴얼",
+      "department": "기획",
+      "project": "사업설계",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "BMC = 사업 골격을 9칸 한 장으로 정리·진단하는 프레임워크. 칸끼리 유기적 연결이 핵심. 사업계획서 전에 먼저.",
+      "created": "2026-06-27",
+      "source_url": "https://www.youtube.com/watch?v=iQRDB_WyrKg",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260627_yt_서비스_개발_전체과정_20분",
+      "label": "서비스 개발 전체 과정 (20분)",
+      "type": "매뉴얼",
+      "department": "기획",
+      "project": "서비스개발_라이프사이클",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "서비스 개발 전체 과정 — 기획(MVP)→설계→개발→테스트→배포→운영→수익화. 수익화는 처음 기획부터 고민.",
+      "created": "2026-06-27",
+      "source_url": "https://www.youtube.com/watch?v=w7scifW4FpY",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260627_yt_클로드코드_심화_스킬_서브에이전트_훅스",
+      "label": "클로드코드 심화 — 스킬·서브에이전트·훅스",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "클로드코드_활용",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "클로드코드 심화 = 스킬(업무 매뉴얼)·서브에이전트 병렬 실행·훅스. 코드 짜는 사람 → AI 오케스트레이션하는 '에이전틱 엔지니어'.",
+      "created": "2026-06-27",
+      "source_url": "https://www.youtube.com/watch?v=8H3NwQL-Aew",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260628_yt_AI_에이전트_만드는_기초_기술",
+      "label": "AI 에이전트 만드는 기초 기술",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "AI_에이전트_설계",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "에이전트는 프레임워크 없이 프로그래밍 기본만으로 제작 가능. 기본기는 체이닝(요청을 잘게 쪼개 순차 호출)과 라우팅(프롬프트 분기를 AI가 선택).",
+      "created": "2026-06-28",
+      "source_url": "https://www.youtube.com/watch?v=eu5H0iRJsJ4",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260628_yt_AI_작업_재료_수집_무료_크롬확장_6가지",
+      "label": "AI 작업 재료 수집 — 무료 크롬 확장 6가지",
+      "type": "매뉴얼",
+      "department": "운영",
+      "project": "AI_업무효율_도구",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "AI는 빠른데 줄 재료 준비가 병목. OCR·전체캡처·본문추출·탭모으기·링크긁기·색상추출 6개 무료 크롬 확장으로 재료 수집을 가속.",
+      "created": "2026-06-28",
+      "source_url": "https://www.youtube.com/watch?v=YqIae4RL-fQ",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260628_yt_랭체인_이해하기_추상화_표준화_체이닝",
+      "label": "랭체인 이해하기 — 추상화·표준화·체이닝",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_서비스_개발",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "랭체인의 본질은 추상화·표준화·체이닝 세 가지. 컴포넌트의 input/output만 이해하면 전체가 보임. 단 과한 추상화 체인은 지양하고 필요한 로직만 부분 활용 권장.",
+      "created": "2026-06-28",
+      "source_url": "https://www.youtube.com/watch?v=m8tIOcMcwno",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기",
+      "label": "AI강의 50번 — 업무자동화 3레벨과 기본기",
+      "type": "리서치",
+      "department": "운영",
+      "project": "AI_교육_업무자동화",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "기업 AI 교육은 핫한 개념(에이전트·하네스)부터 가르치면 실패. 수강생은 로그인부터 막힌다. 업무자동화 3레벨(채팅→노코드→바이브코딩)을 기본부터 차근차근.",
+      "created": "2026-06-29",
+      "source_url": "https://www.youtube.com/watch?v=_gljHsxG5fQ",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260629_yt_Claude_프론트엔드_디자인_스킬_AI슬롭_탈출",
+      "label": "Claude 프론트엔드 디자인 스킬 — AI 슬롭 탈출",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "AI_디자인_스킬",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI가 만든 디자인은 결국 다 비슷해진다(AI slop: 같은 폰트·보라 그라데이션). Anthropic 프론트엔드 디자인 스킬은 코드 작성 전 디자인 방향을 강제로 commit시켜 그 함정을 탈출.",
+      "created": "2026-06-29",
+      "source_url": "https://www.youtube.com/watch?v=gkxv6PCaAhw",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260629_yt_NextJS_존재이유_CSR_단점_SSR_풀스택",
+      "label": "Next.js 존재 이유 — CSR 단점과 SSR·풀스택",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "웹개발_프레임워크",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "Next.js는 React의 프레임워크(곱셈-덧셈 관계, 따로 못 뺌). React의 CSR 단점(첫로딩 느림·SEO 약함·프론트+백 두집살림)을 SSR·풀스택으로 커버.",
+      "created": "2026-06-29",
+      "source_url": "https://www.youtube.com/watch?v=u78I5kNULYc",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260629_yt_바이브코딩_비개발자_필수용어_5개",
+      "label": "바이브코딩 비개발자 필수용어 5개",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "바이브코딩_입문",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "바이브코딩이 막히는 건 코딩 실력이 아니라 용어 5개(토큰·컨텍스트·에이전트·MCP·스킬)를 몰라서. 이 5개가 \"메뉴판 핵심단어\" — 알면 나머지는 문맥으로 읽힌다.",
+      "created": "2026-06-29",
+      "source_url": "https://www.youtube.com/watch?v=P4dhdLUXvQg",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260629_yt_클로드코드_코덱스_업데이트_작업표면_확장",
+      "label": "클로드코드·코덱스 업데이트 — 작업 표면 확장",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "AI_에이전트_도구_동향",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI 코딩도구 경쟁은 모델→하네스로 이동. 작업 표면이 CLI→IDE→브라우저→슬랙→예약실행→레코드앤리플레이로 계속 확장. 도메인 특화 하네스가 필연, 메타하네스는 불신.",
+      "created": "2026-06-29",
+      "source_url": "https://www.youtube.com/watch?v=W4-GwjeVTng",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_yt_AX실무_제조결함예측_AI에이전트_EDA_ML_LLM",
+      "label": "AX 실무 — 제조 결함예측 AI 에이전트 (EDA·ML·LLM)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "AX_실무_프로젝트",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "제조 결함예측 AI 에이전트 실무 프로젝트. EDA→ML(결정트리)→규칙기반 위험등급 분기→LLM 조치가이드 E2E. 판단은 데이터·로직, 표현은 LLM — 역할 분담이 핵심.",
+      "created": "2026-06-30",
+      "source_url": "https://www.youtube.com/watch?v=tyI-cdoLkqg",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_yt_LLM_Wiki_구축법_Graphify_지식지도",
+      "label": "LLM Wiki 구축법 + Graphify 지식지도",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "LLM_Wiki_운영",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "카파시 LLM Wiki 구축법(폴더3+CLAUDE.md)에 Graphify(지식지도 자동생성 도구)를 더하면 질문 때 원본 전체 안 읽고 요약+노드 2~3개만 → 토큰 최대 71.5배 절감.",
+      "created": "2026-06-30",
+      "source_url": "https://www.youtube.com/watch?v=YxraHvGzWTs",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_yt_바이브코딩_비개발자_필수개념_5가지_배포DB_API",
+      "label": "바이브코딩 비개발자 필수개념 5가지 — 배포·DB·API",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "바이브코딩_입문",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "바이브코딩 포기를 부르는 5개념(배포/로컬·변수/DB·API·라이브러리·.md파일)을 비개발자 비유로 정리. 어제 \"필수용어 5개\"의 실전 개념편.",
+      "created": "2026-06-30",
+      "source_url": "https://www.youtube.com/watch?v=4qJPPRCCgkQ",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_yt_자료구조_1강_자료구조란_왜_배우나",
+      "label": "자료구조 1강 — 자료구조란·왜 배우나",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "CS기초_자료구조",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "자료구조 = 데이터를 저장·관리하는 방식. 전화번호부 비유로, 어떤 구조로 저장하느냐에 따라 추가·검색 속도·공간 효율이 극명히 갈린다. 알고리즘과 짝.",
+      "created": "2026-06-30",
+      "source_url": "https://www.youtube.com/watch?v=bh23BDYOry8",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비",
+      "label": "카파시 LLM Wiki 패턴 — 3계층·3연산·RAG 대비",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_Wiki_운영",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "카파시가 제안한 LLM Wiki = LLM이 오너가 되어 영속 관리하는 개인 위키. 3계층(raw·wiki·schema)+3연산(ingest·query·lint), 벡터 아닌 index.md 카탈로그. RAG와 정반대(능동 사서 vs 수동 검색).",
+      "created": "2026-06-30",
+      "source_url": "https://www.youtube.com/watch?v=0vesaDsVX-Q",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_yt_트위터_시스템디자인_팬아웃_push_pull_하이브리드",
+      "label": "트위터 시스템 디자인 — 팬아웃·push/pull·하이브리드",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "시스템_설계",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "트위터 피드 설계의 핵심은 팬아웃 트레이드오프. 쓰기간단(읽을때 조인) vs 읽기간단(쓸때 캐시 푸시). 인플루언서 문제로 현재는 둘을 섞은 하이브리드.",
+      "created": "2026-06-30",
+      "source_url": "https://www.youtube.com/watch?v=6QwqtdBx0oE",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260630_결정_세션_자가점검_드리프트수정_인사이트환류",
+      "label": "결정 — 2026-06-30 세션: 자가점검·드리프트 수정·인사이트 환류",
+      "type": "결정",
+      "department": "프로덕트",
+      "project": "LLM_Wiki_운영",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "2026-06-30 세션에서 자가점검으로 드리프트 2건(vocab·changelog) 수정, 카파시 패턴 환류로 lint·index 적용·query/루브릭 보류, 대화 지식화 도입(수동 선별) 결정.",
+      "created": "2026-06-30",
+      "source_url": "",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_AI시대_시스템디자인_역량_트레이드오프",
+      "label": "AI 시대 시스템 디자인 역량 — 트레이드오프가 핵심",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "시스템_설계",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI가 코딩을 대체할수록 시스템 디자인(전체 설계·트레이드오프·비즈니스 의사결정) 역량의 가치는 오히려 오른다. 빅테크 면접 필수, 시니어·테크리드의 핵심.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=iUkRKZ2pCzU",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_Graphify_LLM_토큰절감_지식그래프",
+      "label": "Graphify — LLM 토큰 71.5배 절감 + 정확도 향상",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_인프라",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "평문 대신 지식그래프(Graphify)로 컨텍스트를 구조화하면 토큰을 71.5배 절감하면서 답변 정확도가 오른다. RAG 한계를 구조로 돌파.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=Ma8e25AOtao",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_UiPath_Maestro_RPA_AI_업무자동화",
+      "label": "UiPath Maestro — RPA+AI+사람 업무 자동화",
+      "type": "리서치",
+      "department": "운영",
+      "project": "AX_업무자동화",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "UiPath Maestro = 코딩 없이 자연어로 RPA+AI+사람을 한 흐름으로 묶는 오케스트레이터. AI 하나 추가가 아니라 \"업무 프로세스 연결\"이 핵심.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=VCxAo54wMSI",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_백엔드_개발_A_to_Z_종합개론",
+      "label": "백엔드 개발 A to Z — 종합 개론",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "백엔드_역량",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "백엔드 전체 지도 한 영상. 클라이언트-서버 요청응답, 언어·프레임워크·패키지매니저·DB, REST/GraphQL/RPC, 클라우드(IaaS·PaaS·SaaS)·로드밸런서·MSA·보조 DB까지.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=yY5zUp1J-iI",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_에이전트_지식베이스_LLM_Wiki활용",
+      "label": "에이전트를 위한 지식 베이스 — LLM Wiki 활용",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM_인프라",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "AI 에이전트가 효과적으로 동작하려면 단순 문서 저장소가 아닌 구조화된 지식 베이스(LLM Wiki)가 필요하다. 에이전트 → 지식 → 에이전트 환류 루프가 핵심.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=MRTQwBFURJs",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_자료구조_알고리즘_Stack",
+      "label": "자료구조 — Stack (Ch.1-1)",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "개발자가이드",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "스택(Stack)은 LIFO(후입선출) 자료구조. push·pop 두 연산으로 구성. 브라우저 뒤로가기·함수 콜스택·실행취소(undo) 등 실생활 쓰임 많음.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=GnvLJ3qB6lE",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260701_yt_프론트엔드_개발_A_to_Z",
+      "label": "프론트엔드 개발 A to Z — 종합 개론",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "개발자가이드",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "프론트엔드 개발 전체 그림을 A to Z로 정리한 종합 개론. HTML·CSS·JS 기초부터 React·배포까지 전체 로드맵.",
+      "created": "2026-07-01",
+      "source_url": "https://www.youtube.com/watch?v=cT4frwzWaTk",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260702_yt_기본_개발용어_초간단정리",
+      "label": "기본 개발 용어 초간단 정리",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "개발자가이드",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "입문 개발자가 반드시 알아야 할 기본 용어 초간단 정리. 개발 현장에서 매일 쓰이는 용어 모음.",
+      "created": "2026-07-02",
+      "source_url": "https://www.youtube.com/watch?v=d4U8vScEkUs",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260702_yt_얄코_리액트_Part1",
+      "label": "얄코의 리액트(React) Part 1",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "개발자가이드",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "얄코(얄팍한 코딩사전) React 입문 Part 1. 왜 React가 필요한지부터 컴포넌트·JSX·상태(state) 기초까지 한국어 최고 입문 강의 중 하나.",
+      "created": "2026-07-02",
+      "source_url": "https://www.youtube.com/watch?v=aC55WY8jxX0",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260702_yt_자료구조_전체개요_배열_스택_큐_트리_그래프",
+      "label": "자료구조 전체 개요 — 7종 한눈에",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "개발자가이드",
+      "status": "active",
+      "router_score": "2",
+      "tl_dr": "자료구조 7종 한 번에 개요 정리 — 배열·리스트·스택·큐·데큐·트리·그래프. 각각 언제 쓰는지 판단 기준이 핵심.",
+      "created": "2026-07-02",
+      "source_url": "https://www.youtube.com/watch?v=RZHYuAhUrwE",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260704_yt_서비스_만들기_전에_꼭_확인하세요__주제_선정_앱_유형_DB_서버_구축",
+      "label": "서비스 만들기 전 체크리스트 — 주제·앱유형·DB·서버",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "바이브코딩_서비스기획",
+      "status": "active",
+      "router_score": "3",
+      "tl_dr": "서비스 만들기 전 주제(업/관심사/필요/불편), 앱유형(네이티브 vs 웹), DB·서버 필요 여부를 먼저 결정해야 한다. 간단 서비스는 클라우드플레어로, 본격 API·Node·Java는 AWS로.",
+      "created": "2026-07-04",
+      "source_url": "https://www.youtube.com/watch?v=CGLkHnO8n70",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260705_yt_AI로_앱_만들면_돈_번다_100명_중_54명은_0원입니다",
+      "label": "AI로 앱 만들면 돈 번다? 100명 중 54명은 0원입니다",
+      "type": "리서치",
+      "department": "기획",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "바이브코딩으로 앱 제작이 공짜에 가까워지자 앱 자체 가치는 0으로 수렴 — 수익은 '만드는 손'이 아니라 문제를 고르고 살 사람을 아는 '눈'에서 나온다 (출시자 54%가 매출 0원)",
+      "created": "2026-07-05",
+      "source_url": "https://www.youtube.com/watch?v=wom3qv_lB8U",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260706_yt_OpenAI_연구원이_공개한_프롬프트_한_줄",
+      "label": "OpenAI 연구원의 학습 프롬프트 원칙",
+      "type": "리서치",
+      "department": "기획",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "학위 없이 챗지피티 독학으로 OpenAI 입사한 연구원의 핵심은 \"만들어줘\" 대신 \"왜 그런지 12세한테 설명하듯 알려줘\"를 붙이는 것 — AI를 대신 일하는 도구가 아니라 기초를 빨리 이해하는 지름길로 쓴다",
+      "created": "2026-07-06",
+      "source_url": "https://www.youtube.com/watch?v=xyTPUdJhxLM&t=166s",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260706_yt_클로드_코워크로_PPT_자동화_10분이면_끝납니다",
+      "label": "클로드 코워크로 PPT 자동화 세팅",
+      "type": "매뉴얼",
+      "department": "기획",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "클로드 코워크 프로젝트 폴더에 CLAUDE.md로 PPT원칙·작업순서·디자인시스템(배경·폰트·레퍼런스템플릿)을 한 번만 세팅해두면 이후 주제만 던져도 일관된 퀄리티의 PPT가 자동 생성된다",
+      "created": "2026-07-06",
+      "source_url": "https://www.youtube.com/watch?v=LLZlj30Xo0A",
+      "color": "#94a3b8",
+      "shape": "circle"
+    },
+    {
+      "id": "20260707_yt_AI_자동화_매일_하던_업무가_딸깍으로_바뀌는_방법__이커머스_자동화_사",
+      "label": "AI 자동화 착수 기준 — 이커머스 자동화 사례",
+      "type": "매뉴얼",
+      "department": "운영",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "AI 자동화는 반복적·보안 저민감·결과기준 명확한 업무부터, 결정론적 영역(사실 수집)과 확률적 영역(해석·판단)을 나눠 설계해야 한다 — 감각적 판단이 필요한 브랜딩·전략은 처음부터 자동화 대상에서 제외",
+      "created": "2026-07-07",
+      "source_url": "https://www.youtube.com/watch?v=cOJaLvT_A2Q&t=441s",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260707_yt_AI강사가_폭로하는_요즘_대기업_속사정__돈은_돈대로_쓰고_AI_도입_실",
+      "label": "대기업 AI 도입 실패 이유 — 현직 AI강사 인터뷰",
+      "type": "리서치",
+      "department": "운영",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "대기업 AI도입이 실패하는 핵심 이유는 \"PO의 저주\"(POC 이후 전담 TF·리소스 없이 개인 엑스트라워크로 방치)와 도메인지식 경시 — 코딩보다 업무 도메인을 아는 사람이 에이전트를 훨씬 잘 만든다",
+      "created": "2026-07-07",
+      "source_url": "https://www.youtube.com/watch?v=Ih32CEOx2gM",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리",
+      "label": "에이전틱 엔지니어링 핵심 개념 5가지",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "바이브코딩을 넘어선 에이전틱 엔지니어링 5개념 — ①에이전트(목표해석·계획·자율실행, 챗봇과 구분) ②컨텍스트 엔지니어링(시스템·대화·환경 3레이어 설계) ③툴/MCP(에이전트 손발, 최소권한 원칙) ④훅과 스킬(자동 안전장치+전문지식) ⑤플래닝과 휴먼더루프(위임 스펙트럼 4단계, 검증가능성이 위임 기준)",
+      "created": "2026-07-07",
+      "source_url": "https://www.youtube.com/watch?v=m99Vs94oHTQ",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260707_yt_채점만_해주는_회사가_어떻게_1조_7천억을_벌었을까",
+      "label": "이밸루에이션(채점) 시장이 뜨는 이유",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "모델 성능이 평준화되며 \"뭐가 더 좋은지 판별하는 능력\"(이밸루에이션)이 새 해자가 됐다 — 서즈AI는 무투자로 연매출 1조7천억(고객 12곳: OpenAI·구글·앤트로픽 등), LM-as-a-judge가 RL 훈련의 채점 기준 자체가 되며 수요가 마르지 않는 구조",
+      "created": "2026-07-07",
+      "source_url": "https://www.youtube.com/watch?v=Y7Y0HA3KwmI",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260708_yt_AI시대_백엔드_개발자가_나아가야_할_방향_백엔드_개발자",
+      "label": "AI시대 백엔드 개발자 방향 — 변하는 것과 변하지 않는 것",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "백엔드 프레임워크는 20년간 계속 바뀌었지만(ASP→MVC→MSA/비동기) 하는 일의 본질(요청 인증·검증·라우팅·비즈니스로직·DB연동·응답·에러처리)은 동일 — 변하지 않는 지식(아키텍처·보안·성능·OS·네트워크)에 투자하고, 언어 하나는 동작원리까지 깊이 파야 AI 시대에 판단·책임을 맡을 수 있다",
+      "created": "2026-07-08",
+      "source_url": "https://www.youtube.com/watch?v=GOZdNeI7YBo",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260709_yt_AI_에이전트_많이_만들수록_회사가_망하는_진짜_이유",
+      "label": "AI 에이전트 많이 만들수록 회사가 망하는 이유",
+      "type": "리서치",
+      "department": "운영",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "리서치사 예측으로 2년 내 만들어진 에이전트의 40%가 폐기된다 — 원인은 기술이 아니라 \"왜 만들었는지\" 답 못 하는 목적 부재. 에이전트는 자산이 아니라 매일 관리비 무는 부채이며, 진짜 실력은 만드는 게 아니라 언제 끌지 아는 것",
+      "created": "2026-07-09",
+      "source_url": "https://www.youtube.com/watch?v=-H4XNrt0Odk",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260709_yt_느슨해진_백엔드씬에_긴장감을_주는_FastAPI_프레임워크",
+      "label": "FastAPI — 파이썬 백엔드의 차선책이 뜨는 이유",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "FastAPI = 파이썬 웹서버 프레임워크. 장고·플라스크 대비 약 2배 빠름(비동기 처리 기본 지원, JS의 익스프레스와 유사한 동작·성능). 코드 5줄로 서버 완성, 타입 지정·API 문서 자동생성 지원. 마이크로서비스(기능별 작은 서버) 유행과 맞물려 도입 증가",
+      "created": "2026-07-09",
+      "source_url": "https://www.youtube.com/watch?v=5A67mQ2Pt9s",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260709_yt_망분리_해제_그_이유는",
+      "label": "망분리 해제 — AI가 20년 규제를 움직인 이유",
+      "type": "리서치",
+      "department": "운영",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "20년 유지된 한국 망분리 규제가 AI 때문에 풀리기 시작 — \"내부망=안전\" 믿음이 오히려 내부 시스템 방치(취약점 온상)를 낳았고, N2SF는 일괄 고립 대신 기밀·민감·공개 3등급 차등 통제로 전환. 단 등급 분류엔 자산 목록화라는 \"밀린 숙제\"가 선행돼야 한다",
+      "created": "2026-07-09",
+      "source_url": "https://www.youtube.com/watch?v=Z-d-DMgRbYk",
+      "color": "#10b981",
+      "shape": "circle"
+    },
+    {
+      "id": "20260709_yt_챔피언_가려내기_기업_AX_챔피언_교육_과정에서_쓰이는_바이브코딩대학의_",
+      "label": "AX 챔피언 평가 시스템 — 채점 설계 실패담과 해법",
+      "type": "리서치",
+      "department": "프로덕트",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "AX 챔피언 선발 평가 시스템 설계기 — AI에게 점수를 매기게 하면 같은 세션도 채점마다 점수가 달라져 실패, \"이 행동을 했다/안 했다\" 바이너리 판정으로 바꾸니 흔들리지 않음. 모든 AI 판정에 세션 원문 인용을 강제하고 사람이 서명해야 확정. 결과물이 아니라 과정(세션)을 측정한다",
+      "created": "2026-07-09",
+      "source_url": "https://www.youtube.com/watch?v=eRRVsX6AbCU",
+      "color": "#6366f1",
+      "shape": "circle"
+    },
+    {
+      "id": "20260709_yt_타입스크립트_진짜_쉽게_설명해줌__이거보고도_이해_안되면_집가라",
+      "label": "타입스크립트 입문 — 왜 쓰고 어떻게 도는가",
+      "type": "매뉴얼",
+      "department": "프로덕트",
+      "project": "LLM-Wiki",
+      "status": "active",
+      "router_score": "",
+      "tl_dr": "타입스크립트 = 자바스크립트에 타입 검사를 얹은 업그레이드. JS의 포용력(타입 무검사)이 배울 땐 편하지만 프로젝트가 커지고 팀원이 늘면 \"어디서 에러 났는지 모르는\" 문제를 낳아서, 규모 있는 회사는 대부분 TS 사용. 브라우저는 JS만 이해하므로 tsc로 변환해서 배포한다",
+      "created": "2026-07-09",
+      "source_url": "https://www.youtube.com/watch?v=GHHUjITelsA",
+      "color": "#6366f1",
+      "shape": "circle"
+    }
+  ],
+  "edges": [
+    {
+      "source": "20260620_yt_남들과_정반대로_했더니_사업이_풀렸습니다",
+      "target": "20260620_yt_모두_다_알지만_아무도_모름"
+    },
+    {
+      "source": "20260620_yt_랭체인_활용_GraphRAG_구축_방법",
+      "target": "20260620_yt_에이전트의_성능을_높여줄_내_PC_최적의_로컬_LLM을_찾아주는_LLMF"
+    },
+    {
+      "source": "20260620_yt_모두_다_알지만_아무도_모름",
+      "target": "20260622_yt_브랜딩_작업기_제이든_시드니앤솔트"
+    },
+    {
+      "source": "20260620_yt_옵시디언_LLM_Wiki_아무_자료나_넣으면_안_됩니다__LLM_Wiki",
+      "target": "20260620_yt_클로드_코드_10분안에_레벨업_시키는_필수_스킬_7개_전부_공개합니다"
+    },
+    {
+      "source": "20260621_yt_기획부터_개발까지_AI가_100_하네스_엔지니어링",
+      "target": "20260621_yt_클로드_코드가_혼자_100명처럼_일하는_법"
+    },
+    {
+      "source": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다",
+      "target": "20260620_yt_랭체인_활용_GraphRAG_구축_방법"
+    },
+    {
+      "source": "20260622_yt_API_동기비동기_REST",
+      "target": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드"
+    },
+    {
+      "source": "20260622_yt_루프_엔지니어링_시스템으로_대체",
+      "target": "20260621_yt_기획부터_개발까지_AI가_100_하네스_엔지니어링"
+    },
+    {
+      "source": "20260622_yt_루프_엔지니어링_시스템으로_대체",
+      "target": "20260621_yt_클로드_코드가_혼자_100명처럼_일하는_법"
+    },
+    {
+      "source": "20260622_yt_머신러닝_딥러닝_뿌리강의",
+      "target": "20260622_yt_트랜스포머_LLM_토큰_코드시연"
+    },
+    {
+      "source": "20260622_yt_바이브코딩_DB_테이블_API_실습",
+      "target": "20260622_yt_여기까지_알면_풀스택_DB_스토리지"
+    },
+    {
+      "source": "20260622_yt_바이브코딩_DB_테이블_API_실습",
+      "target": "20260622_yt_웹서버_배포_도메인_DNS"
+    },
+    {
+      "source": "20260622_yt_바이브코딩_상권분석_AI_데모_AX사례",
+      "target": "20260623_yt_강민서_AX_컨설팅_시장형성기"
+    },
+    {
+      "source": "20260622_yt_바이브코딩_상권분석_AI_데모_AX사례",
+      "target": "20260621_yt_기획부터_개발까지_AI가_100_하네스_엔지니어링"
+    },
+    {
+      "source": "20260622_yt_바이브코딩_상권분석_AI_데모_AX사례",
+      "target": "20260622_yt_바이브코딩_DB_테이블_API_실습"
+    },
+    {
+      "source": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드",
+      "target": "20260622_yt_여기까지_알면_풀스택_DB_스토리지"
+    },
+    {
+      "source": "20260622_yt_여기까지_알면_풀스택_DB_스토리지",
+      "target": "20260622_yt_웹서버_배포_도메인_DNS"
+    },
+    {
+      "source": "20260622_yt_웹서버_배포_도메인_DNS",
+      "target": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드"
+    },
+    {
+      "source": "20260622_yt_젬마4_RAG_챗봇_설계",
+      "target": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다"
+    },
+    {
+      "source": "20260622_yt_젬마4_RAG_챗봇_설계",
+      "target": "20260620_yt_랭체인_활용_GraphRAG_구축_방법"
+    },
+    {
+      "source": "20260622_yt_트랜스포머_LLM_토큰_코드시연",
+      "target": "20260622_yt_젬마4_RAG_챗봇_설계"
+    },
+    {
+      "source": "20260622_yt_프론트엔드_기본_역사",
+      "target": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드"
+    },
+    {
+      "source": "20260623_yt_클라우드_구성도_기초",
+      "target": "20260622_yt_웹서버_배포_도메인_DNS"
+    },
+    {
+      "source": "20260623_yt_클로드_업무자동화_3단계",
+      "target": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기"
+    },
+    {
+      "source": "20260623_yt_클로드_업무자동화_3단계",
+      "target": "20260622_yt_루프_엔지니어링_시스템으로_대체"
+    },
+    {
+      "source": "20260624_yt_AI_에이전트_핵심원리_총정리",
+      "target": "20260621_yt_클로드_코드가_혼자_100명처럼_일하는_법"
+    },
+    {
+      "source": "20260624_yt_AI_에이전트_핵심원리_총정리",
+      "target": "20260622_yt_루프_엔지니어링_시스템으로_대체"
+    },
+    {
+      "source": "20260624_yt_기본_개발용어",
+      "target": "20260622_yt_프론트엔드_기본_역사"
+    },
+    {
+      "source": "20260624_yt_스킬vs에이전트md_선택을_안시킨다",
+      "target": "20260622_yt_루프_엔지니어링_시스템으로_대체"
+    },
+    {
+      "source": "20260624_yt_신입_백엔드_최소기준",
+      "target": "20260623_yt_클라우드_구성도_기초"
+    },
+    {
+      "source": "20260624_yt_신입_백엔드_최소기준",
+      "target": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드"
+    },
+    {
+      "source": "20260625_yt_Insane_Search_봇차단_우회_크롤링",
+      "target": "20260620_yt_클로드_코드_10분안에_레벨업_시키는_필수_스킬_7개_전부_공개합니다"
+    },
+    {
+      "source": "20260625_yt_Pike_5대규칙_데이터구조_먼저",
+      "target": "20260625_yt_자료구조_스택_큐_해시_연결리스트"
+    },
+    {
+      "source": "20260625_yt_Pike_5대규칙_데이터구조_먼저",
+      "target": "20260624_yt_스킬vs에이전트md_선택을_안시킨다"
+    },
+    {
+      "source": "20260625_yt_코딩_공부_순서",
+      "target": "20260624_yt_기본_개발용어"
+    },
+    {
+      "source": "20260626_yt_AX_100인조직_관심을_행동으로",
+      "target": "20260623_yt_강민서_AX_컨설팅_시장형성기"
+    },
+    {
+      "source": "20260626_yt_AX_100인조직_관심을_행동으로",
+      "target": "20260622_yt_바이브코딩_상권분석_AI_데모_AX사례"
+    },
+    {
+      "source": "20260626_yt_Context_Graph_에이전트_메모리",
+      "target": "20260620_yt_랭체인_활용_GraphRAG_구축_방법"
+    },
+    {
+      "source": "20260626_yt_LLM_실무_운영_시스템_가이드",
+      "target": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다"
+    },
+    {
+      "source": "20260626_yt_RAG_내_서비스에_어떻게_쓰지_우아콘",
+      "target": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다"
+    },
+    {
+      "source": "20260626_yt_RAG_내_서비스에_어떻게_쓰지_우아콘",
+      "target": "20260622_yt_젬마4_RAG_챗봇_설계"
+    },
+    {
+      "source": "20260626_yt_REST_API_CRUD",
+      "target": "20260622_yt_API_동기비동기_REST"
+    },
+    {
+      "source": "20260626_yt_REST_API_CRUD",
+      "target": "20260624_yt_신입_백엔드_최소기준"
+    },
+    {
+      "source": "20260626_yt_브랜딩_리서치_인풋_쌓기",
+      "target": "20260622_yt_브랜딩_작업기_제이든_시드니앤솔트"
+    },
+    {
+      "source": "20260626_yt_브랜딩_리서치_인풋_쌓기",
+      "target": "20260620_yt_모두_다_알지만_아무도_모름"
+    },
+    {
+      "source": "20260626_yt_옵시디언_클로드코드_AI팀_세컨드브레인",
+      "target": "20260620_yt_옵시디언_LLM_Wiki_아무_자료나_넣으면_안_됩니다__LLM_Wiki"
+    },
+    {
+      "source": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식",
+      "target": "20260625_yt_Pike_5대규칙_데이터구조_먼저"
+    },
+    {
+      "source": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식",
+      "target": "20260624_yt_신입_백엔드_최소기준"
+    },
+    {
+      "source": "20260627_yt_비즈니스_모델_캔버스_BMC",
+      "target": "20260627_yt_서비스_개발_전체과정_20분"
+    },
+    {
+      "source": "20260627_yt_서비스_개발_전체과정_20분",
+      "target": "20260627_yt_SaaS_예약서비스_바이브코딩_Calendly"
+    },
+    {
+      "source": "20260627_yt_서비스_개발_전체과정_20분",
+      "target": "20260622_yt_웹서버_배포_도메인_DNS"
+    },
+    {
+      "source": "20260627_yt_클로드코드_심화_스킬_서브에이전트_훅스",
+      "target": "20260621_yt_클로드_코드가_혼자_100명처럼_일하는_법"
+    },
+    {
+      "source": "20260627_yt_클로드코드_심화_스킬_서브에이전트_훅스",
+      "target": "20260624_yt_스킬vs에이전트md_선택을_안시킨다"
+    },
+    {
+      "source": "20260628_yt_AI_에이전트_만드는_기초_기술",
+      "target": "20260621_yt_클로드_코드가_혼자_100명처럼_일하는_법"
+    },
+    {
+      "source": "20260628_yt_AI_에이전트_만드는_기초_기술",
+      "target": "20260624_yt_AI_에이전트_핵심원리_총정리"
+    },
+    {
+      "source": "20260628_yt_AI_에이전트_만드는_기초_기술",
+      "target": "20260622_yt_루프_엔지니어링_시스템으로_대체"
+    },
+    {
+      "source": "20260628_yt_AI_작업_재료_수집_무료_크롬확장_6가지",
+      "target": "20260626_yt_LLM_실무_운영_시스템_가이드"
+    },
+    {
+      "source": "20260628_yt_AI_작업_재료_수집_무료_크롬확장_6가지",
+      "target": "20260626_yt_옵시디언_클로드코드_AI팀_세컨드브레인"
+    },
+    {
+      "source": "20260628_yt_랭체인_이해하기_추상화_표준화_체이닝",
+      "target": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다"
+    },
+    {
+      "source": "20260628_yt_랭체인_이해하기_추상화_표준화_체이닝",
+      "target": "20260626_yt_RAG_내_서비스에_어떻게_쓰지_우아콘"
+    },
+    {
+      "source": "20260628_yt_랭체인_이해하기_추상화_표준화_체이닝",
+      "target": "20260620_yt_랭체인_활용_GraphRAG_구축_방법"
+    },
+    {
+      "source": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기",
+      "target": "20260626_yt_LLM_실무_운영_시스템_가이드"
+    },
+    {
+      "source": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기",
+      "target": "20260626_yt_AX_100인조직_관심을_행동으로"
+    },
+    {
+      "source": "20260629_yt_Claude_프론트엔드_디자인_스킬_AI슬롭_탈출",
+      "target": "20260624_yt_스킬vs에이전트md_선택을_안시킨다"
+    },
+    {
+      "source": "20260629_yt_Claude_프론트엔드_디자인_스킬_AI슬롭_탈출",
+      "target": "20260620_yt_클로드_코드_10분안에_레벨업_시키는_필수_스킬_7개_전부_공개합니다"
+    },
+    {
+      "source": "20260629_yt_NextJS_존재이유_CSR_단점_SSR_풀스택",
+      "target": "20260628_yt_랭체인_이해하기_추상화_표준화_체이닝"
+    },
+    {
+      "source": "20260629_yt_NextJS_존재이유_CSR_단점_SSR_풀스택",
+      "target": "20260622_yt_프론트엔드_기본_역사"
+    },
+    {
+      "source": "20260629_yt_바이브코딩_비개발자_필수용어_5개",
+      "target": "20260622_yt_프론트엔드_기본_역사"
+    },
+    {
+      "source": "20260629_yt_바이브코딩_비개발자_필수용어_5개",
+      "target": "20260628_yt_AI_에이전트_만드는_기초_기술"
+    },
+    {
+      "source": "20260629_yt_바이브코딩_비개발자_필수용어_5개",
+      "target": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기"
+    },
+    {
+      "source": "20260629_yt_클로드코드_코덱스_업데이트_작업표면_확장",
+      "target": "20260621_yt_기획부터_개발까지_AI가_100_하네스_엔지니어링"
+    },
+    {
+      "source": "20260629_yt_클로드코드_코덱스_업데이트_작업표면_확장",
+      "target": "20260628_yt_AI_에이전트_만드는_기초_기술"
+    },
+    {
+      "source": "20260629_yt_클로드코드_코덱스_업데이트_작업표면_확장",
+      "target": "20260624_yt_스킬vs에이전트md_선택을_안시킨다"
+    },
+    {
+      "source": "20260630_yt_AX실무_제조결함예측_AI에이전트_EDA_ML_LLM",
+      "target": "20260623_yt_강민서_AX_컨설팅_시장형성기"
+    },
+    {
+      "source": "20260630_yt_AX실무_제조결함예측_AI에이전트_EDA_ML_LLM",
+      "target": "20260622_yt_바이브코딩_상권분석_AI_데모_AX사례"
+    },
+    {
+      "source": "20260630_yt_AX실무_제조결함예측_AI에이전트_EDA_ML_LLM",
+      "target": "20260624_yt_AI_에이전트_핵심원리_총정리"
+    },
+    {
+      "source": "20260630_yt_LLM_Wiki_구축법_Graphify_지식지도",
+      "target": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비"
+    },
+    {
+      "source": "20260630_yt_LLM_Wiki_구축법_Graphify_지식지도",
+      "target": "20260626_yt_Context_Graph_에이전트_메모리"
+    },
+    {
+      "source": "20260630_yt_LLM_Wiki_구축법_Graphify_지식지도",
+      "target": "20260620_yt_랭체인_활용_GraphRAG_구축_방법"
+    },
+    {
+      "source": "20260630_yt_바이브코딩_비개발자_필수개념_5가지_배포DB_API",
+      "target": "20260629_yt_바이브코딩_비개발자_필수용어_5개"
+    },
+    {
+      "source": "20260630_yt_바이브코딩_비개발자_필수개념_5가지_배포DB_API",
+      "target": "20260622_yt_여기까지_알면_풀스택_DB_스토리지"
+    },
+    {
+      "source": "20260630_yt_바이브코딩_비개발자_필수개념_5가지_배포DB_API",
+      "target": "20260622_yt_바이브코딩_DB_테이블_API_실습"
+    },
+    {
+      "source": "20260630_yt_자료구조_1강_자료구조란_왜_배우나",
+      "target": "20260625_yt_Pike_5대규칙_데이터구조_먼저"
+    },
+    {
+      "source": "20260630_yt_자료구조_1강_자료구조란_왜_배우나",
+      "target": "20260625_yt_자료구조_스택_큐_해시_연결리스트"
+    },
+    {
+      "source": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비",
+      "target": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다"
+    },
+    {
+      "source": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비",
+      "target": "20260620_yt_옵시디언_LLM_Wiki_아무_자료나_넣으면_안_됩니다__LLM_Wiki"
+    },
+    {
+      "source": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비",
+      "target": "20260624_yt_스킬vs에이전트md_선택을_안시킨다"
+    },
+    {
+      "source": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비",
+      "target": "20260626_yt_옵시디언_클로드코드_AI팀_세컨드브레인"
+    },
+    {
+      "source": "20260630_yt_트위터_시스템디자인_팬아웃_push_pull_하이브리드",
+      "target": "20260625_yt_자료구조_스택_큐_해시_연결리스트"
+    },
+    {
+      "source": "20260630_yt_트위터_시스템디자인_팬아웃_push_pull_하이브리드",
+      "target": "20260622_yt_여기까지_알면_풀스택_DB_스토리지"
+    },
+    {
+      "source": "20260630_yt_트위터_시스템디자인_팬아웃_push_pull_하이브리드",
+      "target": "20260624_yt_신입_백엔드_최소기준"
+    },
+    {
+      "source": "20260630_결정_세션_자가점검_드리프트수정_인사이트환류",
+      "target": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비"
+    },
+    {
+      "source": "20260630_결정_세션_자가점검_드리프트수정_인사이트환류",
+      "target": "20260630_yt_LLM_Wiki_구축법_Graphify_지식지도"
+    },
+    {
+      "source": "20260630_결정_세션_자가점검_드리프트수정_인사이트환류",
+      "target": "20260624_yt_스킬vs에이전트md_선택을_안시킨다"
+    },
+    {
+      "source": "20260701_yt_AI시대_시스템디자인_역량_트레이드오프",
+      "target": "20260630_yt_트위터_시스템디자인_팬아웃_push_pull_하이브리드"
+    },
+    {
+      "source": "20260701_yt_AI시대_시스템디자인_역량_트레이드오프",
+      "target": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식"
+    },
+    {
+      "source": "20260701_yt_AI시대_시스템디자인_역량_트레이드오프",
+      "target": "20260701_yt_백엔드_개발_A_to_Z_종합개론"
+    },
+    {
+      "source": "20260701_yt_AI시대_시스템디자인_역량_트레이드오프",
+      "target": "20260624_yt_신입_백엔드_최소기준"
+    },
+    {
+      "source": "20260701_yt_Graphify_LLM_토큰절감_지식그래프",
+      "target": "20260701_yt_에이전트_지식베이스_LLM_Wiki활용"
+    },
+    {
+      "source": "20260701_yt_UiPath_Maestro_RPA_AI_업무자동화",
+      "target": "20260623_yt_클로드_업무자동화_3단계"
+    },
+    {
+      "source": "20260701_yt_UiPath_Maestro_RPA_AI_업무자동화",
+      "target": "20260626_yt_LLM_실무_운영_시스템_가이드"
+    },
+    {
+      "source": "20260701_yt_UiPath_Maestro_RPA_AI_업무자동화",
+      "target": "20260626_yt_AX_100인조직_관심을_행동으로"
+    },
+    {
+      "source": "20260701_yt_UiPath_Maestro_RPA_AI_업무자동화",
+      "target": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기"
+    },
+    {
+      "source": "20260701_yt_백엔드_개발_A_to_Z_종합개론",
+      "target": "20260630_yt_트위터_시스템디자인_팬아웃_push_pull_하이브리드"
+    },
+    {
+      "source": "20260701_yt_백엔드_개발_A_to_Z_종합개론",
+      "target": "20260626_yt_REST_API_CRUD"
+    },
+    {
+      "source": "20260701_yt_백엔드_개발_A_to_Z_종합개론",
+      "target": "20260624_yt_신입_백엔드_최소기준"
+    },
+    {
+      "source": "20260701_yt_백엔드_개발_A_to_Z_종합개론",
+      "target": "20260622_yt_여기까지_알면_풀스택_DB_스토리지"
+    },
+    {
+      "source": "20260701_yt_에이전트_지식베이스_LLM_Wiki활용",
+      "target": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식"
+    },
+    {
+      "source": "20260701_yt_자료구조_알고리즘_Stack",
+      "target": "20260701_yt_백엔드_개발_A_to_Z_종합개론"
+    },
+    {
+      "source": "20260701_yt_자료구조_알고리즘_Stack",
+      "target": "20260701_yt_프론트엔드_개발_A_to_Z"
+    },
+    {
+      "source": "20260701_yt_프론트엔드_개발_A_to_Z",
+      "target": "20260701_yt_백엔드_개발_A_to_Z_종합개론"
+    },
+    {
+      "source": "20260702_yt_기본_개발용어_초간단정리",
+      "target": "20260624_yt_기본_개발용어"
+    },
+    {
+      "source": "20260702_yt_기본_개발용어_초간단정리",
+      "target": "20260702_yt_얄코_리액트_Part1"
+    },
+    {
+      "source": "20260702_yt_얄코_리액트_Part1",
+      "target": "20260629_yt_NextJS_존재이유_CSR_단점_SSR_풀스택"
+    },
+    {
+      "source": "20260702_yt_얄코_리액트_Part1",
+      "target": "20260701_yt_프론트엔드_개발_A_to_Z"
+    },
+    {
+      "source": "20260702_yt_자료구조_전체개요_배열_스택_큐_트리_그래프",
+      "target": "20260625_yt_Pike_5대규칙_데이터구조_먼저"
+    },
+    {
+      "source": "20260702_yt_자료구조_전체개요_배열_스택_큐_트리_그래프",
+      "target": "20260630_yt_자료구조_1강_자료구조란_왜_배우나"
+    },
+    {
+      "source": "20260702_yt_자료구조_전체개요_배열_스택_큐_트리_그래프",
+      "target": "20260625_yt_자료구조_스택_큐_해시_연결리스트"
+    },
+    {
+      "source": "20260702_yt_자료구조_전체개요_배열_스택_큐_트리_그래프",
+      "target": "20260701_yt_자료구조_알고리즘_Stack"
+    },
+    {
+      "source": "20260704_yt_서비스_만들기_전에_꼭_확인하세요__주제_선정_앱_유형_DB_서버_구축",
+      "target": "20260705_yt_AI로_앱_만들면_돈_번다_100명_중_54명은_0원입니다"
+    },
+    {
+      "source": "20260704_yt_서비스_만들기_전에_꼭_확인하세요__주제_선정_앱_유형_DB_서버_구축",
+      "target": "20260621_yt_아직도_RAG_쓰세요_이거_보고_나면_멈춥니다"
+    },
+    {
+      "source": "20260704_yt_서비스_만들기_전에_꼭_확인하세요__주제_선정_앱_유형_DB_서버_구축",
+      "target": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드"
+    },
+    {
+      "source": "20260704_yt_서비스_만들기_전에_꼭_확인하세요__주제_선정_앱_유형_DB_서버_구축",
+      "target": "20260622_yt_바이브코딩_DB_테이블_API_실습"
+    },
+    {
+      "source": "20260704_yt_서비스_만들기_전에_꼭_확인하세요__주제_선정_앱_유형_DB_서버_구축",
+      "target": "20260622_yt_여기까지_알면_풀스택_DB_스토리지"
+    },
+    {
+      "source": "20260705_yt_AI로_앱_만들면_돈_번다_100명_중_54명은_0원입니다",
+      "target": "20260627_yt_비즈니스_모델_캔버스_BMC"
+    },
+    {
+      "source": "20260705_yt_AI로_앱_만들면_돈_번다_100명_중_54명은_0원입니다",
+      "target": "20260620_yt_남들과_정반대로_했더니_사업이_풀렸습니다"
+    },
+    {
+      "source": "20260705_yt_AI로_앱_만들면_돈_번다_100명_중_54명은_0원입니다",
+      "target": "20260629_yt_바이브코딩_비개발자_필수용어_5개"
+    },
+    {
+      "source": "20260706_yt_OpenAI_연구원이_공개한_프롬프트_한_줄",
+      "target": "20260629_yt_바이브코딩_비개발자_필수용어_5개"
+    },
+    {
+      "source": "20260706_yt_OpenAI_연구원이_공개한_프롬프트_한_줄",
+      "target": "20260706_yt_클로드_코워크로_PPT_자동화_10분이면_끝납니다"
+    },
+    {
+      "source": "20260706_yt_OpenAI_연구원이_공개한_프롬프트_한_줄",
+      "target": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식"
+    },
+    {
+      "source": "20260706_yt_클로드_코워크로_PPT_자동화_10분이면_끝납니다",
+      "target": "20260627_yt_클로드코드_심화_스킬_서브에이전트_훅스"
+    },
+    {
+      "source": "20260706_yt_클로드_코워크로_PPT_자동화_10분이면_끝납니다",
+      "target": "20260629_yt_Claude_프론트엔드_디자인_스킬_AI슬롭_탈출"
+    },
+    {
+      "source": "20260707_yt_AI_자동화_매일_하던_업무가_딸깍으로_바뀌는_방법__이커머스_자동화_사",
+      "target": "20260623_yt_클로드_업무자동화_3단계"
+    },
+    {
+      "source": "20260707_yt_AI_자동화_매일_하던_업무가_딸깍으로_바뀌는_방법__이커머스_자동화_사",
+      "target": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리"
+    },
+    {
+      "source": "20260707_yt_AI_자동화_매일_하던_업무가_딸깍으로_바뀌는_방법__이커머스_자동화_사",
+      "target": "20260629_yt_AI강의_50번_업무자동화_3레벨_기본기"
+    },
+    {
+      "source": "20260707_yt_AI강사가_폭로하는_요즘_대기업_속사정__돈은_돈대로_쓰고_AI_도입_실",
+      "target": "20260623_yt_강민서_AX_컨설팅_시장형성기"
+    },
+    {
+      "source": "20260707_yt_AI강사가_폭로하는_요즘_대기업_속사정__돈은_돈대로_쓰고_AI_도입_실",
+      "target": "20260626_yt_AX_100인조직_관심을_행동으로"
+    },
+    {
+      "source": "20260707_yt_AI강사가_폭로하는_요즘_대기업_속사정__돈은_돈대로_쓰고_AI_도입_실",
+      "target": "20260707_yt_AI_자동화_매일_하던_업무가_딸깍으로_바뀌는_방법__이커머스_자동화_사"
+    },
+    {
+      "source": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리",
+      "target": "20260707_yt_채점만_해주는_회사가_어떻게_1조_7천억을_벌었을까"
+    },
+    {
+      "source": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리",
+      "target": "20260627_yt_클로드코드_심화_스킬_서브에이전트_훅스"
+    },
+    {
+      "source": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리",
+      "target": "20260622_yt_루프_엔지니어링_시스템으로_대체"
+    },
+    {
+      "source": "20260707_yt_채점만_해주는_회사가_어떻게_1조_7천억을_벌었을까",
+      "target": "20260630_yt_카파시_LLM_Wiki_패턴_3계층_3연산_RAG대비"
+    },
+    {
+      "source": "20260708_yt_AI시대_백엔드_개발자가_나아가야_할_방향_백엔드_개발자",
+      "target": "20260701_yt_백엔드_개발_A_to_Z_종합개론"
+    },
+    {
+      "source": "20260708_yt_AI시대_백엔드_개발자가_나아가야_할_방향_백엔드_개발자",
+      "target": "20260707_yt_AI강사가_폭로하는_요즘_대기업_속사정__돈은_돈대로_쓰고_AI_도입_실"
+    },
+    {
+      "source": "20260708_yt_AI시대_백엔드_개발자가_나아가야_할_방향_백엔드_개발자",
+      "target": "20260627_yt_AI시대_개발자_생존법_변하지않는_지식"
+    },
+    {
+      "source": "20260709_yt_AI_에이전트_많이_만들수록_회사가_망하는_진짜_이유",
+      "target": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리"
+    },
+    {
+      "source": "20260709_yt_느슨해진_백엔드씬에_긴장감을_주는_FastAPI_프레임워크",
+      "target": "20260701_yt_백엔드_개발_A_to_Z_종합개론"
+    },
+    {
+      "source": "20260709_yt_느슨해진_백엔드씬에_긴장감을_주는_FastAPI_프레임워크",
+      "target": "20260709_yt_타입스크립트_진짜_쉽게_설명해줌__이거보고도_이해_안되면_집가라"
+    },
+    {
+      "source": "20260709_yt_느슨해진_백엔드씬에_긴장감을_주는_FastAPI_프레임워크",
+      "target": "20260622_yt_비개발자_바이브코더가_가장_두려워하는_단어_백엔드"
+    },
+    {
+      "source": "20260709_yt_느슨해진_백엔드씬에_긴장감을_주는_FastAPI_프레임워크",
+      "target": "20260624_yt_신입_백엔드_최소기준"
+    },
+    {
+      "source": "20260709_yt_망분리_해제_그_이유는",
+      "target": "20260708_yt_AI시대_백엔드_개발자가_나아가야_할_방향_백엔드_개발자"
+    },
+    {
+      "source": "20260709_yt_망분리_해제_그_이유는",
+      "target": "20260707_yt_AI강사가_폭로하는_요즘_대기업_속사정__돈은_돈대로_쓰고_AI_도입_실"
+    },
+    {
+      "source": "20260709_yt_망분리_해제_그_이유는",
+      "target": "20260709_yt_AI_에이전트_많이_만들수록_회사가_망하는_진짜_이유"
+    },
+    {
+      "source": "20260709_yt_챔피언_가려내기_기업_AX_챔피언_교육_과정에서_쓰이는_바이브코딩대학의_",
+      "target": "20260707_yt_채점만_해주는_회사가_어떻게_1조_7천억을_벌었을까"
+    },
+    {
+      "source": "20260709_yt_챔피언_가려내기_기업_AX_챔피언_교육_과정에서_쓰이는_바이브코딩대학의_",
+      "target": "20260623_yt_강민서_AX_컨설팅_시장형성기"
+    },
+    {
+      "source": "20260709_yt_챔피언_가려내기_기업_AX_챔피언_교육_과정에서_쓰이는_바이브코딩대학의_",
+      "target": "20260707_yt_메타_엔지니어가_알려주는_에이전틱_엔지니어링_핵심_개념_5가지_총정리"
+    },
+    {
+      "source": "20260709_yt_타입스크립트_진짜_쉽게_설명해줌__이거보고도_이해_안되면_집가라",
+      "target": "20260629_yt_NextJS_존재이유_CSR_단점_SSR_풀스택"
+    },
+    {
+      "source": "20260709_yt_타입스크립트_진짜_쉽게_설명해줌__이거보고도_이해_안되면_집가라",
+      "target": "20260622_yt_프론트엔드_기본_역사"
+    },
+    {
+      "source": "20260709_yt_타입스크립트_진짜_쉽게_설명해줌__이거보고도_이해_안되면_집가라",
+      "target": "20260701_yt_프론트엔드_개발_A_to_Z"
+    },
+    {
+      "source": "20260709_yt_타입스크립트_진짜_쉽게_설명해줌__이거보고도_이해_안되면_집가라",
+      "target": "20260702_yt_얄코_리액트_Part1"
+    }
+  ],
+  "meta": {
+    "total_nodes": 83,
+    "total_edges": 160,
+    "generated": "2026-07-10T21:35:44.171855"
+  }
+}

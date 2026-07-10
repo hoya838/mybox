@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { NAV } from '../nav';
 
-const slugs = NAV.flatMap((g) => g.items.map((it) => it.slug));
+// href 항목(외부 정적 자산, 예: graphify)은 내부 라우트가 아니므로 제외.
+const slugs = NAV.flatMap((g) => g.items.filter((it) => !it.href).map((it) => it.slug));
 
 export function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));

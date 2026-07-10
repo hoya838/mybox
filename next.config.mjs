@@ -8,6 +8,8 @@ const nextConfig = {
   basePath,
   assetPrefix: basePath || undefined,
   images: { unoptimized: true },
+  // public/ 정적 자산(graphify)을 raw <a>로 링크할 때 basePath 프리픽스 주입용.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
 };
 
 export default nextConfig;

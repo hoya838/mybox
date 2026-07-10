@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphify — 볼트 지식그래프</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0f0f14;
+  color: #e2e8f0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: #16161f;
+  border-bottom: 1px solid #2a2a3a;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+header h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #a78bfa;
+  letter-spacing: -0.3px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: #2a2a3a;
+  color: #94a3b8;
+}
+
+.search-wrap {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.search-wrap input {
+  background: #1e1e2e;
+  border: 1px solid #3a3a4a;
+  border-radius: 6px;
+  padding: 5px 10px;
+  color: #e2e8f0;
+  font-size: 13px;
+  width: 220px;
+  outline: none;
+}
+
+.search-wrap input:focus { border-color: #7c3aed; }
+
+.btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: opacity .15s;
+}
+
+.btn:hover { opacity: .8; }
+.btn-purple { background: #7c3aed; color: #fff; }
+.btn-ghost { background: #2a2a3a; color: #cbd5e1; }
+
+/* ── Main layout ── */
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Graph canvas ── */
+#canvas {
+  flex: 1;
+  cursor: grab;
+}
+
+#canvas:active { cursor: grabbing; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 320px;
+  background: #16161f;
+  border-left: 1px solid #2a2a3a;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid #2a2a3a;
+}
+
+.tab {
+  flex: 1;
+  padding: 9px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all .15s;
+}
+
+.tab.active { color: #a78bfa; border-bottom-color: #7c3aed; }
+
+.tab-content { display: none; flex: 1; overflow-y: auto; padding: 12px; }
+.tab-content.active { display: block; }
+
+/* ── Node panel ── */
+.node-empty {
+  color: #475569;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.node-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+
+.tag {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  font-weight: 500;
+}
+
+.tldr {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.6;
+  background: #1e1e2e;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.links-section h4 {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+}
+
+.link-chip {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 8px;
+  background: #1e1e2e;
+  border-radius: 4px;
+  color: #a78bfa;
+  cursor: pointer;
+  margin: 2px;
+  border: 1px solid #3a3a4a;
+  transition: background .1s;
+}
+
+.link-chip:hover { background: #2a2a3a; }
+
+.open-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 7px;
+  background: #1e1e2e;
+  border: 1px solid #3a3a4a;
+  border-radius: 6px;
+  color: #a78bfa;
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.open-btn:hover { background: #2a2a3a; }
+
+/* ── LLM Query panel ── */
+.query-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+.query-area textarea {
+  background: #1e1e2e;
+  border: 1px solid #3a3a4a;
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #e2e8f0;
+  font-size: 12px;
+  resize: none;
+  outline: none;
+  height: 70px;
+  font-family: inherit;
+}
+
+.query-area textarea:focus { border-color: #7c3aed; }
+
+.query-result {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+.query-result pre {
+  background: #1e1e2e;
+  border: 1px solid #2a2a3a;
+  border-radius: 6px;
+  padding: 10px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 11px;
+  color: #a3e635;
+}
+
+.token-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #64748b;
+  padding: 4px 0;
+}
+
+.token-count { color: #a78bfa; font-weight: 600; }
+.saving { color: #4ade80; font-weight: 600; }
+
+/* ── Filter panel ── */
+.filter-group { margin-bottom: 14px; }
+.filter-group label {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.filter-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.filter-chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 99px;
+  border: 1px solid #3a3a4a;
+  cursor: pointer;
+  color: #94a3b8;
+  background: transparent;
+  transition: all .15s;
+}
+
+.filter-chip.active { color: #fff; border-color: transparent; }
+
+/* ── Legend ── */
+.legend {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(22,22,31,.9);
+  border: 1px solid #2a2a3a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 5px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Stats bar ── */
+.stats-bar {
+  position: absolute;
+  top: 60px;
+  left: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+.stat-chip {
+  background: rgba(22,22,31,.85);
+  border: 1px solid #2a2a3a;
+  border-radius: 6px;
+  padding: 4px 9px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.stat-chip span { color: #e2e8f0; font-weight: 600; }
+
+/* ── Graph elements ── */
+.links line {
+  stroke: #2a2a3a;
+  stroke-width: 1.2;
+  stroke-opacity: .7;
+}
+
+.nodes circle {
+  stroke: #0f0f14;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: r .1s;
+}
+
+.node-label {
+  font-size: 9px;
+  fill: #94a3b8;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.highlighted line { stroke: #7c3aed; stroke-opacity: 1; stroke-width: 2; }
+.faded { opacity: .15; }
+
+/* ── Tooltip ── */
+.tooltip {
+  position: absolute;
+  background: #1e1e2e;
+  border: 1px solid #3a3a4a;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  pointer-events: none;
+  max-width: 240px;
+  z-index: 100;
+  display: none;
+}
+
+.tooltip strong { color: #e2e8f0; display: block; margin-bottom: 4px; }
+.tooltip .tt-dept { color: #a78bfa; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="../" style="color:#a78bfa;text-decoration:none;font-size:13px;font-weight:600;margin-right:4px">← 가이드</a>
+  <h1>⬡ Graphify</h1>
+  <span class="badge" id="hdr-nodes">—</span>
+  <span class="badge" id="hdr-edges">—</span>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="노트 검색..." />
+    <button class="btn btn-purple" id="query-btn">LLM 쿼리</button>
+    <button class="btn btn-ghost" id="reset-btn">리셋</button>
+  </div>
+</header>
+
+<div class="main">
+  <svg id="canvas"></svg>
+
+  <div class="sidebar">
+    <div class="sidebar-tabs">
+      <div class="tab active" data-tab="node">노트</div>
+      <div class="tab" data-tab="query">LLM 쿼리</div>
+      <div class="tab" data-tab="filter">필터</div>
+    </div>
+
+    <!-- Node detail tab -->
+    <div class="tab-content active" id="tab-node">
+      <div id="node-panel">
+        <div class="node-empty">노드를 클릭하면<br>상세 정보가 표시됩니다</div>
+      </div>
+    </div>
+
+    <!-- LLM Query tab -->
+    <div class="tab-content" id="tab-query">
+      <div class="query-area">
+        <textarea id="query-input" placeholder="질문 입력... (예: RAG vs 지식그래프 차이점은?)"></textarea>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-purple" style="flex:1" id="run-query-btn">그래프 검색</button>
+          <button class="btn btn-ghost" id="copy-btn">복사</button>
+        </div>
+        <div class="token-bar">
+          <span>평문 토큰: <span class="token-count" id="raw-tokens">—</span></span>
+          <span>그래프 토큰: <span class="token-count" id="graph-tokens">—</span></span>
+          <span>절감: <span class="saving" id="saving-rate">—</span></span>
+        </div>
+        <div class="query-result" id="query-result">
+          <div style="color:#475569;font-size:12px;text-align:center;margin-top:20px">
+            질문하면 관련 서브그래프를<br>압축 JSON으로 추출합니다
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter tab -->
+    <div class="tab-content" id="tab-filter">
+      <div class="filter-group">
+        <label>부서</label>
+        <div class="filter-chips" id="dept-chips"></div>
+      </div>
+      <div class="filter-group">
+        <label>타입</label>
+        <div class="filter-chips" id="type-chips"></div>
+      </div>
+      <div class="filter-group">
+        <label>상태</label>
+        <div class="filter-chips" id="status-chips"></div>
+      </div>
+      <div class="filter-group">
+        <label>라우터 점수</label>
+        <div class="filter-chips" id="score-chips"></div>
+      </div>
+      <button class="btn btn-ghost" style="width:100%;margin-top:8px" id="clear-filter-btn">필터 초기화</button>
+    </div>
+  </div>
+</div>
+
+<div class="legend" id="legend"></div>
+<div class="stats-bar">
+  <div class="stat-chip">노드 <span id="stat-nodes">—</span></div>
+  <div class="stat-chip">엣지 <span id="stat-edges">—</span></div>
+  <div class="stat-chip">선택됨 <span id="stat-selected">—</span></div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+let graphData = null;
+let simulation = null;
+let selectedNode = null;
+let activeFilters = { dept: new Set(), type: new Set(), status: new Set(), score: new Set() };
+
+const DEPT_COLORS = {
+  "프로덕트": "#6366f1", "마케팅": "#f59e0b", "운영": "#10b981",
+  "리서치": "#3b82f6", "개발": "#ef4444", "전략": "#8b5cf6",
+  "세일즈": "#ec4899", "기타": "#94a3b8"
+};
+
+// ── Load & init ──────────────────────────────────────────────
+fetch("graph.json")
+  .then(r => r.json())
+  .then(data => {
+    graphData = data;
+    initHeader(data);
+    initFilters(data);
+    initLegend(data);
+    drawGraph(data);
+  })
+  .catch(() => {
+    document.getElementById("canvas").innerHTML = `<text x="50%" y="50%" fill="#ef4444" text-anchor="middle" dominant-baseline="middle" font-size="14">graph.json 로드 실패. build_graph.py 먼저 실행하세요.</text>`;
+  });
+
+function initHeader(data) {
+  document.getElementById("hdr-nodes").textContent = `${data.nodes.length} nodes`;
+  document.getElementById("hdr-edges").textContent = `${data.edges.length} edges`;
+  document.getElementById("stat-nodes").textContent = data.nodes.length;
+  document.getElementById("stat-edges").textContent = data.edges.length;
+  document.getElementById("stat-selected").textContent = "없음";
+}
+
+// ── Graph rendering ──────────────────────────────────────────
+function drawGraph(data) {
+  const svg = d3.select("#canvas");
+  svg.selectAll("*").remove();
+
+  const W = svg.node().getBoundingClientRect().width;
+  const H = svg.node().getBoundingClientRect().height;
+
+  const g = svg.append("g");
+
+  // Zoom
+  svg.call(d3.zoom().scaleExtent([.1, 4]).on("zoom", e => g.attr("transform", e.transform)));
+
+  // Filter nodes
+  const visibleNodeIds = new Set(getVisibleNodes(data).map(n => n.id));
+  const nodes = data.nodes.filter(n => visibleNodeIds.has(n.id));
+  const edges = data.edges.filter(e => visibleNodeIds.has(e.source) || visibleNodeIds.has(e.target));
+
+  // Links
+  const link = g.append("g").attr("class", "links")
+    .selectAll("line")
+    .data(edges)
+    .enter().append("line");
+
+  // Nodes
+  const nodeG = g.append("g").attr("class", "nodes")
+    .selectAll("g")
+    .data(nodes)
+    .enter().append("g")
+    .attr("class", "node-g")
+    .call(d3.drag()
+      .on("start", dragStart)
+      .on("drag", dragged)
+      .on("end", dragEnd));
+
+  nodeG.append("circle")
+    .attr("r", d => 5 + (d.router_score == "3" ? 3 : d.router_score == "2" ? 1 : 0))
+    .attr("fill", d => DEPT_COLORS[d.department] || "#94a3b8")
+    .on("mouseover", showTooltip)
+    .on("mousemove", moveTooltip)
+    .on("mouseout", hideTooltip)
+    .on("click", (event, d) => {
+      event.stopPropagation();
+      selectNode(d, nodes, edges, link, nodeG);
+    });
+
+  nodeG.append("text")
+    .attr("class", "node-label")
+    .attr("dy", "18px")
+    .text(d => d.label.length > 16 ? d.label.slice(0, 15) + "…" : d.label);
+
+  // Simulation
+  simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(edges).id(d => d.id).distance(60))
+    .force("charge", d3.forceManyBody().strength(-120))
+    .force("center", d3.forceCenter(W / 2, H / 2))
+    .force("collision", d3.forceCollide().radius(18))
+    .on("tick", () => {
+      link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+      nodeG.attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+
+  svg.on("click", () => clearSelection(link, nodeG));
+
+  // Update stats
+  document.getElementById("stat-nodes").textContent = nodes.length;
+  document.getElementById("stat-edges").textContent = edges.length;
+}
+
+function getVisibleNodes(data) {
+  return data.nodes.filter(n => {
+    if (activeFilters.dept.size && !activeFilters.dept.has(n.department)) return false;
+    if (activeFilters.type.size && !activeFilters.type.has(n.type)) return false;
+    if (activeFilters.status.size && !activeFilters.status.has(n.status)) return false;
+    if (activeFilters.score.size && !activeFilters.score.has(n.router_score)) return false;
+    return true;
+  });
+}
+
+// ── Node selection ──────────────────────────────────────────
+function selectNode(d, nodes, edges, link, nodeG) {
+  selectedNode = d;
+  document.getElementById("stat-selected").textContent = d.label;
+
+  // Highlight connected
+  const connected = new Set([d.id]);
+  edges.forEach(e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    if (sid === d.id) connected.add(tid);
+    if (tid === d.id) connected.add(sid);
+  });
+
+  nodeG.selectAll("circle")
+    .classed("faded", n => !connected.has(n.id));
+
+  link.classed("faded", e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    return sid !== d.id && tid !== d.id;
+  });
+
+  showNodePanel(d, connected, nodes);
+  switchTab("node");
+}
+
+function clearSelection(link, nodeG) {
+  selectedNode = null;
+  nodeG.selectAll("circle").classed("faded", false);
+  link.classed("faded", false);
+  document.getElementById("stat-selected").textContent = "없음";
+  document.getElementById("node-panel").innerHTML = `<div class="node-empty">노드를 클릭하면<br>상세 정보가 표시됩니다</div>`;
+}
+
+function showNodePanel(d, connected, nodes) {
+  const connectedNodes = nodes.filter(n => connected.has(n.id) && n.id !== d.id);
+  const color = DEPT_COLORS[d.department] || "#94a3b8";
+
+  let html = `
+    <div class="node-title">${d.label}</div>
+    <div class="tag-row">
+      <span class="tag" style="background:${color}22;color:${color}">${d.department}</span>
+      ${d.type ? `<span class="tag" style="background:#1e1e2e;color:#94a3b8">${d.type}</span>` : ""}
+      ${d.router_score ? `<span class="tag" style="background:${d.router_score=='3'?'#16a34a22':'#1e1e2e'};color:${d.router_score=='3'?'#4ade80':'#94a3b8'}">점수 ${d.router_score}</span>` : ""}
+      ${d.status ? `<span class="tag" style="background:#1e1e2e;color:#64748b">${d.status}</span>` : ""}
+    </div>
+    ${d.tl_dr ? `<div class="tldr">${d.tl_dr}</div>` : ""}
+    ${d.project ? `<div style="font-size:11px;color:#64748b;margin-bottom:8px">프로젝트: ${d.project}</div>` : ""}
+    ${d.created ? `<div style="font-size:11px;color:#475569;margin-bottom:10px">생성: ${d.created}</div>` : ""}
+  `;
+
+  if (connectedNodes.length) {
+    html += `<div class="links-section"><h4>연결 노드 (${connectedNodes.length})</h4><div>`;
+    connectedNodes.forEach(n => {
+      html += `<span class="link-chip" onclick="focusNode('${n.id}')">${n.label.slice(0,20)}${n.label.length>20?'…':''}</span>`;
+    });
+    html += `</div></div>`;
+  }
+
+  if (d.source_url) {
+    html += `<a class="open-btn" href="${d.source_url}" target="_blank">원본 링크 열기 ↗</a>`;
+  }
+
+  document.getElementById("node-panel").innerHTML = html;
+}
+
+// ── Search ──────────────────────────────────────────────────
+document.getElementById("search").addEventListener("input", e => {
+  const q = e.target.value.toLowerCase();
+  if (!q) { drawGraph(graphData); return; }
+  const filtered = {
+    ...graphData,
+    nodes: graphData.nodes.filter(n =>
+      n.label.toLowerCase().includes(q) ||
+      n.tl_dr.toLowerCase().includes(q) ||
+      n.department.toLowerCase().includes(q)
+    )
+  };
+  drawGraph(filtered);
+});
+
+// ── Filters ────────────────────────────────────────────────
+function initFilters(data) {
+  const depts = [...new Set(data.nodes.map(n => n.department))].filter(Boolean);
+  const types = [...new Set(data.nodes.map(n => n.type))].filter(Boolean);
+  const statuses = [...new Set(data.nodes.map(n => n.status))].filter(Boolean);
+  const scores = [...new Set(data.nodes.map(n => n.router_score))].filter(Boolean).sort();
+
+  buildChips("dept-chips", depts, "dept", d => DEPT_COLORS[d] || "#94a3b8");
+  buildChips("type-chips", types, "type", () => "#6366f1");
+  buildChips("status-chips", statuses, "status", () => "#10b981");
+  buildChips("score-chips", scores, "score", s => s=="3"?"#4ade80":"#94a3b8");
+}
+
+function buildChips(containerId, values, filterKey, colorFn) {
+  const wrap = document.getElementById(containerId);
+  values.forEach(v => {
+    const chip = document.createElement("div");
+    chip.className = "filter-chip";
+    chip.textContent = v;
+    chip.dataset.value = v;
+    chip.addEventListener("click", () => {
+      const active = activeFilters[filterKey];
+      if (active.has(v)) { active.delete(v); chip.classList.remove("active"); chip.style.background = ""; chip.style.color = ""; }
+      else {
+        active.add(v);
+        chip.classList.add("active");
+        chip.style.background = colorFn(v);
+        chip.style.color = "#fff";
+      }
+      drawGraph(graphData);
+    });
+    wrap.appendChild(chip);
+  });
+}
+
+document.getElementById("clear-filter-btn").addEventListener("click", () => {
+  Object.values(activeFilters).forEach(s => s.clear());
+  document.querySelectorAll(".filter-chip.active").forEach(c => {
+    c.classList.remove("active");
+    c.style.background = "";
+    c.style.color = "";
+  });
+  drawGraph(graphData);
+});
+
+// ── Legend ─────────────────────────────────────────────────
+function initLegend(data) {
+  const depts = [...new Set(data.nodes.map(n => n.department))].filter(Boolean);
+  const legend = document.getElementById("legend");
+  depts.forEach(d => {
+    const item = document.createElement("div");
+    item.className = "legend-item";
+    item.innerHTML = `<div class="legend-dot" style="background:${DEPT_COLORS[d]||'#94a3b8'}"></div><span>${d}</span>`;
+    legend.appendChild(item);
+  });
+}
+
+// ── LLM Query ──────────────────────────────────────────────
+document.getElementById("run-query-btn").addEventListener("click", runQuery);
+document.getElementById("query-btn").addEventListener("click", () => switchTab("query"));
+
+function runQuery() {
+  const q = document.getElementById("query-input").value.trim();
+  if (!q || !graphData) return;
+
+  const tokens = q.toLowerCase().split(/\s+/);
+
+  // Score nodes by keyword match
+  const scored = graphData.nodes.map(n => {
+    const text = `${n.label} ${n.tl_dr} ${n.department} ${n.type} ${n.project}`.toLowerCase();
+    const score = tokens.reduce((acc, t) => acc + (text.includes(t) ? 1 : 0), 0);
+    return { ...n, _score: score };
+  }).filter(n => n._score > 0).sort((a, b) => b._score - a._score);
+
+  // Take top 8 nodes + their neighbors
+  const topIds = new Set(scored.slice(0, 8).map(n => n.id));
+  graphData.edges.forEach(e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    if (topIds.has(sid)) topIds.add(tid);
+    if (topIds.has(tid)) topIds.add(sid);
+  });
+
+  const subNodes = graphData.nodes.filter(n => topIds.has(n.id));
+  const subEdges = graphData.edges.filter(e => {
+    const sid = typeof e.source === "object" ? e.source.id : e.source;
+    const tid = typeof e.target === "object" ? e.target.id : e.target;
+    return topIds.has(sid) && topIds.has(tid);
+  });
+
+  // Build compressed graph context
+  const compressed = {
+    query: q,
+    nodes: subNodes.map(n => ({
+      id: n.id,
+      label: n.label,
+      dept: n.department,
+      type: n.type,
+      tl_dr: n.tl_dr,
+      score: n.router_score,
+    })),
+    edges: subEdges.map(e => ({
+      from: typeof e.source === "object" ? e.source.id : e.source,
+      to: typeof e.target === "object" ? e.target.id : e.target,
+    })),
+  };
+
+  // Token estimation (rough: 1 token ≈ 4 chars)
+  const rawText = subNodes.map(n => `# ${n.label}\n${n.tl_dr}\n부서: ${n.department}\n`).join("\n");
+  const graphText = JSON.stringify(compressed);
+  const rawTokens = Math.round(rawText.length / 4);
+  const graphTokens = Math.round(graphText.length / 4);
+  const saving = rawTokens > 0 ? ((1 - graphTokens / rawTokens) * 100).toFixed(1) : 0;
+
+  document.getElementById("raw-tokens").textContent = rawTokens.toLocaleString();
+  document.getElementById("graph-tokens").textContent = graphTokens.toLocaleString();
+  document.getElementById("saving-rate").textContent = `${saving}% 절감`;
+
+  document.getElementById("query-result").innerHTML = `
+    <div style="font-size:11px;color:#64748b;margin-bottom:8px">
+      관련 노드 ${subNodes.length}개 · 엣지 ${subEdges.length}개 추출
+    </div>
+    <pre>${JSON.stringify(compressed, null, 2)}</pre>
+  `;
+
+  // Highlight relevant nodes in graph
+  d3.selectAll(".node-g circle").classed("faded", d => !topIds.has(d.id));
+}
+
+document.getElementById("copy-btn").addEventListener("click", () => {
+  const pre = document.querySelector("#query-result pre");
+  if (pre) navigator.clipboard.writeText(pre.textContent).then(() => {
+    const btn = document.getElementById("copy-btn");
+    btn.textContent = "복사됨!";
+    setTimeout(() => btn.textContent = "복사", 1500);
+  });
+});
+
+// ── Tooltip ────────────────────────────────────────────────
+const tooltip = document.getElementById("tooltip");
+
+function showTooltip(event, d) {
+  tooltip.style.display = "block";
+  tooltip.innerHTML = `<strong>${d.label}</strong><div class="tt-dept">${d.department} · ${d.type}</div>${d.tl_dr ? `<div style="font-size:11px;color:#64748b;margin-top:4px">${d.tl_dr.slice(0,80)}…</div>` : ""}`;
+  moveTooltip(event);
+}
+
+function moveTooltip(event) {
+  tooltip.style.left = (event.pageX + 12) + "px";
+  tooltip.style.top = (event.pageY - 10) + "px";
+}
+
+function hideTooltip() { tooltip.style.display = "none"; }
+
+// ── Drag ───────────────────────────────────────────────────
+function dragStart(event, d) {
+  if (!event.active) simulation.alphaTarget(.3).restart();
+  d.fx = d.x; d.fy = d.y;
+}
+function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+function dragEnd(event, d) {
+  if (!event.active) simulation.alphaTarget(0);
+  d.fx = null; d.fy = null;
+}
+
+// ── Tab switching ───────────────────────────────────────────
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => switchTab(tab.dataset.tab));
+});
+
+function switchTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  document.querySelectorAll(".tab-content").forEach(c => c.classList.toggle("active", c.id === `tab-${name}`));
+}
+
+// ── Reset ───────────────────────────────────────────────────
+document.getElementById("reset-btn").addEventListener("click", () => {
+  document.getElementById("search").value = "";
+  Object.values(activeFilters).forEach(s => s.clear());
+  document.querySelectorAll(".filter-chip.active").forEach(c => {
+    c.classList.remove("active"); c.style.background = ""; c.style.color = "";
+  });
+  drawGraph(graphData);
+  d3.select("#canvas").call(d3.zoom().transform, d3.zoomIdentity);
+});
+
+// ── Focus node (from panel) ────────────────────────────────
+function focusNode(id) {
+  const node = graphData.nodes.find(n => n.id === id);
+  if (!node) return;
+  const allLinks = d3.selectAll(".links line");
+  const allNodes = d3.selectAll(".node-g");
+  selectNode(node, graphData.nodes, graphData.edges, allLinks, allNodes);
+}
+</script>
+</body>
+</html>
