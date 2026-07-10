@@ -15,6 +15,10 @@ export default async function Page({ params }) {
   if (!fs.existsSync(file)) {
     return <main className="main"><div className="panel active"><h1>없는 페이지</h1></div></main>;
   }
-  const html = fs.readFileSync(file, 'utf-8');
+  let html = fs.readFileSync(file, 'utf-8');
+  // 주입 HTML 내 root-relative 링크(href="/web" 등)는 Next이 basePath를 안 붙인다.
+  // GitHub Pages(/mybox 하위경로) 배포 시 빌드타임에 프리픽스 주입. 로컬·Vercel은 빈 값이라 무영향.
+  const base = process.env.PAGES_BASE_PATH || '';
+  if (base) html = html.replace(/(href|src)="\/(?!\/)/g, `$1="${base}/`);
   return <main className="main"><div className="panel active" dangerouslySetInnerHTML={{ __html: html }} /></main>;
 }
