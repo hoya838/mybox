@@ -6,6 +6,7 @@ export const NAV = [
     { slug: "lectures", label: "강의", icon: "GraduationCap" },
     { slug: "datastructures", label: "자료구조", icon: "GitBranch" },
     { slug: "graphify", label: "AI 지식지도", icon: "Network", href: "/graphify/" },
+    { slug: "ai-5elements", label: "AI 학습 5요소", icon: "Layers", href: "/ai-5elements.html" },
   ]},
   { sec: "언어 커리큘럼", icon: "Code", items: [
     { slug: "curriculum", label: "개요·분류·순서", icon: "List" },

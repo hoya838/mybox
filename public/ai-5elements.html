@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 학습 지식 5요소 — 상관관계 지도</title>
+<style>
+  :root{
+    /* colors — SOCAR Frame 2.0 tokens (light only) */
+    --primary: oklch(0.620 0.219 257);
+    --primary-strong: oklch(0.586 0.236 261);
+    --blue-50: oklch(0.962 0.022 248);
+    --blue-100: oklch(0.917 0.040 240);
+    --gray-50: oklch(0.984 0.002 286);
+    --gray-100: oklch(0.967 0.004 271);
+    --gray-200: oklch(0.927 0.009 264);
+    --gray-300: oklch(0.851 0.018 264);
+    --text-strong: oklch(0.211 0.026 261);
+    --text-primary: oklch(0.331 0.034 264);
+    --text-secondary: oklch(0.519 0.039 263);
+    --text-tertiary: oklch(0.687 0.035 265);
+    --border-regular: oklch(0.927 0.009 264);
+    --divider-regular: oklch(0.927 0.009 264);
+    /* categorical accents (SOCAR accent ramp) */
+    --acc-green: oklch(0.745 0.176 162);
+    --acc-green-weak: oklch(0.974 0.043 158);
+    --acc-cyan: oklch(0.733 0.137 207);
+    --acc-cyan-weak: oklch(0.965 0.030 210);
+    --acc-purple: oklch(0.617 0.214 295);
+    --acc-purple-weak: oklch(0.960 0.028 295);
+    --acc-orange: oklch(0.741 0.166 56);
+    --acc-orange-weak: oklch(0.978 0.030 92);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:#fff; color:var(--text-primary);
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,Roboto,"Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    font-size:16px; line-height:24px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 20px 64px}
+
+  /* header — white, divider below */
+  header{padding:44px 0 28px; border-bottom:1px solid var(--divider-regular); margin-bottom:32px}
+  .eyebrow{font-size:12px; line-height:18px; font-weight:600; color:var(--text-secondary); letter-spacing:.02em; margin-bottom:8px}
+  h1{font-size:26px; line-height:36px; font-weight:700; color:var(--text-strong); margin:0 0 12px; letter-spacing:0; text-wrap:balance}
+  .lede{font-size:16px; line-height:24px; color:var(--text-primary); max-width:62ch; margin:0 0 20px}
+  .lede b{font-weight:600; color:var(--text-strong)}
+  .stats{display:flex; gap:24px; flex-wrap:wrap}
+  .stat{display:flex; align-items:baseline; gap:4px}
+  .stat .num{font-size:18px; line-height:26px; font-weight:600; color:var(--text-strong); font-variant-numeric:tabular-nums}
+  .stat .unit{font-size:14px; line-height:22px; font-weight:400; color:var(--text-secondary)}
+
+  /* section heading */
+  h2.sec{font-size:20px; line-height:28px; font-weight:700; color:var(--text-strong); margin:0 0 4px}
+  p.sec-sub{font-size:14px; line-height:22px; color:var(--text-secondary); margin:0 0 20px}
+
+  /* layer stack — white cards on gray wash */
+  .stack-wash{background:var(--gray-100); border-radius:16px; padding:20px; margin-bottom:36px}
+  .layer{
+    background:#fff; border:1px solid var(--border-regular); border-radius:16px;
+    padding:20px;
+  }
+  .layer-head{display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap}
+  .tag{
+    display:inline-flex; align-items:center; gap:4px;
+    font-size:13px; line-height:20px; font-weight:600;
+    padding:4px 8px; border-radius:6px;
+  }
+  .tag .dot{width:6px; height:6px; border-radius:9999px}
+  .t-judge{background:var(--blue-50); color:var(--primary-strong)} .t-judge .dot{background:var(--primary)}
+  .t-loop{background:var(--acc-purple-weak); color:var(--acc-purple)} .t-loop .dot{background:var(--acc-purple)}
+  .t-struct{background:var(--acc-cyan-weak); color:var(--acc-cyan)} .t-struct .dot{background:var(--acc-cyan)}
+  .t-mat{background:var(--acc-green-weak); color:var(--acc-green)} .t-mat .dot{background:var(--acc-green)}
+  .t-org{background:var(--acc-orange-weak); color:var(--acc-orange)} .t-org .dot{background:var(--acc-orange)}
+  .layer h3{font-size:18px; line-height:26px; font-weight:600; color:var(--text-strong); margin:0}
+  .layer .role{font-size:14px; line-height:22px; color:var(--text-primary); margin:0 0 14px; max-width:66ch}
+  .layer .role b{font-weight:600; color:var(--text-strong)}
+
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
+  .chip{
+    font-size:13px; line-height:20px; font-weight:400;
+    background:#fff; border:1px solid var(--border-regular); color:var(--text-secondary);
+    padding:4px 12px; border-radius:9999px; white-space:nowrap;
+  }
+  .impl{font-size:13px; line-height:20px; color:var(--text-tertiary); padding-top:12px; border-top:1px solid var(--divider-regular); margin:0}
+  .impl b{font-weight:600; color:var(--text-secondary)}
+  .impl code{
+    font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:12px;
+    background:var(--gray-100); padding:1px 6px; border-radius:4px; color:var(--text-primary);
+  }
+
+  .connector{display:flex; justify-content:center; padding:6px 0}
+  .connector .lbl{
+    font-size:12px; line-height:18px; font-weight:600; color:var(--text-secondary);
+    background:#fff; border:1px solid var(--border-regular);
+    padding:3px 12px; border-radius:9999px;
+  }
+
+  /* dominance — selected SelectionBox style: blue-50 + primary border */
+  .dominance{
+    background:var(--blue-50); border:1px solid var(--primary); border-radius:16px;
+    padding:20px; margin-bottom:44px;
+  }
+  .dominance h3{font-size:16px; line-height:24px; font-weight:600; color:var(--primary-strong); margin:0 0 6px}
+  .dominance p{font-size:14px; line-height:22px; color:var(--text-primary); margin:0; max-width:70ch}
+  .dominance p b{font-weight:600; color:var(--text-strong)}
+
+  /* correlation list — group container with divider rows */
+  .pairs{background:#fff; border:1px solid var(--border-regular); border-radius:16px; overflow:hidden}
+  .pair{padding:18px 20px}
+  .pair + .pair{border-top:1px solid var(--divider-regular)}
+  .route{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px}
+  .route .name{font-size:16px; line-height:24px; font-weight:600; color:var(--text-strong)}
+  .route .arr{color:var(--text-tertiary); font-size:14px}
+  .bdot{width:8px; height:8px; border-radius:9999px; flex:none}
+  .b-mat{background:var(--acc-green)} .b-struct{background:var(--acc-cyan)}
+  .b-loop{background:var(--acc-purple)} .b-judge{background:var(--primary)}
+  .b-org{background:var(--acc-orange)}
+
+  /* cross-cutting — neutral flat box */
+  .crosscut{
+    background:var(--gray-100); border:1px solid var(--border-regular); border-radius:16px;
+    padding:20px; margin-bottom:44px;
+  }
+  .crosscut h3{font-size:16px; line-height:24px; font-weight:600; color:var(--text-strong); margin:0 0 6px}
+  .crosscut p{font-size:14px; line-height:22px; color:var(--text-primary); margin:0; max-width:70ch}
+  .crosscut p b{font-weight:600; color:var(--text-strong)}
+  .crosscut code{
+    font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:12px;
+    background:#fff; border:1px solid var(--border-regular); padding:1px 6px; border-radius:4px; color:var(--text-primary);
+  }
+  .pair p{margin:0; font-size:14px; line-height:22px; color:var(--text-secondary); max-width:72ch}
+  .pair p b{font-weight:600; color:var(--text-primary)}
+
+  footer{
+    margin-top:44px; padding-top:16px; border-top:1px solid var(--divider-regular);
+    font-size:12px; line-height:18px; color:var(--text-tertiary);
+  }
+
+  /* tab bar — sticky, 1px bottom border */
+  .tabs{
+    position:sticky; top:0; z-index:10; display:flex; gap:4px;
+    background:#fff; border-bottom:1px solid var(--border-regular);
+    margin:0 -20px 28px; padding:0 20px;
+  }
+  .tab-btn{
+    appearance:none; background:none; border:none; cursor:pointer;
+    font-family:inherit; font-size:16px; line-height:24px; font-weight:600;
+    color:var(--text-secondary); padding:12px 12px 10px; position:relative;
+  }
+  .tab-btn[aria-selected="true"]{color:var(--text-strong)}
+  .tab-btn[aria-selected="true"]::after{
+    content:""; position:absolute; left:12px; right:12px; bottom:-1px;
+    height:2px; border-radius:8px; background:oklch(0.331 0.034 264);
+  }
+  .tab-btn:focus-visible{outline:2px solid var(--primary); outline-offset:-2px; border-radius:8px}
+  section[hidden]{display:none}
+
+  /* folder tree + file examples */
+  .tree{
+    background:var(--gray-100); border:1px solid var(--border-regular); border-radius:16px;
+    padding:20px; overflow-x:auto; margin:0 0 28px;
+  }
+  .tree pre{
+    margin:0; font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:13px; line-height:22px; color:var(--text-primary);
+  }
+  .tree pre .c{color:var(--text-tertiary)}
+  .tree pre .hl{color:var(--primary-strong); font-weight:600}
+  .file-card{
+    background:#fff; border:1px solid var(--border-regular); border-radius:16px;
+    padding:20px; margin-bottom:16px;
+  }
+  .file-card .path{
+    display:inline-block; font-family:ui-monospace,"SF Mono",Menlo,monospace; font-size:12px;
+    background:var(--gray-100); padding:3px 10px; border-radius:6px;
+    color:var(--text-primary); margin-bottom:10px;
+  }
+  .file-card h4{font-size:16px; line-height:24px; font-weight:600; color:var(--text-strong); margin:0 0 6px}
+  .file-card .why{font-size:13px; line-height:20px; color:var(--text-secondary); margin:0 0 12px; max-width:70ch}
+  .file-card .why b{font-weight:600; color:var(--text-primary)}
+  .file-card pre{
+    background:var(--gray-100); border-radius:12px; padding:14px 16px; overflow-x:auto;
+    margin:0; font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:12.5px; line-height:20px; color:var(--text-primary);
+  }
+
+  /* delegation table */
+  .dlg{width:100%; border-collapse:collapse; font-size:14px; line-height:22px}
+  .dlg th{
+    text-align:left; font-size:13px; font-weight:600; color:var(--text-secondary);
+    padding:8px 12px; border-bottom:1px solid var(--border-regular); white-space:nowrap;
+  }
+  .dlg td{padding:10px 12px; border-bottom:1px solid var(--divider-regular); vertical-align:top}
+  .dlg td:first-child{font-weight:600; color:var(--text-strong); white-space:nowrap}
+  .dlg tr:last-child td{border-bottom:none}
+  .table-wrap{background:#fff; border:1px solid var(--border-regular); border-radius:16px; overflow-x:auto; margin-bottom:28px}
+  .pill{
+    display:inline-block; font-size:12px; line-height:18px; font-weight:600;
+    padding:2px 10px; border-radius:9999px; white-space:nowrap;
+  }
+  .p-auto{background:var(--acc-green-weak); color:var(--acc-green)}
+  .p-sup{background:var(--blue-50); color:var(--primary-strong)}
+  .p-collab{background:var(--acc-orange-weak); color:var(--acc-orange)}
+  @media (max-width:560px){
+    header{padding:32px 0 22px}
+    .stack-wash{padding:12px; border-radius:12px}
+    .layer{padding:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a href="./" style="display:inline-block;color:var(--primary);text-decoration:none;font-size:13px;font-weight:600;margin-bottom:12px">← 개발자가이드</a>
+  <div class="eyebrow">llm-wiki-team 지식지도</div>
+  <h1>AI 학습에서 중요한 것 — 지식 5요소의 층위와 상관관계</h1>
+  <p class="lede">볼트에 쌓인 노트들이 수렴하는 결론. 조직·도메인지식·하네스구조·루프·채점표는 병렬 목록이 아니라 <b>서로를 떠받치는 5개 층</b>이고, 맨 위의 판정이 나머지 전부를 지배하며, 맨 아래의 조직이 전부를 지탱한다.</p>
+  <div class="stats">
+    <div class="stat"><span class="num">77</span><span class="unit">노트 종합</span></div>
+    <div class="stat"><span class="num">12</span><span class="unit">교차 검증 인용</span></div>
+    <div class="stat"><span class="num">7</span><span class="unit">연결고리</span></div>
+    <div class="stat"><span class="num">2026.07.07</span><span class="unit">기준</span></div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab-btn" role="tab" aria-selected="true" data-tab="tab-map">지식지도</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-harness">하네스 설계 예시</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-meta">설계 시스템 만들기</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-web">웹개발 지도</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-impl">이 팀의 구현</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-js">JS 공부순서</button>
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="tab-ts">TS 공부순서</button>
+</nav>
+
+<section id="tab-map" role="tabpanel">
+
+<h2 class="sec">5개 층 — 아래가 위를 떠받친다</h2>
+<p class="sec-sub">각 층의 근거 노트와 이 팀의 실제 구현물을 함께 표기</p>
+
+<div class="stack-wash">
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-judge"><span class="dot"></span>4층 판정</span><h3>채점표 — 평가 기준</h3></div>
+    <p class="role">아래 3개 층이 <b>잘 돌아가는지 판별하는 기준</b>. 평가는 훈련의 재료 그 자체다. RL은 채점기준 없으면 학습이 안 되고, 저울 없는 다이어트는 개선이 불가능하다. 모델이 평준화될수록 "뭐가 좋은지 아는 능력"이 해자가 된다.</p>
+    <div class="chips">
+      <span class="chip">채점만 해주는 회사 1조7천억</span>
+      <span class="chip">카파시 LLM Wiki 패턴</span>
+    </div>
+    <p class="impl"><b>이 팀의 구현</b> · <code>golden_set.md</code> · <code>hit_rate</code> · 선별 3기준 · 인사이트 필터 3기준 · validator</p>
+  </div>
+  <div class="connector"><span class="lbl">판정한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-loop"><span class="dot"></span>3층 유지</span><h3>루프 — 환류 구조</h3></div>
+    <p class="role">한 번 만들고 끝이 아니라 <b>돌면서 스스로 고치는 구조</b>. 이 층이 없으면 "PO의 저주"(POC 이후 방치)에 걸린다. 계획·실행·검증 루프가 에이전트를 챗봇과 구분짓는 핵심.</p>
+    <div class="chips">
+      <span class="chip">루프 엔지니어링 6컴포넌트</span>
+      <span class="chip">AI강사 대기업 속사정</span>
+      <span class="chip">에이전틱 엔지니어링 5개념</span>
+    </div>
+    <p class="impl"><b>이 팀의 구현</b> · orphans 재소비 · <code>run_log</code> 분석 · decay 탐지-실행 닫힘 · insight_queue 환류</p>
+  </div>
+  <div class="connector"><span class="lbl">유지한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-struct"><span class="dot"></span>2층 구조</span><h3>하네스 · 에이전트 설계 · 워크플로우</h3></div>
+    <p class="role">재료가 있어도 <b>어떤 형태로, 언제, 누구에게 주입할지</b> 설계가 없으면 못 쓴다. 컨텍스트 엔지니어링 3레이어, 결정론(사실 수집)과 확률론(해석) 영역 분리, 위임 스펙트럼 4단계. <b>비용·토큰 경제가 실질 제약조건</b> — 캐시 설계(안 바뀌는 정보 앞 고정, 비용 1/10), 지식그래프 토큰 절감(71.5배), 작업 난이도별 모델 크기 매칭.</p>
+    <div class="chips">
+      <span class="chip">에이전틱 엔지니어링 5개념</span>
+      <span class="chip">에이전트 4천개 유지보수</span>
+      <span class="chip">이커머스 자동화 착수기준</span>
+      <span class="chip">하네스 엔지니어링</span>
+      <span class="chip">Graphify 토큰절감 지식그래프</span>
+    </div>
+    <p class="impl"><b>이 팀의 구현</b> · <code>CLAUDE.md</code> 라우팅 · 고정 IO계약 · 서브에이전트 15 · 승인게이트 · hooks</p>
+  </div>
+  <div class="connector"><span class="lbl">구조화한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-mat"><span class="dot"></span>1층 재료</span><h3>도메인지식 · 지식데이터</h3></div>
+    <p class="role">모델은 평준화됐다. 희소한 건 <b>"뭘 아는 사람"의 재료</b>. 현장 불편을 아는 간호사가 코딩만 잘하는 개발자를 이기는 시대. AI 결과물 검증도 도메인 이해 없이는 불가능하다.</p>
+    <div class="chips">
+      <span class="chip">AI강사 대기업 속사정</span>
+      <span class="chip">AI로 앱 만들면 54명 0원</span>
+      <span class="chip">옵시디언 LLM Wiki 선별 3기준</span>
+      <span class="chip">채점만 해주는 회사</span>
+    </div>
+    <p class="impl"><b>이 팀의 구현</b> · vault 자체 — <code>2_areas</code> 77노트 · <code>_raw</code> 원본보존 · MOC 연결</p>
+  </div>
+  <div class="connector"><span class="lbl">지탱한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-org"><span class="dot"></span>0층 조직</span><h3>조직 어댑션 — 사람이 굴리는 기반</h3></div>
+    <p class="role">위 4개 층 전부가 <b>조직이 받쳐주지 않으면 안 돌아간다</b>. 도입 실패의 주범은 기술이 아니라 "PO의 저주" — POC 이후 전담팀·리소스·중간보고 없이 개인 엑스트라워크로 방치. 리더가 사용 기준(토큰맥싱)을 강제하고, 실험할 시간과 해커톤 같은 몰입 기회를 줘야 어댑션이 일어난다.</p>
+    <div class="chips">
+      <span class="chip">AI강사 대기업 속사정</span>
+      <span class="chip">에이전트 4천개 유지보수</span>
+      <span class="chip">AX 100인조직 관심을 행동으로</span>
+    </div>
+    <p class="impl"><b>이 팀의 구현</b> · 이 팀 자체가 전담 구조 — 승인큐 SLA 7일 · <code>run_log</code>가 중간보고 대체 · changelog 동기화 규칙</p>
+  </div>
+
+</div>
+
+<div class="dominance">
+  <h3>지배 관계 — 채점표가 나머지 전부를 다스린다</h3>
+  <p>도메인지식이 좋은지도, 워크플로우가 나아졌는지도, 루프가 제대로 도는지도 전부 <b>채점기준이 있어야 알 수 있다</b>. 5요소 중 우선순위 하나만 꼽으면 평가표 정교화. 실제로 이 팀에서 가장 얇은 층이기도 하다 — golden_set은 아직 "기대노트 1개 적중" 수준이며, 규모가 커지면 검증 루브릭화가 재검토 1순위다.</p>
+</div>
+
+<div class="crosscut">
+  <h3>횡단 관심사 — 보안·거버넌스는 층이 아니라 전 층을 가로지른다</h3>
+  <p>도입 3대 걱정 중 하나가 보안이고(AI강사 노트), 에이전트가 아니라 <b>데이터와 거버넌스를 조직이 꽉 잡아야 한다</b>(에이전트4천개 노트). 이 팀에선 판정층의 <code>secret_leak</code> 측정, 구조층의 <code>guard_vault.sh</code>·sensitivity 3단계, 분리 4트리거 1번(보안)이 각 층에 심어진 형태 — 별도 층이 아니라 모든 층의 통과 조건이다.</p>
+</div>
+
+<h2 class="sec">연결고리 — 노트가 증명하는 층간 상관관계</h2>
+<p class="sec-sub">볼트의 실제 노트 2개 이상이 교차 검증한 관계만 실었다</p>
+
+<div class="pairs">
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-mat"></span><span class="name">재료</span><span class="arr">&#8594;</span><span class="bdot b-judge"></span><span class="name">판정</span></div>
+    <p><b>도메인지식이 곧 채점 능력이다.</b> 변호사 에이전트의 답을 법률 모르는 사람은 검증 못 한다(AI강사 노트) = 심사위원 AI에게 가르치는 건 지식이 아니라 전문가의 "취향"이다(채점회사 노트). 같은 명제의 양면.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-judge"></span><span class="name">판정</span><span class="arr">&#8594;</span><span class="bdot b-loop"></span><span class="name">루프</span></div>
+    <p><b>채점기준 없으면 루프가 안 돈다.</b> 테스트 스위트가 있어야 에이전트가 통과할 때까지 반복할 수 있고, 없으면 깨진 코드를 완료라 선언한다(에이전틱 5개념). RL도 채점표 없으면 학습 자체가 정지(채점회사). 리워드 해킹 때문에 채점자는 계속 정교해져야 한다 — 수요가 안 마르는 이유.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-struct"></span><span class="name">구조</span><span class="arr">&#8594;</span><span class="bdot b-loop"></span><span class="name">루프</span></div>
+    <p><b>승인게이트가 스텝 경계에 있어야 루프가 안전하다.</b> 위임 스펙트럼(완전자율에서 인간주도까지)의 판단 기준은 "결과를 빠르게 검증할 수 있는가"(에이전틱 5개념). 이 팀의 vocab_queue·insight_queue·guard_vault.sh가 그 경계 장치 — 구조를 하나로 뭉치면 이 체크포인트가 사라진다.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-mat"></span><span class="name">재료</span><span class="arr">&#8594;</span><span class="bdot b-struct"></span><span class="name">구조</span></div>
+    <p><b>재료 성격이 구조를 결정한다.</b> 결정론적 재료(순위·수치·API 데이터)는 자동화 파이프에, 확률론적 판단(해석·전략)은 사람 게이트 뒤에 배치(이커머스 자동화). 이 팀 파이프라인도 동형 — 어휘검증·frontmatter는 결정론, 라우팅 판정·인사이트 흡수는 확률론.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-loop"></span><span class="name">루프</span><span class="arr">&#8594;</span><span class="bdot b-struct"></span><span class="name">구조</span></div>
+    <p><b>루프가 없으면 구조가 늘어나기만 한다.</b> 에이전트 4천개 = 유지보수 4천건(에이전트4천개 노트). 환류(자가점검·통합점검)가 구조 증식을 억제한다 — 신규 에이전트 전에 기존 역할 흡수 검토(self_auditor #11). 저빈도 4개 에이전트 통합점검으로 "안 늘려도 됨"을 확인한 것도 이 루프의 산물.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-judge"></span><span class="name">판정</span><span class="arr">&#8594;</span><span class="bdot b-mat"></span><span class="name">재료</span></div>
+    <p><b>채점표가 재료 수집을 역규정한다.</b> 선별 3기준(반복·결정·연결)이 볼트에 뭐가 들어올지 정하고, golden_set 커버리지가 어느 부서 지식이 얇은지 드러낸다(balance.md 편중 경보 → 수집 권고). 판정이 입구를 통제하는 구조.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-org"></span><span class="name">조직</span><span class="arr">&#8594;</span><span class="bdot b-loop"></span><span class="name">루프</span></div>
+    <p><b>조직이 안 받치면 루프가 멈춘다 — PO의 저주.</b> 전담팀·리소스·중간보고 없이 개인 시간에 떠넘기면 효율이 올라가도 일만 늘어나 의지를 잃는다(AI강사 노트). 기술 루프가 아무리 잘 설계돼도 그걸 돌릴 사람의 시간과 보상이 조직에서 안 나오면 정지 — 도입 실패의 최다 원인이 이 연결의 단절.</p>
+  </div>
+
+</div>
+
+</section>
+
+<section id="tab-harness" role="tabpanel" hidden>
+
+<h2 class="sec">하네스 설계 예시 — 회계·인사·PPT·카드뉴스를 하나의 업무OS로</h2>
+<p class="sec-sub">오늘 인사이트를 설계 결정으로 번역한 가상 예시. 업무마다 에이전트를 만들지 않는다 — 범용 에이전트 하나가 스킬·규칙·지식으로 4개 업무를 수행한다</p>
+
+<div class="dominance">
+  <h3>설계 결정 4가지 — 인사이트에서 직행</h3>
+  <p><b>1.</b> 업무별 에이전트 금지, 스킬로 구분(에이전트4천개 = 유지보수4천건) · <b>2.</b> 업무마다 채점표를 먼저 정의(채점기준 없으면 개선 불가) · <b>3.</b> 결정론은 스크립트, 확률론은 승인게이트 뒤(이커머스 자동화) · <b>4.</b> run_log·승인큐 SLA로 중간보고 대체(PO의 저주 회피)</p>
+</div>
+
+<h2 class="sec">폴더 구조</h2>
+<p class="sec-sub">에이전트 폴더가 업무 수(4)만큼 없다는 점이 핵심 — 업무는 skills/에, 판정·유지 역할만 agents/에</p>
+
+<div class="tree">
+<pre>회사업무OS/
+├── <span class="hl">CLAUDE.md</span>                        <span class="c"># 오케스트레이터 — 라우팅·전역규칙 (항상 읽힘)</span>
+├── .claude/
+│   ├── rules/
+│   │   ├── safety.md                <span class="c"># 송금·발송·원장수정 = 사람 승인 필수</span>
+│   │   └── output-style.md          <span class="c"># 결과만 반환, 보고서 양식</span>
+│   ├── skills/                      <span class="c"># 업무 = 에이전트가 아니라 스킬</span>
+│   │   ├── 회계마감/SKILL.md         <span class="c"># /회계마감 — 월마감 절차+채점표</span>
+│   │   ├── 인사온보딩/SKILL.md       <span class="c"># /온보딩 [이름] — 입사 체크리스트</span>
+│   │   ├── 피피티/SKILL.md           <span class="c"># /피피티 [주제] — 슬라이드 생성</span>
+│   │   └── 카드뉴스/SKILL.md         <span class="c"># /카드뉴스 [주제] — SNS 이미지 세트</span>
+│   └── hooks/
+│       └── guard_ledger.sh          <span class="c"># 원장(ledger/) 쓰기 차단 훅 — 횡단 보안</span>
+├── agents/                          <span class="c"># 판정·유지 역할만 — 업무 아님</span>
+│   ├── validator/CLAUDE.md          <span class="c"># 산출물 채점 (업무별 채점표 실행)</span>
+│   └── self_auditor/CLAUDE.md       <span class="c"># 구조 드리프트·미실행 스킬 점검</span>
+├── 지식/                            <span class="c"># 1층 재료 — 부서는 폴더 아닌 속성</span>
+│   ├── 0_inbox/                     <span class="c"># 신규 자료 (선별 3기준 통과만 승격)</span>
+│   ├── 2_areas/                     <span class="c"># department: [회계|인사|콘텐츠] 속성</span>
+│   │   ├── 20260701_결산_감가상각_기준.md
+│   │   ├── 20260702_연차_이월_규정.md
+│   │   └── 20260705_카드뉴스_후킹_패턴.md
+│   └── _meta/
+│       ├── golden_set.md            <span class="c"># 4층 채점표 — 업무 질의+기대노트</span>
+│       ├── metrics.json             <span class="c"># hit_rate·오염·secret_leak</span>
+│       └── .run_log.jsonl           <span class="c"># 3층 루프 — 실행이력 = 중간보고</span>
+├── 자료/                            <span class="c"># 날것 staging → /일괄 반입</span>
+└── 산출물/
+    ├── 보고서/                      <span class="c"># 회계 월마감 리포트</span>
+    ├── ppt/                         <span class="c"># [날짜]_[주제].html 슬라이드</span>
+    └── 카드뉴스/                    <span class="c"># [날짜]_[주제]/ 이미지 세트</span></pre>
+</div>
+
+<h2 class="sec">파일 내용 예시</h2>
+<p class="sec-sub">각 파일이 5층 구조의 어느 층을 담당하는지 함께 표기</p>
+
+<div class="file-card">
+  <span class="path">CLAUDE.md</span>
+  <h4>오케스트레이터 — 2층 구조</h4>
+  <p class="why"><b>업무가 늘어도 이 표에 행 하나 추가</b>가 전부다. 에이전트 신설은 self_auditor의 "기존 흡수 가능?" 게이트 통과 후에만.</p>
+  <pre># 회사업무OS — 오케스트레이터
+
+## 라우팅
+| 입력 | 처리 |
+|---|---|
+| /회계마감 [월] | skills/회계마감 — 결정론(수집)은 스크립트, 해석은 초안+승인 |
+| /온보딩 [이름] | skills/인사온보딩 — 계정·장비·규정안내 체크리스트 |
+| /피피티 [주제] | skills/피피티 — 지식/2_areas 재료 → 산출물/ppt |
+| /카드뉴스 [주제] | skills/카드뉴스 — 후킹패턴 노트 참조 → 이미지 세트 |
+
+## 전역 규칙
+1. 송금·메일발송·원장수정 자동 실행 금지 — 목록 제시 후 사람 승인
+2. 업무별 에이전트 신설 금지 — 스킬 추가로 해결 (self_auditor 게이트)
+3. 완료 = validator 채점표 PASS 후에만 선언
+4. 실행마다 run_log append (중간보고 대체)</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">.claude/skills/회계마감/SKILL.md</span>
+  <h4>회계 월마감 — 결정론/확률론 분리 + 채점표 내장</h4>
+  <p class="why">데이터 수집은 <b>결정론이라 스크립트</b>, 증감 해석 코멘트는 <b>확률론이라 초안까지만</b>. 채점표가 스킬 안에 있어 validator가 바로 실행.</p>
+  <pre># /회계마감 [월]
+
+## 절차
+1. [결정론] bin/pull_ledger.py — 은행·카드·세금계산서 데이터 수집
+2. [결정론] 계정과목별 집계 → 전월 대비 증감표
+3. [확률론] 증감 원인 코멘트 초안 작성 — 지식/2_areas 회계 노트 인용
+4. [게이트] 사람 검토 → 승인 후 산출물/보고서/[월]_마감.md 확정
+
+## 채점표 (validator 실행)
+- [ ] 원장 합계 = 은행 잔액 대사 일치 (불일치 시 FAIL — 원인 행 표시)
+- [ ] 전 계정과목 증감률 표기 누락 0
+- [ ] 코멘트에 인용 노트 링크 1개 이상
+- [ ] sensitivity: secret 항목(급여 상세) 보고서 혼입 0</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">.claude/skills/카드뉴스/SKILL.md</span>
+  <h4>카드뉴스 제작 — 도메인지식(1층)이 품질을 결정</h4>
+  <p class="why">잘 만든 카드뉴스의 차이는 도구가 아니라 <b>후킹 패턴 노트(재료)</b>에서 나온다 — 도메인지식&gt;코딩 인사이트 그대로.</p>
+  <pre># /카드뉴스 [주제]
+
+## 절차
+1. 지식/2_areas에서 주제 관련 노트 + 후킹_패턴 노트 로드
+2. 8장 구성: 후킹(1) → 문제공감(2-3) → 해법(4-6) → 정리(7) → CTA(8)
+3. 산출물/카드뉴스/[날짜]_[주제]/ 에 장당 1080x1350 생성
+4. 발행은 자동 금지 — 사람이 SNS 업로드 (safety.md)
+
+## 채점표
+- [ ] 1장에 숫자 또는 반전 후킹 포함 (예: "54%는 0원입니다")
+- [ ] 장당 텍스트 30자 이내, 위계 2단계 이하
+- [ ] 근거 노트 링크가 메타파일에 기록됨
+- [ ] 브랜드 컬러·폰트 토큰 준수 (rules/output-style.md)</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">지식/_meta/golden_set.md</span>
+  <h4>골든 질의셋 — 4층 채점표</h4>
+  <p class="why">업무 4개가 <b>같은 지식창고를 쓰므로 채점표도 하나</b>. 부서 커버리지가 얇아지면 편중 경보 → 수집 권고.</p>
+  <pre>| # | 질의 | 기대 노트 |
+|---|---|---|
+| 1 | 감가상각 5년? 3년? 기준이 뭐였지 | [[20260701_결산_감가상각_기준]] |
+| 2 | 연차 이월 몇 개까지 되나 | [[20260702_연차_이월_규정]] |
+| 3 | 카드뉴스 첫 장 뭐로 시작하나 | [[20260705_카드뉴스_후킹_패턴]] |
+| 4 | 지난달 광고비 왜 늘었나 | [[20260630_6월_마감_코멘트]] |</pre>
+</div>
+
+<h2 class="sec">업무별 위임 스펙트럼</h2>
+<p class="sec-sub">기준은 하나 — 결과를 빠르게 검증할 수 있는가. 검증 쉬우면 자율, 되돌리기 어려우면 게이트</p>
+
+<div class="table-wrap">
+<table class="dlg">
+  <tr><th>업무</th><th>위임 단계</th><th>이유</th></tr>
+  <tr><td>인사 온보딩</td><td><span class="pill p-auto">완전자율</span></td><td>체크리스트 = 결정론, 결과 검증 즉시 가능. 계정 발급 완료 여부가 곧 채점.</td></tr>
+  <tr><td>PPT 제작</td><td><span class="pill p-auto">완전자율</span></td><td>산출물이 파일이라 되돌리기 자유. 채점표(슬라이드 수·인용·토큰준수)로 즉시 검증.</td></tr>
+  <tr><td>카드뉴스</td><td><span class="pill p-sup">감독위임</span></td><td>제작은 자율, <b>발행(외부공개)은 사람</b>. 나간 게시물은 되돌리기 어려움.</td></tr>
+  <tr><td>회계 마감</td><td><span class="pill p-collab">협업+게이트</span></td><td>수집은 자율이지만 확정·원장수정은 승인 필수. guard_ledger.sh 훅이 강제.</td></tr>
+</table>
+</div>
+
+<div class="crosscut">
+  <h3>이 설계가 회피하는 실패 3가지</h3>
+  <p><b>유지보수 지옥</b> — 업무 10개로 늘어도 에이전트는 그대로, 스킬 10개(각각 독립 갱신) · <b>PO의 저주</b> — run_log가 자동 중간보고, 승인큐 SLA 7일이 방치 방지 · <b>저울 없는 다이어트</b> — 모든 스킬에 채점표 내장, validator가 PASS 없이 완료 선언 차단.</p>
+</div>
+
+</section>
+
+<section id="tab-meta" role="tabpanel" hidden>
+
+<h2 class="sec">설계 시스템 만들기 — 채점표·루프·워크플로우를 찍어내는 메타-하네스</h2>
+<p class="sec-sub">분야(도메인)를 입력하면 그 분야의 채점표·루프·워크플로우 파일 세트가 나오는 시스템. 하네스를 만드는 하네스 — 이미 보유한 메타팀빌더·하네스팀생성기가 이 계열이다</p>
+
+<div class="dominance">
+  <h3>핵심 순서 — 채점표가 먼저, 워크플로우가 나중</h3>
+  <p>보통은 워크플로우부터 그리고 채점을 뒤에 붙인다. 거꾸로 해야 한다. <b>"이 업무가 잘 됐는지 어떻게 아는가?"에 답 못 하면 워크플로우를 설계할 자격이 없다</b>(저울 없는 다이어트). 채점표가 정해지면 워크플로우는 그 채점표를 통과하는 최단 경로로 자연히 그려지고, 루프는 그 채점을 반복 실행하는 장치일 뿐이다.</p>
+</div>
+
+<h2 class="sec">5단계 설계 파이프라인</h2>
+<p class="sec-sub">각 단계가 지식지도의 층과 1:1 대응 — 재료를 캐고, 판정을 세우고, 구조를 그리고, 루프를 심고, 조직에 안착</p>
+
+<div class="file-card">
+  <span class="path">1단계 — 도메인 인터뷰 (1층 재료)</span>
+  <h4>전문가의 머릿속에서 채점 기준의 원석을 캔다</h4>
+  <p class="why">채점표는 발명하는 게 아니라 <b>도메인 전문가가 이미 갖고 있는 "취향"을 명문화</b>하는 것(채점회사 노트 — 전문가 취향 데이터가 금값). 코딩 몰라도 됨, 업무를 알면 됨.</p>
+  <pre>## 설계 질문지 (업무 하나당)
+1. 이 업무의 결과물을 보고 3초 안에 "잘됐다/망했다" 판정하는 기준은?
+2. 신입이 이 업무를 하면 가장 자주 틀리는 지점 3개는?
+3. 절대 일어나면 안 되는 사고 1개는? (→ FAIL 조건·훅 후보)
+4. 이 업무를 다시 꺼내 쓰는 순간은 언제인가? (→ 골든질의 후보)
+5. 판단이 갈리는 회색지대는? (→ 확률론 = 사람 게이트 후보)</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">2단계 — 채점표 도출 (4층 판정)</span>
+  <h4>인터뷰 답변을 3종 채점 도구로 변환</h4>
+  <p class="why">질문1·2 → 체크리스트, 질문3 → FAIL 조건, 질문4 → 골든질의. <b>업무마다 이 3종 세트가 나오면 설계의 절반이 끝난 것.</b></p>
+  <pre>## 채점표 템플릿 (스킬마다 내장)
+- 체크리스트: [ ] 항목별 통과 기준 (전문가 질문1·2에서)
+- FAIL 조건: 하나라도 걸리면 즉시 중단+보고 (질문3에서)
+- 골든질의: "질문 → 기대 결과물" 쌍, 회귀 테스트용 (질문4에서)
+- 측정치: hit_rate·오염·누출 → metrics.json (숫자로 추세 관리)</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">3단계 — 워크플로우 설계 (2층 구조)</span>
+  <h4>채점표를 통과하는 최단 경로를 그린다</h4>
+  <p class="why">인터뷰 질문5(회색지대)가 경로를 가른다 — <b>결정론 구간은 스크립트, 확률론 구간은 초안+승인게이트</b>(이커머스 자동화). 업무는 에이전트가 아니라 스킬로(에이전트4천개).</p>
+  <pre>## 분류 기준 → 배치
+반복적 + 기준명확 + 저보안  → 완전자율 스킬 (예: 온보딩 체크리스트)
+반복적 + 기준명확 + 외부공개 → 감독위임 (제작 자율, 발행 승인)
+판단개입 + 되돌리기어려움   → 협업+훅 강제 (예: 원장수정 차단)
+감각적 판단 (브랜딩·전략)    → 자동화 제외, AI는 재료 준비만</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">4단계 — 루프 심기 (3층 유지)</span>
+  <h4>채점을 반복 실행하는 표준 장치 4개를 붙인다</h4>
+  <p class="why">루프는 분야와 무관하게 <b>표준 세트가 동일</b> — 이 팀에서 검증된 4장치를 그대로 이식하면 된다. PO의저주 회피 장치이기도 하다.</p>
+  <pre>## 표준 루프 세트 (복붙 가능)
+1. run_log.jsonl   — 실행마다 append = 자동 중간보고
+2. 승인큐 (SLA 7일) — 확률론 구간의 사람 게이트, 방치 시 경보
+3. 주기점검        — stale·중복·드리프트 분기 스캔 (decay)
+4. 자가점검        — 구조·정합·미실행 스킬 정적 검사 (self_audit)
+   + 신규 확장 게이트: "기존이 흡수 가능한가?" 먼저</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">5단계 — 파일럿 검증 (0층 조직)</span>
+  <h4>전체를 만들기 전에 업무 1개로 2주 돌린다</h4>
+  <p class="why">"만들기 전에 팔아보라"(54명 0원 노트)의 시스템 버전 — <b>채점표 통과율이 기준선을 넘을 때만 다음 업무로 확장</b>. 전 업무 일괄 구축은 4천개 에이전트의 길.</p>
+  <pre>## 파일럿 게이트
+- 업무 1개 선정: 임팩트 크고 + 결정론 비중 높은 것부터
+- 2주 운영 → 채점표 통과율·hit_rate 측정
+- 기준선 통과 → 다음 업무 추가 (스킬 1개 = 행 1개)
+- 미달 → 채점표부터 재점검 (워크플로우 탓하기 전에)</pre>
+</div>
+
+<h2 class="sec">이 시스템 자체의 폴더 구조</h2>
+<p class="sec-sub">생성기(메타)와 생성물(분야 하네스)의 분리 — 템플릿·질문지·표준루프가 생성기의 재산</p>
+
+<div class="tree">
+<pre>설계시스템/
+├── <span class="hl">CLAUDE.md</span>                      <span class="c"># /설계 [분야] → 인터뷰→채점표→구조→루프→파일럿</span>
+├── .claude/skills/
+│   ├── 설계인터뷰/SKILL.md        <span class="c"># 1단계 — 질문지 5문항 진행·기록</span>
+│   ├── 채점표변환/SKILL.md        <span class="c"># 2단계 — 답변→체크리스트·FAIL·골든질의</span>
+│   ├── 구조생성/SKILL.md          <span class="c"># 3단계 — 분류기준→라우팅표·스킬 골격 생성</span>
+│   └── 파일럿점검/SKILL.md        <span class="c"># 5단계 — 2주 후 통과율 측정·확장 판정</span>
+├── 템플릿/                        <span class="c"># 4단계 표준 루프 세트 (복붙 원본)</span>
+│   ├── CLAUDE.md.tpl              <span class="c"># 라우팅표·전역규칙 골격</span>
+│   ├── SKILL.md.tpl               <span class="c"># 절차+채점표 내장 골격</span>
+│   ├── golden_set.md.tpl
+│   └── run_log·승인큐·주기점검.tpl
+└── 생성물/                        <span class="c"># 분야별 하네스가 여기서 태어나 독립</span>
+    ├── 회계팀OS/ ...
+    └── 콘텐츠팀OS/ ...</pre>
+</div>
+
+<div class="crosscut">
+  <h3>실패 신호 3가지 — 이럴 때 멈추고 재설계</h3>
+  <p><b>채점표를 못 쓰겠다</b> — 전문가도 판정 기준을 말로 못 하면 그 업무는 자동화 대상이 아니라 재료 수집 대상 · <b>스킬이 아니라 에이전트가 늘고 있다</b> — 흡수 게이트가 안 돌고 있다는 증거 · <b>파일럿 없이 전 업무 동시 구축 중</b> — 4천개 에이전트의 길, 즉시 1개로 축소.</p>
+</div>
+
+</section>
+
+<section id="tab-web" role="tabpanel" hidden>
+
+<h2 class="sec">웹 개발 — 클릭 하나가 지나가는 다섯 정거장</h2>
+<p class="sec-sub">볼트의 개발 노트 18건을 하나의 여정으로 재구성. 프론트엔드·백엔드·서버는 과목이 아니라 요청 하나가 순서대로 통과하는 정거장 — 왜 생겼는지 알면 외울 필요가 없다</p>
+
+<div class="stack-wash">
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-mat"><span class="dot"></span>1 프론트엔드</span><h3>사용자가 보는 화면 — 브라우저</h3></div>
+    <p class="role">HTML(뼈대)·CSS(옷)·JS(움직임)에서 출발해 화면이 복잡해지자 React(컴포넌트·상태)가, React의 CSR 단점(첫 로딩 느림·SEO 약함)을 풀려고 Next.js(SSR·풀스택)가 나왔다. <b>모든 기술은 앞 기술의 문제를 풀려고 태어난 결과물</b> — 계보로 이해하면 외울 게 없다.</p>
+    <div class="chips">
+      <span class="chip">프론트엔드 기본 역사</span>
+      <span class="chip">프론트엔드 A to Z</span>
+      <span class="chip">얄코 리액트 Part1</span>
+      <span class="chip">NextJS 존재이유</span>
+    </div>
+    <p class="impl"><b>핵심 개념</b> · 컴포넌트 · state/props · CSR vs SSR · 번들링·배포</p>
+  </div>
+  <div class="connector"><span class="lbl">약속대로 요청한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-struct"><span class="dot"></span>2 API 계약</span><h3>프론트와 백엔드의 약속</h3></div>
+    <p class="role">API는 프론트와 백엔드가 데이터를 주고받는 <b>약속</b>. REST가 그 규격이고, 일을 CRUD(생성·조회·수정·삭제) 네 동사로 나눠 HTTP 메서드에 매핑한다. 서버가 HTML을 만들어 내려주던 시대에서 JSON 데이터만 반환하는 시대로 — 이 경계선이 프론트/백 분업의 기준선이다.</p>
+    <div class="chips">
+      <span class="chip">API 동기비동기 REST</span>
+      <span class="chip">REST API CRUD</span>
+      <span class="chip">바이브코딩 필수개념 5가지</span>
+    </div>
+    <p class="impl"><b>핵심 개념</b> · REST · CRUD와 HTTP 메서드 · JSON · 동기/비동기</p>
+  </div>
+  <div class="connector"><span class="lbl">받아서 처리한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-judge"><span class="dot"></span>3 백엔드</span><h3>요청을 처리하는 본체 — 변하지 않는 심장</h3></div>
+    <p class="role">백엔드는 "사용자마다 다른 결과를 그 자리에서 만들어주려고" 태어났다(방명록·검색이 계기). 프레임워크는 20년간 계속 바뀌었지만(ASP→MVC→MSA·비동기) 하는 일은 동일 — <b>인증·검증·라우팅 → 비즈니스 로직·DB연동 → 응답·에러처리·로깅</b>. 도구가 아니라 이 골격을 배우는 것.</p>
+    <div class="chips">
+      <span class="chip">백엔드는 왜 생겼나</span>
+      <span class="chip">백엔드 A to Z 종합개론</span>
+      <span class="chip">AI시대 백엔드 방향</span>
+      <span class="chip">신입 백엔드 최소기준</span>
+    </div>
+    <p class="impl"><b>핵심 개념</b> · 요청-응답 사이클 · 인증/권한 · 비즈니스 로직 · MVC → MSA</p>
+  </div>
+  <div class="connector"><span class="lbl">데이터를 읽고 쓴다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-loop"><span class="dot"></span>4 데이터</span><h3>DB와 스토리지 — 기억을 담당</h3></div>
+    <p class="role">DB=집, 테이블=방, API=배달부. 구조화 데이터(DB)와 파일(스토리지)은 원래 별개인데 슈퍼베이스 같은 서비스가 인증과 함께 묶어버렸다 — <b>바이브코딩이 안 되는 최다 원인이 이 층의 기초 부재</b>. 변수(진동벨, 껐다 켜면 사라짐)와 DB(냉장고, 남음)의 구분부터.</p>
+    <div class="chips">
+      <span class="chip">바이브코딩 DB 테이블 API 실습</span>
+      <span class="chip">여기까지 알면 풀스택</span>
+      <span class="chip">자료구조 시리즈</span>
+    </div>
+    <p class="impl"><b>핵심 개념</b> · 테이블·SQL · DB vs 스토리지 vs 변수 · 자료구조(효율의 뿌리)</p>
+  </div>
+  <div class="connector"><span class="lbl">돌아갈 집을 제공한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-org"><span class="dot"></span>5 서버·인프라</span><h3>세상에 공개하는 기반 — 배포</h3></div>
+    <p class="role">서버=그냥 컴퓨터, IP=주소, 도메인=이름, DNS=변환기. 코드 완성에서 인터넷 공개까지가 하나의 흐름이고, 그 컴퓨터를 사지 않고 빌려 쓰는 게 클라우드(IaaS·PaaS·SaaS). 규모가 커지면 로드밸런서·캐시·MSA로 분산 — <b>로컬에서 도는 것과 서비스는 배포가 가른다</b>.</p>
+    <div class="chips">
+      <span class="chip">웹서버 배포 도메인 DNS</span>
+      <span class="chip">클라우드 구성도 기초</span>
+      <span class="chip">트위터 팬아웃 시스템디자인</span>
+    </div>
+    <p class="impl"><b>핵심 개념</b> · IP·도메인·DNS · 클라우드 3형태 · 로드밸런서 · 배포 vs 로컬</p>
+  </div>
+
+</div>
+
+<div class="dominance">
+  <h3>지배 원리 — 도구는 바뀌어도 본질은 안 바뀐다</h3>
+  <p>다섯 정거장의 <b>골격(요청-응답, CRUD, 인증, 데이터 구분, 배포)은 20년간 한 번도 안 바뀌었다</b>. 바뀐 건 언어와 프레임워크뿐. 그래서 투자 순서는 신기술이 아니라 변하지 않는 것부터 — 아키텍처·보안·성능·네트워크·OS. 언어 하나는 사용법이 아니라 동작원리까지 파면, 나머지는 그 원리에서 크게 벗어나지 않는다(AI시대 백엔드 방향 노트).</p>
+</div>
+
+<h2 class="sec">연결고리 — 정거장 사이에서 태어난 기술들</h2>
+<p class="sec-sub">각 관계는 볼트 노트 2개 이상이 교차 검증한 것만 실었다</p>
+
+<div class="pairs">
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-mat"></span><span class="name">프론트엔드</span><span class="arr">&#8596;</span><span class="bdot b-judge"></span><span class="name">백엔드</span></div>
+    <p><b>경계선은 계속 움직인다.</b> 처음엔 서버가 HTML을 다 만들어 내려줬고(SSR, 서버사이드스크립트 시대), React가 그걸 브라우저로 가져갔다가(CSR), 첫 로딩·SEO 문제로 Next.js가 다시 서버로 되돌렸다(SSR 부활+풀스택). 두 층의 분업 비율 자체가 기술사의 주요 축.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-struct"></span><span class="name">API</span><span class="arr">&#8594;</span><span class="bdot b-judge"></span><span class="name">백엔드</span></div>
+    <p><b>약속이 구조를 강제한다.</b> REST·CRUD 규격이 정해지자 백엔드는 "API만 노출하고 JSON만 반환"하는 형태로 수렴했고, 신입 최소기준 1번이 REST API 설계(게시판 CRUD)가 됐다. 계약이 먼저, 구현이 나중.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-judge"></span><span class="name">백엔드</span><span class="arr">&#8594;</span><span class="bdot b-loop"></span><span class="name">데이터</span></div>
+    <p><b>백엔드가 태어난 이유가 곧 데이터다.</b> "사용자마다 다른 결과"를 만들려면 기억(방명록 글·검색 대상)이 필요했고, 그 기억이 DB다. 백엔드 발전사(CGI→PHP→DB→MVC)에서 DB 연동이 들어온 순간이 정적 웹과 서비스의 분기점.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-loop"></span><span class="name">데이터</span><span class="arr">&#8594;</span><span class="bdot b-org"></span><span class="name">인프라</span></div>
+    <p><b>데이터가 커지면 구조가 인프라로 넘어간다.</b> 트위터 팬아웃이 대표 사례 — 팔로워 피드를 읽을 때 조인할지(쓰기 간단) 쓸 때 캐시에 밀어넣을지(읽기 간단)는 DB 설계가 아니라 인프라 트레이드오프이고, 인플루언서 문제로 하이브리드가 답이 됐다.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-org"></span><span class="name">인프라</span><span class="arr">&#8594;</span><span class="bdot b-mat"></span><span class="name">프론트엔드</span></div>
+    <p><b>배포가 있어야 서비스다.</b> 로컬에서 도는 앱은 내 컴퓨터 안의 연습이고, IP·도메인·DNS·호스팅을 거쳐야 남이 쓴다. 비개발자가 바이브코딩을 포기하는 5개념 중 1번이 배포/로컬 구분 — 여정의 끝이 다시 사용자 화면으로 이어진다.</p>
+  </div>
+
+  <div class="pair">
+    <div class="route"><span class="bdot b-judge"></span><span class="name">백엔드</span><span class="arr">&#8594;</span><span class="bdot b-org"></span><span class="name">인프라</span></div>
+    <p><b>규모가 아키텍처를 부른다.</b> 모놀리스로 충분하던 서비스가 커지면 로드밸런서·캐시·MSA로 쪼개진다 — 단 MSA는 유행이 아니라 필요(트래픽·팀 규모)가 근거여야 한다. "과한 쪼갬의 역설"은 에이전트 설계에서도 똑같이 재발견됐다.</p>
+  </div>
+
+</div>
+
+<div class="crosscut">
+  <h3>횡단 관심사 — AI 시대, 사람 몫은 판단과 책임</h3>
+  <p>AI가 코드는 사람보다 잘 짠다. 하지만 <b>설계·판단·책임은 못 맡긴다</b> — 어느 정거장을 쪼갤지, 팬아웃을 push로 갈지 pull로 갈지 같은 트레이드오프 결정이 사람 몫이고, 그래서 AI가 코딩을 대체할수록 시스템 디자인 역량의 가치는 오히려 오른다. 다섯 정거장의 원리 이해가 그 판단의 재료다.</p>
+</div>
+
+</section>
+
+<section id="tab-impl" role="tabpanel" hidden>
+
+<h2 class="sec">이 팀의 구현 — 5층을 llm-wiki-team이 실제로 어떻게 만들었나</h2>
+<p class="sec-sub">지식지도의 각 층을 이 팀의 실제 파일·규칙·에이전트로 대응. 층마다 만든 것 → 하는 기능 순</p>
+
+<div class="stack-wash">
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-judge"><span class="dot"></span>4층 판정</span><h3>채점표 3종 세트</h3></div>
+    <p class="role"><b>만든 것</b> — golden_set.md(72개 실제 질문→기대 노트 쌍), metrics.json(hit_rate·오염·secret_leak 숫자 추적), validator 에이전트, 판정 기준 명문화(선별 3기준·인사이트 필터 3기준·분리 4트리거).</p>
+    <p class="role"><b>기능</b> — "볼트가 좋아졌는가"를 감이 아니라 숫자로 판정. 매 파이프라인 끝에 표본 질의를 실측해 hit_rate 기록, 기준선 0.8 미달이면 split_detector가 분리 트리거 검토, secret_leak 발생 시 즉시 critical 경보. <b>PASS 없이는 완료 선언 금지</b>(전역규칙 6번).</p>
+    <p class="impl"><b>파일</b> · <code>_meta/golden_set.md</code> · <code>_meta/metrics.json</code> · <code>agents/validator</code> · <code>agents/retrieval_tester</code></p>
+  </div>
+  <div class="connector"><span class="lbl">판정한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-loop"><span class="dot"></span>3층 유지</span><h3>스스로 고치는 장치 4개</h3></div>
+    <p class="role"><b>만든 것</b> — ①orphans.md 재소비(moc_curator가 매 실행 고아 재연결 시도, 3회 잔류 시 decay 후보) ②run_log 분석(self_auditor #7이 미실행·반복실패 에이전트 탐지) ③decay 탐지→승인→실행 닫힘(decay_auditor A/B 모드) ④insight_queue 환류(새 지식→팀 자체 개선).</p>
+    <p class="role"><b>기능</b> — write-only 금지: 만들어놓은 산출물을 반드시 다시 읽는다. 작동 증거: "에이전트4천개" 노트가 insight_queue를 거쳐 self_auditor #11(위임스펙트럼·저빈도 통합점검)로 반영됨 — <b>지식이 팀 구조를 실제로 바꾼 사례</b>, 4번 루프가 닫혔다.</p>
+    <p class="impl"><b>파일</b> · <code>_meta/orphans.md</code> · <code>_meta/.run_log.jsonl</code> · <code>_meta/decay_queue.md</code> · <code>_meta/insight_queue.md</code></p>
+  </div>
+  <div class="connector"><span class="lbl">유지한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-struct"><span class="dot"></span>2층 구조</span><h3>파이프라인과 IO계약</h3></div>
+    <p class="role"><b>만든 것</b> — CLAUDE.md 라우팅 테이블(11개 커맨드), 서브에이전트 15개(각자 CLAUDE.md+persona+knowledge), 고정 파일명 IO계약(에이전트끼리 파일로 통신), guard_vault.sh 훅, 모델 크기 매칭(판정=haiku·정제연결=sonnet·분리실행=opus).</p>
+    <p class="role"><b>기능</b> — 새 자료 하나가 capture_router(선별)→distiller(정제)→vocab_guardian(어휘)→moc_curator(연결)→retrieval_tester(검증)→insight_harvester(환류판정)를 자동 통과. <b>결정론 구간(어휘검증·스키마)과 확률론 구간(선별판정·인사이트)이 분리</b>돼 있고, 위험 동작(4_archive 이동·rm)은 훅이 물리 차단.</p>
+    <p class="impl"><b>파일</b> · <code>CLAUDE.md</code> · <code>agents/*/CLAUDE.md</code> ×15 · <code>.claude/hooks/guard_vault.sh</code> · <code>.claude/rules/</code></p>
+  </div>
+  <div class="connector"><span class="lbl">구조화한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-mat"><span class="dot"></span>1층 재료</span><h3>vault 그 자체</h3></div>
+    <p class="role"><b>만든 것</b> — PARA 골격(0_inbox→2_areas→4_archive), _raw/ 원본 불변 보존, 고정 frontmatter 스키마(tl_dr+핵심3+맥락+다음할일), MOC 백링크, 통제어휘(vocab.md).</p>
+    <p class="role"><b>기능</b> — 선별 3기준(반복·결정·연결) 2개 이상 통과한 자료만 수용해 채우기용 노트 차단. 현재 78노트. <b>부서는 폴더가 아니라 department 속성</b>이라 한 노트가 여러 MOC에 동시 등장. _raw/ 덕에 정제본이 틀려도 원본으로 복원 가능.</p>
+    <p class="impl"><b>파일</b> · <code>vault/2_areas/</code> 78노트 · <code>vault/_raw/</code> · <code>vault/_moc/</code> · <code>_meta/vocab.md</code></p>
+  </div>
+  <div class="connector"><span class="lbl">지탱한다</span></div>
+
+  <div class="layer">
+    <div class="layer-head"><span class="tag t-org"><span class="dot"></span>0층 조직</span><h3>사람이 유일한 승인권자</h3></div>
+    <p class="role"><b>만든 것</b> — 승인큐 SLA 7일(insight_queue 헤더), 전역규칙 8번(구조 변경 시 changelog+사용법.html 동기화), run_log 기록 의무(전역규칙 5번), 파일 삭제·볼트 분리는 사람 승인 필수(전역규칙 3번).</p>
+    <p class="role"><b>기능</b> — PO의저주 방지. run_log가 자동 중간보고 역할, 승인 대기 7일 초과 시 self_auditor 정체 경보. <b>사람이 유일한 승인권자라 방치가 구조적으로 불가능</b> — "링크md 처리해"로 매번 트리거하는 행위 자체가 이 층의 작동.</p>
+    <p class="impl"><b>파일</b> · <code>_meta/insight_queue.md</code> SLA · <code>문서/changelog.md</code> · 전역규칙 3·5·8번</p>
+  </div>
+
+</div>
+
+<div class="dominance">
+  <h3>층간 지배가 실제로 작동한 사례</h3>
+  <p>판정층의 golden_set 커버리지 분석이 부서 편중을 드러냄(balance.md — 프로덕트 84% 경보) → 재료층 수집 권고로 역류. <b>"채점표가 재료 수집을 역규정한다"는 지도 명제가 이 팀에서 그대로 재현</b>된 것. 또 하나: 저빈도 에이전트 4개 통합점검(루프층)이 "안 늘려도 됨"을 확인하고 변경 없이 닫음 — 루프가 구조 증식을 실제로 억제한 사례.</p>
+</div>
+
+</section>
+
+<section id="tab-js" role="tabpanel" hidden>
+
+<h2 class="sec">자바스크립트 공부 순서 — 개념이 태어난 이유대로 배운다</h2>
+<p class="sec-sub">외우지 않는 학습법: 각 문법은 앞 단계의 불편을 풀려고 나왔다. 그 순서 그대로 8단계 — 웹개발 지도의 1정거장(프론트엔드)을 파고드는 로드맵</p>
+
+<div class="dominance">
+  <h3>학습 원칙 — 왜 생겼는지 알면 외울 필요가 없다</h3>
+  <p>프론트 역사 노트의 핵심: <b>모든 기술은 문제해결의 결과물</b>. 그리고 OpenAI 연구원 노트의 실행법: AI에게 코드를 시키되 <b>나온 코드는 한 줄 한 줄 읽고, "이 줄은 왜 이렇게 돼?"를 하루 백 번 묻기</b> — 아래 8단계는 그 질문에 답이 나오는 순서로 배열했다.</p>
+</div>
+
+<div class="file-card">
+  <span class="path">1단계 — 변수: 데이터를 담는 상자</span>
+  <h4>let · const</h4>
+  <p class="why">프로그램의 첫 필요 = 값을 기억하기. <b>변수는 진동벨</b>(끄면 사라짐), 나중에 배울 DB는 냉장고(남음) — 바이브코딩 필수개념 노트의 비유. <code>const</code>(안 바뀜)를 기본으로, 바뀔 것만 <code>let</code>.</p>
+  <pre>const name = "준호";   // 다시 안 바뀌는 값
+let count = 0;         // 바뀔 값
+count = count + 1;     // OK
+// name = "다른이름";  // 에러 — const는 재할당 금지</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">2단계 — 자료형: 상자에 담기는 값의 종류</span>
+  <h4>문자열 · 숫자 · 불리언 · null/undefined</h4>
+  <p class="why">값마다 성격이 다르다 — 문자는 붙이고, 숫자는 더하고, 불리언은 갈림길 재료. <b>JS는 타입에 관대해서</b> <code>3 + "5" = "35"</code> 같은 사고가 남 — 이 관대함이 나중에 TS를 배우는 이유가 된다(복선).</p>
+  <pre>const title = "지식지도";  // 문자열 (따옴표)
+const notes = 79;          // 숫자
+const done = true;         // 불리언 (참/거짓)
+let next = null;           // "비어있음"을 일부러 표시
+let tbd;                   // undefined — 아직 아무것도 안 넣음</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">3단계 — 조건문: 갈림길</span>
+  <h4>if · else · 비교연산자</h4>
+  <p class="why">"상황에 따라 다르게" — 백엔드가 태어난 이유(사용자마다 다른 결과)의 문법 버전. 비교는 <code>===</code>(타입까지 같음)를 쓰는 습관 — <code>==</code>는 JS의 관대함 때문에 함정.</p>
+  <pre>const hitRate = 1.0;
+if (hitRate >= 0.8) {
+  console.log("기준선 통과");   // 채점표 그 자체
+} else {
+  console.log("분리 트리거 검토");
+}</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">4단계 — 배열과 객체: 값의 묶음</span>
+  <h4>[ ] 배열 · { } 객체</h4>
+  <p class="why">변수 하나로는 노트 79개를 못 담는다. <b>배열=순서 있는 목록(방 번호로 찾기), 객체=이름표 붙은 서랍(이름으로 찾기)</b>. DB의 테이블·행 개념이 여기서 시작 — DB=집, 테이블=방 비유의 문법 원형.</p>
+  <pre>const tags = ["회의록", "리서치", "매뉴얼"];  // 배열
+tags[0];                    // "회의록" — 순서(0부터)로 꺼냄
+
+const note = {              // 객체
+  title: "채점만 해주는 회사",
+  department: "프로덕트",
+  hit: true
+};
+note.title;                 // 이름으로 꺼냄</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">5단계 — 반복문: 같은 일을 여러 번</span>
+  <h4>for · for...of</h4>
+  <p class="why">배열이 생기면 "전부에 대해 똑같이" 하고 싶어진다 — 우리 /일괄 파이프라인이 하는 일이 정확히 이것(inbox 항목마다 같은 처리).</p>
+  <pre>const queue = ["노트A", "노트B", "노트C"];
+for (const item of queue) {
+  console.log(item + " 정제 완료");  // 항목마다 반복
+}</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">6단계 — 함수: 이름 붙인 레시피</span>
+  <h4>function · 매개변수 · return · 화살표 함수</h4>
+  <p class="why">반복문으로도 안 풀리는 것 = "이 묶음 로직을 다른 곳에서도 쓰고 싶다". <b>함수는 자판기</b> — 넣는 것(매개변수)과 나오는 것(return)만 알면 내부는 몰라도 쓴다. API를 이해하는 문법적 기초(API=함수를 네트워크 너머로 부르는 약속).</p>
+  <pre>function judge(hitRate, baseline) {
+  return hitRate >= baseline;      // 넣으면 → 나온다
+}
+judge(1.0, 0.8);                   // true
+
+const judge2 = (h, b) => h >= b;   // 같은 것의 짧은 표기(화살표)</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">7단계 — DOM과 이벤트: JS가 태어난 이유</span>
+  <h4>querySelector · addEventListener</h4>
+  <p class="why">JS는 원래 <b>"화면을 움직이려고"</b> 태어났다(프론트 역사 노트 — HTML 뼈대·CSS 옷·JS 움직임). 버튼을 찾아서(DOM), 눌리면(이벤트), 반응한다. 이 페이지의 탭 전환도 정확히 이 코드다.</p>
+  <pre>const btn = document.querySelector(".tab-btn"); // 화면에서 찾기
+btn.addEventListener("click", () => {           // 눌리면
+  console.log("탭 전환");                        // 반응
+});</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">8단계 — 비동기: 기다리는 동안 멈추지 않기</span>
+  <h4>fetch · async/await</h4>
+  <p class="why">서버에 데이터를 요청하면 시간이 걸린다 — 그동안 화면이 얼면 안 됨. <b>주문하고 진동벨 받고 다른 일 하는 것</b>이 비동기. 여기가 프론트가 백엔드(API)와 만나는 지점 — 웹개발 지도 2정거장으로 이어진다.</p>
+  <pre>async function loadNotes() {
+  const res = await fetch("/api/notes");  // 서버에 주문, 올 때까지 대기
+  const data = await res.json();          // JSON으로 풀기
+  console.log(data);
+}</pre>
+</div>
+
+<h2 class="sec">그 다음 — 볼트 노트로 이어지는 길</h2>
+<p class="sec-sub">8단계를 마치면 이미 볼트에 있는 노트들이 다음 정거장</p>
+
+<div class="table-wrap">
+<table class="dlg">
+  <tr><th>순서</th><th>배울 것</th><th>볼트 노트</th></tr>
+  <tr><td>9</td><td>React — 화면이 복잡해지면 컴포넌트로</td><td>얄코 리액트 Part1 (state·props)</td></tr>
+  <tr><td>10</td><td>TypeScript — 팀이 커지면 타입 검사</td><td>타입스크립트 쉽게 설명 (any 금지·tsc)</td></tr>
+  <tr><td>11</td><td>Next.js — CSR 단점을 SSR·풀스택으로</td><td>NextJS 존재이유</td></tr>
+  <tr><td>12</td><td>전체 지도 복습</td><td>프론트엔드 A to Z · 웹개발 지도 탭</td></tr>
+</table>
+</div>
+
+<div class="crosscut">
+  <h3>바이브코딩 시대에 왜 문법을 배우나</h3>
+  <p>AI가 코드를 다 짜주는데 왜? — <b>"지름길은 기초를 건너뛰는 게 아니라 기초를 빨리 이해하는 지름길이어야 한다"</b>(OpenAI 연구원 노트). AI가 짠 코드를 한 줄 한 줄 읽을 수 있어야 고칠 수 있고, 오픈북 시험(AI)은 응용력 있는 사람만 잘 본다(AI강사 노트). 이 8단계는 시험공부가 아니라 AI가 낸 답을 검증하는 눈을 만드는 과정.</p>
+</div>
+
+</section>
+
+<section id="tab-ts" role="tabpanel" hidden>
+
+<h2 class="sec">타입스크립트 공부 순서 — JS의 사고가 곧 커리큘럼</h2>
+<p class="sec-sub">TS는 새 언어가 아니라 JS에 채점표를 얹은 것. JS 8단계를 마친 사람이 겪는 사고 순서대로 8단계 — 각 단계는 "JS에서 이런 사고가 났다 → TS는 이렇게 막는다"</p>
+
+<div class="dominance">
+  <h3>학습 원칙 — 타입은 코드의 채점표다</h3>
+  <p>타입 검사는 점수가 아니라 <b>바이너리 판정(맞는 타입이다/아니다)</b> — 흔들리지 않는 채점의 문법 버전이고, 컴파일러(tsc)는 코드의 validator다. JS의 관대함이 배울 땐 편하지만 <b>프로젝트가 커지고 팀원이 늘면 "어디서 에러 났는지 모르는" 지옥</b>이 되고(TS 노트), 그 지옥의 각 장면이 아래 8단계의 입구다.</p>
+</div>
+
+<div class="file-card">
+  <span class="path">1단계 — 왜 TS인가: JS의 관대함이 낸 사고</span>
+  <h4>동기 이해</h4>
+  <p class="why">JS는 <code>3 + "5"</code>를 에러 없이 <code>"35"</code>로 만들고, 숫자 변수에 문자를 넣어도 조용하다. 혼자 할 땐 편한데 <b>협업에선 "누가 뭘 넣었는지" 추적 불가</b> — 규모 있는 회사가 대부분 TS를 쓰는 이유. TS를 먼저 배울 필요는 없다, JS가 익숙해진 뒤가 적기(TS 노트).</p>
+  <pre>// JS — 전부 무사통과 (그게 문제)
+let a = 3 + "5";   // "35" ?!
+let b = 42;
+b = "asdf";        // 에러 없음. 3주 뒤 어딘가에서 터짐</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">2단계 — 기본 타입 주석: 상자에 라벨 붙이기</span>
+  <h4>: number · : string · : boolean</h4>
+  <p class="why">변수 뒤에 <code>: 타입</code> 한 줄이 전부 — <b>이게 타입스크립트의 사실상 전부다</b>(TS 노트 원문). 잘못된 값은 실행 전, 코드 쓰는 순간 빨간 줄로 차단.</p>
+  <pre>let count: number = 3;
+let title: string = "지식지도";
+let done: boolean = false;
+
+count = "많이";   // 에러: Type 'string' is not assignable to type 'number'
+                  // 3주 뒤가 아니라 지금 잡힘</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">3단계 — 유니온 타입: 짜장 아니면 짬뽕</span>
+  <h4>number | string</h4>
+  <p class="why">"둘 중 뭐가 올지 모른다"고 다 열어버리면(any) 의미가 없다. <b>"짜장도 짬뽕도 좋지만 탕수육은 안 먹어"</b> — 허용 범위를 좁게 명시하는 게 유니온(TS 노트 비유).</p>
+  <pre>let d: number | string;   // 이 둘만 허용
+d = 42;        // OK
+d = "42번";    // OK
+d = null;      // 에러 — "널은 얘기가 없었잖아"</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">4단계 — 배열과 객체 타입: 묶음에도 라벨</span>
+  <h4>string[] · interface</h4>
+  <p class="why">JS 4단계(배열·객체)의 TS 버전. 배열은 <code>타입[]</code>, 객체는 <b>interface로 모양(어떤 이름표에 어떤 타입)을 먼저 선언</b> — 우리 볼트의 frontmatter 고정 스키마와 같은 발상이다: 모양을 강제하면 드리프트가 없다.</p>
+  <pre>const tags: string[] = ["회의록", "리서치"];
+tags.push(3);   // 에러 — 숫자는 못 들어옴
+
+interface Note {          // 노트의 "고정 스키마"
+  title: string;
+  department: string[];
+  hit: boolean;
+}
+const note: Note = { title: "채점 회사", department: ["프로덕트"], hit: true };</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">5단계 — 함수 타입: 자판기의 투입구와 배출구</span>
+  <h4>매개변수 타입 + 반환 타입</h4>
+  <p class="why">JS 함수는 아무거나 넣고 아무거나 나올 수 있다. TS는 <b>투입구(매개변수)와 배출구(return)에 전부 라벨</b> — 함수 서명만 읽으면 내부를 안 봐도 쓸 수 있게 된다. API 명세의 문법 원형.</p>
+  <pre>function judge(hitRate: number, baseline: number): boolean {
+  return hitRate >= baseline;
+}
+judge(1.0, 0.8);      // true
+judge("높음", 0.8);   // 에러 — 투입구부터 차단</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">6단계 — any의 유혹과 금지</span>
+  <h4>any는 최후의 수단</h4>
+  <p class="why"><code>any</code>는 "모든 타입 허용" = JS로 돌아가기. <b>any를 남발하면 TS 쓰는 의미가 없고 팀에서 지적받는다</b>(TS 노트 — "야 any 뭐야 당장 지워"). 정말 미정일 때만, 그것도 잠깐.</p>
+  <pre>let c: any = 4;
+c = "문자";      // 무사통과 — 채점표를 스스로 버린 것
+
+// any가 필요해 보이면 대부분 유니온이나 unknown으로 해결됨
+let e: unknown = 외부에서온값;   // any보다 안전 — 쓰기 전 타입 확인 강제</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">7단계 — 타입 추론과 좁히기: TS가 알아서 아는 것</span>
+  <h4>추론 · typeof 좁히기</h4>
+  <p class="why">모든 곳에 타입을 쓸 필요는 없다 — <b>값을 보면 TS가 추론한다</b>. 유니온처럼 여러 타입일 땐 <code>typeof</code>로 갈림길을 만들면 그 블록 안에서 타입이 좁혀진다(조건문 3단계의 재활용).</p>
+  <pre>let x = 10;        // 안 써도 number로 추론됨
+// x = "십";       // 에러 — 추론도 채점표다
+
+function print(v: number | string) {
+  if (typeof v === "string") {
+    v.toUpperCase();   // 이 블록에선 string 확정 — 문자열 메서드 OK
+  } else {
+    v.toFixed(1);      // 여기선 number 확정
+  }
+}</pre>
+</div>
+
+<div class="file-card">
+  <span class="path">8단계 — 컴파일: 브라우저는 JS만 이해한다</span>
+  <h4>tsc · tsconfig.json</h4>
+  <p class="why">TS는 인간 편의용 — <b>브라우저는 JS만 읽는다</b>. <code>tsc</code>가 타입 표기를 벗겨 JS로 변환(그 순간 채점 완료), tsconfig.json이 변환 설정. JS 8단계의 배포 개념과 여기서 만난다.</p>
+  <pre>// 터미널
+npx tsc            // index.ts → index.js (타입 표기 제거됨)
+
+// tsconfig.json 핵심 3개
+{
+  "compilerOptions": {
+    "outDir": "./dist",     // 변환된 JS를 모을 폴더
+    "target": "es6",        // 어떤 버전 JS로 변환할지
+    "module": "commonjs"    // 모듈 방식 (React면 달라짐)
+  }
+}</pre>
+</div>
+
+<h2 class="sec">그 다음 — 볼트 노트로 이어지는 길</h2>
+<p class="sec-sub">8단계를 마치면 TS는 도구가 되고, 다음은 TS를 쓰는 현장</p>
+
+<div class="table-wrap">
+<table class="dlg">
+  <tr><th>순서</th><th>배울 것</th><th>볼트 노트</th></tr>
+  <tr><td>9</td><td>React + TS — 컴포넌트 props에 interface</td><td>얄코 리액트 Part1</td></tr>
+  <tr><td>10</td><td>Next.js — TS가 기본인 풀스택 프레임워크</td><td>NextJS 존재이유</td></tr>
+  <tr><td>11</td><td>API 응답 타입 — fetch 결과에 interface 입히기</td><td>API 동기비동기 REST · REST API CRUD</td></tr>
+  <tr><td>12</td><td>전체 복습</td><td>타입스크립트 쉽게 설명 · 웹개발 지도 탭</td></tr>
+</table>
+</div>
+
+<div class="crosscut">
+  <h3>TS와 이 팀의 구조는 같은 사상이다</h3>
+  <p>interface = frontmatter 고정 스키마, 유니온 = 통제어휘(허용값 목록), tsc = validator, any 금지 = 어휘 자동추가 금지. <b>"모양을 먼저 선언하고 벗어나면 차단한다"</b>는 발상이 코드에선 TS, 지식에선 이 팀의 vocab_guardian이다 — 드리프트 차단이라는 같은 문제의 두 해법.</p>
+</div>
+
+</section>
+
+<footer>
+  근거: vault/2_areas 77건 중 교차 검증 12건 인용 · 5층 = 조직 어댑션(0층) / 도메인지식·지식데이터(1층) / 하네스·에이전트설계·워크플로우(2층) / 루프(3층) / 채점표(4층) + 횡단: 보안·거버넌스 · llm-wiki-team · 디자인 토큰 출처: SOCAR Frame 2.0
+</footer>
+
+</div>
+<script>
+  var tabs = document.querySelectorAll('.tab-btn');
+  tabs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabs.forEach(function(b){
+        b.setAttribute('aria-selected', String(b === btn));
+        document.getElementById(b.dataset.tab).hidden = (b !== btn);
+      });
+    });
+  });
+</script>
+</body>
+</html>
