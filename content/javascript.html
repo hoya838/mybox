@@ -98,10 +98,37 @@ const name = "철수";
 const msg = `안녕 ${name}, ${num}살`;  // 백틱`` 안에서 ${ } = 값 삽입. "안녕 철수, 42살"
 
 // ── 5. 연산자 ───────────────────────────────────
-const sum = 3 + 4;      // 산술: + - * / % (%=나머지)
-const same = (3 === 3); // === 값+타입 둘 다 같나? true. (== 는 쓰지 마라)
-const both = true &amp;&amp; false;  // &amp;&amp;(그리고) 둘 다 참이어야 참 → false
-const either = true || false; // ||(또는) 하나만 참이면 참 → true
+// 산술 연산자: 숫자 계산
+const add1 = 3 + 4;     // + 더하기 → 7
+const sub = 7 - 2;      // - 빼기 → 5
+const mul1 = 3 * 4;     // * 곱하기 → 12
+const div = 10 / 3;     // / 나누기 → 3.333...
+const mod = 10 % 3;     // % 나머지(모듈로) → 1. 짝/홀 판별 등에 자주 씀
+const sum = 3 + 4;      // 산술 종합 예시
+
+// 대입 연산자: 변수에 값 넣기/누적
+let count = 0;
+count += 1;             // += 기존값에 더해서 재대입 → count = count + 1
+count -= 1;             // -= 기존값에서 빼서 재대입
+count *= 2;              // *= 기존값에 곱해서 재대입
+
+// 비교 연산자: 참/거짓 판정
+const same = (3 === 3); // === 값+타입 둘 다 같나? true. (== 는 쓰지 마라, 타입 자동변환 버그 유발)
+const diff = (3 !== 4); // !== 값 또는 타입이 다른가? true
+const gt = (5 &gt; 3);     // &gt; 왼쪽이 크다 → true
+const lt = (5 &lt; 3);     // &lt; 왼쪽이 작다 → false
+const gte = (5 &gt;= 5);   // &gt;= 크거나 같다 → true
+const lte = (5 &lt;= 4);   // &lt;= 작거나 같다 → false
+
+// 논리 연산자: 조건 조합
+const both = true &amp;&amp; false;  // &amp;&amp;(그리고, AND) 둘 다 참이어야 참 → false
+const either = true || false; // ||(또는, OR) 하나만 참이면 참 → true
+const not = !true;      // !(부정, NOT) 참/거짓 뒤집기 → false
+
+// 증감 연산자: 1씩 늘리기/줄이기
+let n = 1;
+n++;                     // ++ 1 증가(후위) → n은 2
+n--;                     // -- 1 감소 → n은 다시 1
 
 // ── 6. 조건문: 갈림길 ───────────────────────────
 if (num &gt;= 20) {        // 괄호 조건이 참이면 아래 블록 실행
