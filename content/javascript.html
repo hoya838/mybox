@@ -24,10 +24,12 @@
 <div class="step"><div class="n">1</div><div class="b"><span class="lv b">기초</span> 변수(let/const)·타입, 함수, 조건/반복, 배열·객체, DOM·이벤트</div></div>
 <div class="step"><div class="n">2</div><div class="b"><span class="lv m">중급</span> 비동기(Promise·async/await), fetch(API), 모듈(import), 클로저</div></div>
 <div class="step"><div class="n">3</div><div class="b"><span class="lv a">심화</span> 이벤트 루프, 에러처리, 함수형 패턴, 번들러(Vite), 테스트</div></div>
-<pre>const res = await fetch('/api/todos');   // 서버에서 데이터
-const todos = await res.json();
-document.querySelector('button')
-  .addEventListener('click', () =&gt; alert('클릭!'));  // 이벤트</pre>
+<pre>async function main() {           // await는 async 함수 안에서만 씀
+  const res = await fetch('/api/todos');   // 서버에서 데이터
+  const todos = await res.json();
+  document.querySelector('button')
+    ?.addEventListener('click', () =&gt; alert('클릭!'));  // ?.=버튼 없으면 무시(에러 방지)
+}</pre>
 <div class="easy"><b>만드는 것:</b> 버튼 누르면 반응하는 화면, 서버 데이터 받아 표시.</div>
 
 <h2>핵심 개념</h2>
